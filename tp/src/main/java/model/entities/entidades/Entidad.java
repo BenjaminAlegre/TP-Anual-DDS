@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public abstract class Entidad {
     private String nombre;
+    private String cuit;
     private String telefono;
     private String personaEncargada;
 

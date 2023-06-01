@@ -44,10 +44,10 @@ public class Importador implements ImportadorCSVAdaptada {
         Entidad entidad = null;
         switch (fila[0]) {
             case "ORGANISMO_DE_CONTROL":
-                entidad = new OrganismoDeControl(fila[1], fila[2], fila[3]);
+                entidad = new OrganismoDeControl(fila[1], fila[2], fila[3], fila[4]);
                 break;
             case "ENTIDAD_PRESTADORA":
-                entidad = new Organizacion(fila[1], fila[2], fila[3]);
+                entidad = new Organizacion(fila[1], fila[2], fila[3], fila[4]);
             default:
                 System.out.println("no se pudo crear entidad de fila "+contadorFilas);
         }
