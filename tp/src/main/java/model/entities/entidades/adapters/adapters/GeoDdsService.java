@@ -1,5 +1,9 @@
-package normalizacionDirecciones.adapters.adapters;
+package model.entities.entidades.adapters.adapters;
 
+import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoDepartamentos;
+import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoMunicipios;
+import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoPosiblesDirecciones;
+import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoProvincias;
 import normalizacionDirecciones.adapters.entidadesDeNormalizacion.*;
 import retrofit2.Call;
 import retrofit2.http.GET;

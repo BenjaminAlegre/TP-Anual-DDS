@@ -1,4 +1,4 @@
-package normalizacionDirecciones.adapters.entidadesDeNormalizacion;
+package model.entities.entidades.adapters.entidadesDeNormalizacion;
 
 
 import lombok.Getter;
