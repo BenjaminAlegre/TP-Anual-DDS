@@ -2,15 +2,17 @@ package model.entities.comunidad;
 
 
 import model.entities.entidades.EntidadPrestadora;
+import model.entities.incidentes.Reportador;
 import model.entities.localizacion.Localizacion;
 import model.entities.servicio.Monitoreable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Miembro {
+public class Miembro extends Reportador {
     private String nombre;
     private String apellido;
+    private String telefono;
     private String mail;
     private List<Localizacion> localizacion;
     private List<Monitoreable> moritoreable;

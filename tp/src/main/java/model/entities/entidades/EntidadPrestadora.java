@@ -1,4 +1,4 @@
 package model.entities.entidades;
 
-public class EntidadPrestadora {
+public class EntidadPrestadora extends PersonaJuridica {
 }
