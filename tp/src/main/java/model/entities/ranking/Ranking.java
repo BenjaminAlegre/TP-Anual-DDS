@@ -1,4 +1,4 @@
-package domain.entities.ranking;
+package model.entities.ranking;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,4 +13,15 @@ public class Ranking {
         this.mayorCantidadIncidentes = new ArrayList<>();
         this.mayorImpacto = new ArrayList<>();
     }
+
+    /*
+    private List<Entidad> mayorTiempoDeCierre(){
+
+    }
+    private List<Entidad> mayorCantidadIncidentes(){
+
+    }
+    private List<Entidad> mayorImpacto(){
+
+    }*/
 }

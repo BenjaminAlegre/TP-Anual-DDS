@@ -27,4 +27,11 @@ public class Incidente {
         //TODO
     }
 
+    public void cerrarIncidente(){
+        this.estado = EstadoIncidente.CERRADO;
+    }
+    public EstadoIncidente getEstado() {
+        return this.estado;
+    }
+
 }

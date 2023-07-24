@@ -1,9 +1,11 @@
 package model.entities.comunidad;
 
+import model.entities.incidentes.EstadoIncidente;
 import model.entities.incidentes.Incidente;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Comunidad {
 
@@ -29,8 +31,11 @@ public class Comunidad {
     public void eliminarAdministrador(Miembro administrador) {
         administradores.remove(administrador);
     }
-
     public void agregarIncidentes(List<Incidente> incidentes){
         this.incidentes.addAll(incidentes);
+    }
+
+    public List<Incidente> consultarIncidentesPorEstado(EstadoIncidente estado){
+        return this.incidentes.stream().filter(incidente -> incidente.getEstado() == estado).collect(Collectors.toList());
     }
 }
