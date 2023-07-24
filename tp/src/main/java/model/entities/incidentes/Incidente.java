@@ -23,6 +23,7 @@ public class Incidente {
         this.reportador = reportador;
         this.entidadAfectada = entidadAfectada;
     }
+
     public void generarNotificacion(){
         //TODO
     }

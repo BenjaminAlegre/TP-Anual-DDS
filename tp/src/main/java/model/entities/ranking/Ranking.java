@@ -14,6 +14,9 @@ public class Ranking {
         this.mayorImpacto = new ArrayList<>();
     }
 
+    public Ranking(){
+
+    }
     /*
     private List<Entidad> mayorTiempoDeCierre(){
 
