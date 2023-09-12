@@ -2,9 +2,9 @@ package model.entities.comunidad;
 
 
 import model.entities.entidades.EntidadPrestadora;
-import model.entities.incidentes.Incidente;
-import model.entities.incidentes.Reportador;
 import model.entities.localizacion.Localizacion;
+import model.entities.notificacion.Incidente;
+import model.entities.notificacion.Reportador;
 import model.entities.servicio.Monitoreable;
 
 import javax.persistence.*;
@@ -30,8 +30,7 @@ public class Miembro implements Reportador {
     private String mail;
 
     @ManyToOne
-    @JoinColumn(name = "idLocalizacion", referencedColumnName = "idLocalizacion")
-    private List<Localizacion> localizacion;
+    private Localizacion localizacion;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Monitoreable> moritoreable;
@@ -52,7 +51,7 @@ public class Miembro implements Reportador {
         this.nombre = nombre;
         this.apellido = apellido;
         this.mail = mail;
-        this.localizacion = new ArrayList<>();
+        //this.localizacion = new ArrayList<>();
         this.moritoreable = moritoreable;
         this.comunidades = new ArrayList<>();
         this.medioNotificacion = medioNotificacion;
@@ -62,7 +61,7 @@ public class Miembro implements Reportador {
 
     //TODO validar que el incidente pertenezca al miembro
     public void cerrarIncidente(Incidente incidente){
-        incidente.cerrarIncidente();
+        //TODO
     }
 
 
@@ -106,11 +105,11 @@ public class Miembro implements Reportador {
         this.mail = mail;
     }
 
-    public List<Localizacion> getLocalizacion() {
+    public Localizacion getLocalizacion() {
         return localizacion;
     }
 
-    public void setLocalizacion(List<Localizacion> localizacion) {
+    public void setLocalizacion(Localizacion localizacion) {
         this.localizacion = localizacion;
     }
 

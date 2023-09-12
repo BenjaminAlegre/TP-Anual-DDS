@@ -1,6 +1,6 @@
 package model.entities.servicio;
 
-import model.entities.incidentes.Incidente;
+import model.entities.notificacion.Incidente;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,11 +11,11 @@ import java.util.List;
 public abstract class Monitoreable {
 
     @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
-
-    @OneToMany(mappedBy = "monitoreable")
-    List<Incidente> incidentes;
+    // En la clase Monitoreable
+    @OneToMany(mappedBy = "servicioAfectado")
+    private List<Incidente> incidentes;
 
     @Column
     private String funcionamientoHabitual;

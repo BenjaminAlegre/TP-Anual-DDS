@@ -1,6 +1,5 @@
 package model.entities.notificacion;
 
-import model.entities.incidentes.EstadoIncidente;
 import model.entities.servicio.Monitoreable;
 
 import javax.persistence.*;
@@ -9,9 +8,11 @@ import javax.persistence.*;
 public class Incidente {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "idMonitoreable")
     private Monitoreable servicioAfectado;
 
     @Column
@@ -19,4 +20,36 @@ public class Incidente {
 
     @Enumerated(EnumType.STRING)
     private EstadoIncidente estado;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Monitoreable getServicioAfectado() {
+        return servicioAfectado;
+    }
+
+    public void setServicioAfectado(Monitoreable servicioAfectado) {
+        this.servicioAfectado = servicioAfectado;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public EstadoIncidente getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoIncidente estado) {
+        this.estado = estado;
+    }
 }

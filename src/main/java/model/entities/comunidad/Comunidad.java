@@ -1,7 +1,7 @@
 package model.entities.comunidad;
 
-import model.entities.incidentes.EstadoIncidente;
-import model.entities.incidentes.Incidente;
+import model.entities.notificacion.*;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,7 +20,8 @@ public class Comunidad {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Miembro> administradores;
 
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany//(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "Id")
     private List<Incidente> incidentes;
 
     public Comunidad(List<Miembro> miembros, List<Miembro> administradores, List<Incidente> incidentes) {

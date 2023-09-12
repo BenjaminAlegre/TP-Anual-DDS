@@ -3,13 +3,12 @@ package model.entities.servicio;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Tramo {
 
     @Id
-    private int id;
+    private int idTramo;
 
     @Enumerated
     private PuntosTramo puntoOrigen;
@@ -18,11 +17,11 @@ public class Tramo {
     private PuntosTramo puntoFinal;
 
     public int getId() {
-        return id;
+        return idTramo;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idTramo = id;
     }
 
     public PuntosTramo getPuntoOrigen() {

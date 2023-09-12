@@ -2,8 +2,9 @@ package model.entities.ranking;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Entity
-@DiscriminatorValue("TiempoDeCierre")
+
 public class RankTiempoDeCierre extends RankStrategy{
+
 }

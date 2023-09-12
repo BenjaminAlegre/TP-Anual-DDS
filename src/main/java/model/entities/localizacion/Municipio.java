@@ -1,32 +1,23 @@
 package model.entities.localizacion;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("municipio")
 public class Municipio extends Localizacion{
 
-    @Id
-    private Integer idMunicipio;
 
     @Column
     private String nombre;
 
     @ManyToOne
+    @JoinColumn(name = "idDepartamento")
     private Departamento departamento;
 
     @ManyToOne
+    @JoinColumn(name = "idProvincia")
     private Provincia provincia;
 
-    public Integer getIdMunicipio() {
-        return idMunicipio;
-    }
-
-    public void setIdMunicipio(Integer idMunicipio) {
-        this.idMunicipio = idMunicipio;
-    }
 
     public String getNombre() {
         return nombre;

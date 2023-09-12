@@ -1,27 +1,20 @@
 package model.entities.localizacion;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
+@DiscriminatorValue("provincia")
 public class Provincia extends Localizacion {
 
-    @Id
-    private Integer idProvincia;
-    @Id
+
+    @Column
     private String codigoDeProvincia;
 
     @Column
     private String nombre;
 
-    public Integer getIdProvincia() {
-        return idProvincia;
-    }
-
-    public void setIdProvincia(Integer idProvincia) {
-        this.idProvincia = idProvincia;
-    }
 
     public String getCodigoDeProvincia() {
         return codigoDeProvincia;

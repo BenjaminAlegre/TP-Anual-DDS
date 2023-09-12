@@ -4,13 +4,9 @@ import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoDeparta
 import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoMunicipios;
 import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoPosiblesDirecciones;
 import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoProvincias;
-import model.entities.entidades.adapters.entidadesDeNormalizacion.*;
 import retrofit2.Call;
 import retrofit2.http.GET;
-    import retrofit2.http.Header;
 import retrofit2.http.Query;
-
-import java.util.List;
 
 
 public interface GeoDdsService {

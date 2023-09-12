@@ -1,12 +1,10 @@
 package model.entities.entidades;
 
-import model.entities.ranking.Ranking;
-
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class PersonaJuridica extends Entidad{
+public abstract class PersonaJuridica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

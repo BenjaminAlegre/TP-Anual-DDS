@@ -1,12 +1,10 @@
 package model.entities.entidades.adapters.adapters;
 
 import model.entities.entidades.adapters.entidadesDeNormalizacion.*;
-//import normalizacionDirecciones.adapters.entidadesDeNormalizacion.*;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 import java.io.IOException;
 import java.util.List;

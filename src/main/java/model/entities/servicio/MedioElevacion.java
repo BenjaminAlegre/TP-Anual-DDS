@@ -1,12 +1,6 @@
 package model.entities.servicio;
 
-import model.entities.incidentes.Incidente;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("medio_elevacion")
@@ -16,6 +10,7 @@ public class MedioElevacion extends Servicio {
     private TipoDeElevacion tipo;
 
     @OneToOne
+    @JoinColumn(name = "idTramo")
     private Tramo tramo;
 
     public TipoDeElevacion getTipo() {

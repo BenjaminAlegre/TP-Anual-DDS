@@ -26,9 +26,12 @@ public abstract class Entidad {
 
     @OneToOne
     private OrganismoDeControl organismoDeControl;
-
+/*
     @OneToMany
     private List<Suscriber> suscribers;
+*/
+    @ManyToMany
+    private List<EntidadPrestadora> suscripciones;
 
     public String getIdEntidad() {
         return idEntidad;
@@ -61,12 +64,20 @@ public abstract class Entidad {
     public void setOrganismoDeControl(OrganismoDeControl organismoDeControl) {
         this.organismoDeControl = organismoDeControl;
     }
-
+/*
     public List<Suscriber> getSuscribers() {
         return suscribers;
     }
 
     public void setSuscribers(List<Suscriber> suscribers) {
         this.suscribers = suscribers;
+    }
+*/
+    public List<EntidadPrestadora> getSuscripciones() {
+        return suscripciones;
+    }
+
+    public void setSuscripciones(List<EntidadPrestadora> suscripciones) {
+        this.suscripciones = suscripciones;
     }
 }

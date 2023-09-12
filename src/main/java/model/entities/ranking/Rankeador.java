@@ -1,29 +1,24 @@
 package model.entities.ranking;
 
-import model.entities.comunidad.Miembro;
-import model.entities.entidades.Entidad;
 import model.entities.notificacion.Incidente;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 
 @Entity
 public class Rankeador {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdRankeador;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Incidente> incidentes;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Incidente> rankings; //se va a mostrar solo el ultimo ranking
 
-    @OneToOne
+    @Transient
     private RankStrategy rankeador;
 
 
@@ -56,8 +51,8 @@ public class Rankeador {
     }
     private List<Entidad> mayorImpacto(){
 
-    }*/
-
+    }
+*/
     public Integer getIdRankeador() {
         return IdRankeador;
     }
