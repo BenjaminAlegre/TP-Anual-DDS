@@ -1,8 +1,12 @@
 package model.entities.localizacion;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter @Setter
 @DiscriminatorValue("departamento")
 public class Departamento extends Localizacion{
 
@@ -14,20 +18,4 @@ public class Departamento extends Localizacion{
     @Column
     private String nombre;
 
-
-    public Provincia getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(Provincia provincia) {
-        this.provincia = provincia;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }

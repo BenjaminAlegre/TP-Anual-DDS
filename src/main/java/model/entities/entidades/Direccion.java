@@ -1,14 +1,17 @@
 package model.entities.entidades;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+import model.entities.persistencia.EntidadPersistente;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
 @Entity
-public class Direccion {
+public class Direccion extends EntidadPersistente {
 
-    @Id
-    private Integer id;
+
     @Column
     private String calle;
 

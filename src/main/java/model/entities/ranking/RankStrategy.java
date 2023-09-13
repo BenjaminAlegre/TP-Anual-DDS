@@ -1,10 +1,8 @@
 package model.entities.ranking;
 
-//import model.entities.notificacion.Incidente;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+
 
 
 

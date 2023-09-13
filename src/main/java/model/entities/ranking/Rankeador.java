@@ -1,5 +1,7 @@
 package model.entities.ranking;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.entities.notificacion.Incidente;
 
 import javax.persistence.*;
@@ -7,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Rankeador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,35 +57,5 @@ public class Rankeador {
 
     }
 */
-    public Integer getIdRankeador() {
-        return IdRankeador;
-    }
 
-    public void setIdRankeador(Integer idRankeador) {
-        IdRankeador = idRankeador;
-    }
-
-    public List<Incidente> getIncidentes() {
-        return incidentes;
-    }
-
-    public void setIncidentes(List<Incidente> incidentes) {
-        this.incidentes = incidentes;
-    }
-
-    public List<Incidente> getRankings() {
-        return rankings;
-    }
-
-    public void setRankings(List<Incidente> rankings) {
-        this.rankings = rankings;
-    }
-
-    public RankStrategy getRankeador() {
-        return rankeador;
-    }
-
-    public void setRankeador(RankStrategy rankeador) {
-        this.rankeador = rankeador;
-    }
 }

@@ -1,10 +1,18 @@
 package model.entities.notificacion;
 
+
+
+import lombok.Getter;
+import lombok.Setter;
+import model.entities.comunidad.Comunidad;
 import model.entities.servicio.Monitoreable;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Incidente {
 
     @Id
@@ -21,35 +29,6 @@ public class Incidente {
     @Enumerated(EnumType.STRING)
     private EstadoIncidente estado;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Monitoreable getServicioAfectado() {
-        return servicioAfectado;
-    }
-
-    public void setServicioAfectado(Monitoreable servicioAfectado) {
-        this.servicioAfectado = servicioAfectado;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public EstadoIncidente getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoIncidente estado) {
-        this.estado = estado;
-    }
+    @ManyToMany(mappedBy = "incidentes")
+    private List<Comunidad> comunidades;
 }

@@ -7,6 +7,6 @@ import java.util.List;
 @DiscriminatorValue("ESTACION")
 public class Estacion extends Establecimiento {
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "estaciones")
     private List<LineaDeTransporte> lineas;
 }

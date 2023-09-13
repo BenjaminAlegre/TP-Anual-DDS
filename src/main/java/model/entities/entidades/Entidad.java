@@ -1,6 +1,8 @@
 package model.entities.entidades;
 
-import model.entities.notificacion.Suscriber;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +15,7 @@ import lombok.Setter;
 @Setter
 */
 @Entity
+@Getter @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Entidad {
 
@@ -21,11 +24,11 @@ public abstract class Entidad {
     @Column
     private String nombre;
 
-    @OneToOne
-    private EntidadPrestadora entidadPrestadora;
+  //  @OneToOne
+    //private EntidadPrestadora entidadPrestadora; // TODO esto esta mal
 
-    @OneToOne
-    private OrganismoDeControl organismoDeControl;
+    //@OneToOne
+  //  private OrganismoDeControl organismoDeControl;// TODO esto esta mal
 /*
     @OneToMany
     private List<Suscriber> suscribers;
@@ -33,51 +36,5 @@ public abstract class Entidad {
     @ManyToMany
     private List<EntidadPrestadora> suscripciones;
 
-    public String getIdEntidad() {
-        return idEntidad;
-    }
 
-    public void setIdEntidad(String idEntidad) {
-        this.idEntidad = idEntidad;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public EntidadPrestadora getEntidadPrestadora() {
-        return entidadPrestadora;
-    }
-
-    public void setEntidadPrestadora(EntidadPrestadora entidadPrestadora) {
-        this.entidadPrestadora = entidadPrestadora;
-    }
-
-    public OrganismoDeControl getOrganismoDeControl() {
-        return organismoDeControl;
-    }
-
-    public void setOrganismoDeControl(OrganismoDeControl organismoDeControl) {
-        this.organismoDeControl = organismoDeControl;
-    }
-/*
-    public List<Suscriber> getSuscribers() {
-        return suscribers;
-    }
-
-    public void setSuscribers(List<Suscriber> suscribers) {
-        this.suscribers = suscribers;
-    }
-*/
-    public List<EntidadPrestadora> getSuscripciones() {
-        return suscripciones;
-    }
-
-    public void setSuscripciones(List<EntidadPrestadora> suscripciones) {
-        this.suscripciones = suscripciones;
-    }
 }

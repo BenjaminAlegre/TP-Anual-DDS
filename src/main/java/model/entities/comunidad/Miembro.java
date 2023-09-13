@@ -1,21 +1,27 @@
 package model.entities.comunidad;
 
-
+import lombok.Getter;
+import lombok.Setter;
 import model.entities.entidades.EntidadPrestadora;
+
 import model.entities.localizacion.Localizacion;
 import model.entities.notificacion.Incidente;
 import model.entities.notificacion.Reportador;
 import model.entities.servicio.Monitoreable;
 
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Miembro implements Reportador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idMiembro;
+    private Integer id;
 
     @Column
     private String nombre;
@@ -30,20 +36,26 @@ public class Miembro implements Reportador {
     private String mail;
 
     @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
     private Localizacion localizacion;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "miembros")
     private List<Monitoreable> moritoreable;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "miembros")
     private List<Comunidad> comunidades;
+
     @Enumerated(EnumType.STRING)
     private MedioNotificacion medioNotificacion;
 
-    @Column
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Usuario usuario;
+
+    @ElementCollection
+    @CollectionTable(name = "horarios", joinColumns = @JoinColumn(name = "prestador_id"))
     private List<String> horariosDeNotificacion;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)//idem set
+    @ManyToMany(mappedBy = "suscriptores")
     private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras; //podria ser un Set<EntidadPrestadora>
 
 
@@ -59,97 +71,20 @@ public class Miembro implements Reportador {
         this.suscripcionesAEntidadesPrestadoras = suscripcionesAEntidadesPrestadoras;
     }
 
-    //TODO validar que el incidente pertenezca al miembro
-    public void cerrarIncidente(Incidente incidente){
-        //TODO
+    public Miembro() {
+
     }
 
 
-    public Integer getIdMiembro() {
-        return idMiembro;
+
+
+    @Override
+    public Incidente generarIncidente() { //TODO
+        return null;
     }
 
-    public void setIdMiembro(Integer idMiembro) {
-        this.idMiembro = idMiembro;
-    }
+    @Override
+    public void cerrarIncidente() {
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public Localizacion getLocalizacion() {
-        return localizacion;
-    }
-
-    public void setLocalizacion(Localizacion localizacion) {
-        this.localizacion = localizacion;
-    }
-
-    public List<Monitoreable> getMoritoreable() {
-        return moritoreable;
-    }
-
-    public void setMoritoreable(List<Monitoreable> moritoreable) {
-        this.moritoreable = moritoreable;
-    }
-
-    public List<Comunidad> getComunidades() {
-        return comunidades;
-    }
-
-    public void setComunidades(List<Comunidad> comunidades) {
-        this.comunidades = comunidades;
-    }
-
-    public MedioNotificacion getMedioNotificacion() {
-        return medioNotificacion;
-    }
-
-    public void setMedioNotificacion(MedioNotificacion medioNotificacion) {
-        this.medioNotificacion = medioNotificacion;
-    }
-
-    public List<String> getHorariosDeNotificacion() {
-        return horariosDeNotificacion;
-    }
-
-    public void setHorariosDeNotificacion(List<String> horariosDeNotificacion) {
-        this.horariosDeNotificacion = horariosDeNotificacion;
-    }
-
-    public List<EntidadPrestadora> getSuscripcionesAEntidadesPrestadoras() {
-        return suscripcionesAEntidadesPrestadoras;
-    }
-
-    public void setSuscripcionesAEntidadesPrestadoras(List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras) {
-        this.suscripcionesAEntidadesPrestadoras = suscripcionesAEntidadesPrestadoras;
     }
 }

@@ -1,6 +1,9 @@
 package model.entities.comunidad;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.entities.notificacion.*;
+import model.entities.persistencia.EntidadPersistente;
 
 
 import javax.persistence.*;
@@ -9,25 +12,34 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-public class Comunidad {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idComunidad;
+@Getter
+@Setter
+public class Comunidad extends EntidadPersistente {
+
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Miembro> miembros;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "miembros_comunidad",
+            joinColumns = @JoinColumn(name="comunidad_id"),
+            inverseJoinColumns=@JoinColumn(name="miembro_id"))
     private List<Miembro> administradores;
 
-    @OneToMany//(mappedBy = "comunidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "incidentes_comunidad",
+            joinColumns = @JoinColumn(name="comunidad_id"),
+            inverseJoinColumns=@JoinColumn(name="incidente_id"))
     private List<Incidente> incidentes;
 
     public Comunidad(List<Miembro> miembros, List<Miembro> administradores, List<Incidente> incidentes) {
         this.miembros = new ArrayList<>();
         this.administradores = new ArrayList<>();
         this.incidentes = new ArrayList<>();
+    }
+
+    public Comunidad() {
+
     }
 
     public void agregarMiembro(Miembro miembro) {
@@ -47,38 +59,7 @@ public class Comunidad {
     }
 
     public List<Incidente> consultarIncidentesPorEstado(EstadoIncidente estado){
-        return this.incidentes.stream().filter(incidente -> incidente.getEstado() == estado).collect(Collectors.toList());
+        return  this.incidentes.stream().filter(incidente -> incidente.getEstado().equals(estado)).collect(Collectors.toList());
     }
 
-    public Integer getIdComunidad() {
-        return idComunidad;
-    }
-
-    public void setIdComunidad(Integer idComunidad) {
-        this.idComunidad = idComunidad;
-    }
-
-    public List<Miembro> getMiembros() {
-        return miembros;
-    }
-
-    public void setMiembros(List<Miembro> miembros) {
-        this.miembros = miembros;
-    }
-
-    public List<Miembro> getAdministradores() {
-        return administradores;
-    }
-
-    public void setAdministradores(List<Miembro> administradores) {
-        this.administradores = administradores;
-    }
-
-    public List<Incidente> getIncidentes() {
-        return incidentes;
-    }
-
-    public void setIncidentes(List<Incidente> incidentes) {
-        this.incidentes = incidentes;
-    }
 }

@@ -1,6 +1,9 @@
 package model.entities.localizacion;
 
+import model.entities.comunidad.Miembro;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -9,24 +12,12 @@ public abstract class Localizacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Esto es para una clave primaria autoincremental
-    private Integer idLocalizacion;
+    private Integer id;
 
     @Column
     private String nombre;
 
-    public Integer getIdLocalizacion() {
-        return idLocalizacion;
-    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "localizacion", cascade = CascadeType.ALL)
+    private List<Miembro> miembros;
 
-    public void setIdLocalizacion(Integer idLocalizacion) {
-        this.idLocalizacion = idLocalizacion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }

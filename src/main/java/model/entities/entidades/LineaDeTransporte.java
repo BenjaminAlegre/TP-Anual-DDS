@@ -1,15 +1,20 @@
 package model.entities.entidades;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @DiscriminatorValue("LineaDeTransporte")
 public class LineaDeTransporte extends Entidad{
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Integer idLineaDeTransporte;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idLineaDeTransporte;
     @OneToOne
     private Estacion origen;
 
@@ -19,39 +24,10 @@ public class LineaDeTransporte extends Entidad{
     @Enumerated(EnumType.STRING)
     private Transporte tipo;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "estaciones_lineas",
+            joinColumns = @JoinColumn(name="linea_id"),
+            inverseJoinColumns=@JoinColumn(name="estacion_id"))
     private List<Estacion> estaciones;
 
-
-    public Estacion getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(Estacion origen) {
-        this.origen = origen;
-    }
-
-    public Estacion getDestino() {
-        return destino;
-    }
-
-    public void setDestino(Estacion destino) {
-        this.destino = destino;
-    }
-
-    public Transporte getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Transporte tipo) {
-        this.tipo = tipo;
-    }
-
-    public List<Estacion> getEstaciones() {
-        return estaciones;
-    }
-
-    public void setEstaciones(List<Estacion> estaciones) {
-        this.estaciones = estaciones;
-    }
 }

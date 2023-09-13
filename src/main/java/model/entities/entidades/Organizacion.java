@@ -7,6 +7,10 @@ import java.util.List;
 @DiscriminatorValue("Organizacion")
 public class Organizacion extends Entidad{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @Enumerated(EnumType.STRING)
     private TipoOrganizacion tipo;
 

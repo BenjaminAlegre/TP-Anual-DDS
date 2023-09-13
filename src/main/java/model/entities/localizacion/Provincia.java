@@ -1,10 +1,15 @@
 package model.entities.localizacion;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@Getter
+@Setter
 @DiscriminatorValue("provincia")
 public class Provincia extends Localizacion {
 
@@ -16,19 +21,4 @@ public class Provincia extends Localizacion {
     private String nombre;
 
 
-    public String getCodigoDeProvincia() {
-        return codigoDeProvincia;
-    }
-
-    public void setCodigoDeProvincia(String codigoDeProvincia) {
-        this.codigoDeProvincia = codigoDeProvincia;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }

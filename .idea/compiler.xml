@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="tp-anual" target="8" />
+      <module name="tp-anual" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

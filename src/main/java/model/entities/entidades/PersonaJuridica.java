@@ -1,14 +1,17 @@
 package model.entities.entidades;
 
+import lombok.Getter;
+import lombok.Setter;
+import model.entities.persistencia.EntidadPersistente;
+
 import javax.persistence.*;
 
 @Entity
+@Getter @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class PersonaJuridica {
+public abstract class PersonaJuridica extends EntidadPersistente {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPersonaJuridica;
+
     @Column
     private String nombre;
     @Column
@@ -18,49 +21,9 @@ public abstract class PersonaJuridica {
     @Column
     private String personaAsignada;
 
-    public Integer getIdPersonaJuridica() {
-        return idPersonaJuridica;
-    }
-
-    public void setIdPersonaJuridica(Integer idPersonaJuridica) {
-        this.idPersonaJuridica = idPersonaJuridica;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Integer getCuit() {
-        return cuit;
-    }
-
-    public void setCuit(Integer cuit) {
-        this.cuit = cuit;
-    }
-
-    public Integer getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(Integer telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getPersonaAsignada() {
-        return personaAsignada;
-    }
-
-    public void setPersonaAsignada(String personaAsignada) {
-        this.personaAsignada = personaAsignada;
-    }
-
     /*
     TODO falta base de datos
-    public Ranking mostrarInforme(){
+    public Ranking mostrarInforme(){ creoq ue esto va por pantalla
 
     }
 

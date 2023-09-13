@@ -1,13 +1,18 @@
 package model.entities.comunidad;
 
+import com.google.common.hash.Hashing;
+import lombok.Getter;
+import lombok.Setter;
+import model.entities.persistencia.EntidadPersistente;
+
 import javax.persistence.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
+@Getter @Setter
 @Entity
-public class Usuario {
+public class Usuario extends EntidadPersistente {
 
-    @Id
-    @GeneratedValue
-    private Integer idUsuario;
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
@@ -18,36 +23,33 @@ public class Usuario {
     @Column
     private String mail;
 
+    @Column
+    private String password;
 
-    public TipoMiembro getTipoMiembro() {
-        return tipoMiembro;
-    }
 
-    public void setTipoMiembro(TipoMiembro tipoMiembro) {
-        this.tipoMiembro = tipoMiembro;
-    }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
+    public Usuario(Rol rol, TipoMiembro tipoMiembro, String mail, String password) {
         this.rol = rol;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
+        this.tipoMiembro = tipoMiembro;
         this.mail = mail;
+        definirContrasenia(password);
+    }
+
+    public Usuario() {
+
+    }
+
+
+    public void definirContrasenia(String clave){
+        this.password = this.hashearContrasenia(clave);
+      //  this.fechaDeDefinicionContrasenia = new Date(System.currentTimeMillis()); // deberia persistirse una vez validada desnormalizado TODO
+    }
+
+
+    public static String hashearContrasenia(String contrasenia) {
+        String sha256hex = Hashing.sha256()
+                .hashString(contrasenia, StandardCharsets.UTF_8)
+                .toString();
+        return sha256hex;
     }
 }
