@@ -1,7 +1,11 @@
 package model.entities.servicio;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter@Setter
 @Entity
 @DiscriminatorValue("medio_elevacion")
 public class MedioElevacion extends Servicio {
@@ -9,23 +13,8 @@ public class MedioElevacion extends Servicio {
     @Enumerated
     private TipoDeElevacion tipo;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idTramo")
     private Tramo tramo;
 
-    public TipoDeElevacion getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoDeElevacion tipo) {
-        this.tipo = tipo;
-    }
-
-    public Tramo getTramo() {
-        return tramo;
-    }
-
-    public void setTramo(Tramo tramo) {
-        this.tramo = tramo;
-    }
 }

@@ -2,9 +2,9 @@ package model.entities.comunidad;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.entities.notificacion.*;
+import model.entities.notificacion.EstadoIncidente;
+import model.entities.notificacion.Incidente;
 import model.entities.persistencia.EntidadPersistente;
-
 
 import javax.persistence.*;
 import java.util.ArrayList;

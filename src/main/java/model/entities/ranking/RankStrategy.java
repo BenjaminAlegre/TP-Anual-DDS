@@ -1,6 +1,6 @@
 package model.entities.ranking;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import java.time.LocalDate;
 
 

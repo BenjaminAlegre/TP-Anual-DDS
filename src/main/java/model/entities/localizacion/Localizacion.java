@@ -1,10 +1,13 @@
 package model.entities.localizacion;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.entities.comunidad.Miembro;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Getter@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo")

@@ -2,18 +2,15 @@ package model.entities.comunidad;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.entities.entidades.EntidadPrestadora;
-
+//import model.entities.entidades.EntidadPrestadora;
 import model.entities.localizacion.Localizacion;
 import model.entities.notificacion.Incidente;
 import model.entities.notificacion.Reportador;
 import model.entities.servicio.Monitoreable;
 
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -55,10 +52,10 @@ public class Miembro implements Reportador {
     @CollectionTable(name = "horarios", joinColumns = @JoinColumn(name = "prestador_id"))
     private List<String> horariosDeNotificacion;
 
-    @ManyToMany(mappedBy = "suscriptores")
-    private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras; //podria ser un Set<EntidadPrestadora>
+ //   @ManyToMany(mappedBy = "suscriptores")
+  //  private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras; //podria ser un Set<EntidadPrestadora>
 
-
+/*
     public Miembro(String nombre, String apellido, String mail, List<Localizacion> localizacion, List<Monitoreable> moritoreable, List<Comunidad> comunidades, MedioNotificacion medioNotificacion, List<String> horariosDeNotificacion, List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -76,7 +73,7 @@ public class Miembro implements Reportador {
     }
 
 
-
+*/
 
     @Override
     public Incidente generarIncidente() { //TODO
@@ -87,4 +84,6 @@ public class Miembro implements Reportador {
     public void cerrarIncidente() {
 
     }
+
+
 }

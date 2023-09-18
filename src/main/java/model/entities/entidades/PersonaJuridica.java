@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipoPersonaJuridica")
 public abstract class PersonaJuridica extends EntidadPersistente {
 
 

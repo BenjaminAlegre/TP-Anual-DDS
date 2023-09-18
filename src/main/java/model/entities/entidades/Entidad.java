@@ -17,10 +17,11 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipoEntidad")
 public abstract class Entidad {
 
     @Id
-    private String idEntidad;
+    private String id;
     @Column
     private String nombre;
 

@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import model.entities.persistencia.EntidadPersistente;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Getter
 @Setter

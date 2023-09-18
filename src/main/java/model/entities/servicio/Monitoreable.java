@@ -1,5 +1,7 @@
 package model.entities.servicio;
 
+import lombok.Getter;
+import lombok.Setter;
 import model.entities.comunidad.Miembro;
 import model.entities.entidades.Establecimiento;
 import model.entities.notificacion.Incidente;
@@ -7,6 +9,7 @@ import model.entities.notificacion.Incidente;
 import javax.persistence.*;
 import java.util.List;
 
+@Getter@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "tipo")

@@ -11,10 +11,11 @@ import java.util.List;
 @Getter @Setter
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // justificacion: como solo hay 3 atributos distintos creemos que la mejor opcion es in single table
+@DiscriminatorColumn(name = "tipoEstablecimiento")
 public abstract class Establecimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idEstablecimiento;
+    private Integer id;
 
     @Column
     private String nombre;

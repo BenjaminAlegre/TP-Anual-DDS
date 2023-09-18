@@ -1,13 +1,14 @@
 package model.entities.comunidad;
 
-import com.google.common.hash.Hashing;
+//import com.google.common.hash.Hashing;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.persistencia.EntidadPersistente;
 
-import javax.persistence.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Getter @Setter
 @Entity
@@ -27,7 +28,7 @@ public class Usuario extends EntidadPersistente {
     private String password;
 
 
-
+/*
     public Usuario(Rol rol, TipoMiembro tipoMiembro, String mail, String password) {
         this.rol = rol;
         this.tipoMiembro = tipoMiembro;
@@ -52,4 +53,6 @@ public class Usuario extends EntidadPersistente {
                 .toString();
         return sha256hex;
     }
+
+ */
 }
