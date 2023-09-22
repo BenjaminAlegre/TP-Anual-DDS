@@ -23,10 +23,12 @@ public abstract class PersonaJuridica extends EntidadPersistente {
     private String personaAsignada;
 
     /*
-    TODO falta base de datos
     public Ranking mostrarInforme(){ creoq ue esto va por pantalla
+    }
+     */
 
+    public void mostrarInforme(){
+        //TODO
     }
 
-     */
 }

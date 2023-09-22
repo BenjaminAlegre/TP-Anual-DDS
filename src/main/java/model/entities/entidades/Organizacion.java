@@ -18,4 +18,12 @@ public class Organizacion extends Entidad{
     @OneToMany
     private List<Sucursal> sucursales;
 
+    public void agregarSucursal(Sucursal sucursal){
+        sucursales.add(sucursal);
+    }
+
+    public void eliminarSucursal(Sucursal sucursal){
+        sucursales.remove(sucursal);
+    }
+
 }

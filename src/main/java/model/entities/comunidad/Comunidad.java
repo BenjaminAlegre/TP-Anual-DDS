@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
+import model.entities.notificacion.Suscriber;
 import model.entities.persistencia.EntidadPersistente;
 
 import javax.persistence.*;
@@ -14,8 +15,11 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
-public class Comunidad extends EntidadPersistente {
+public class Comunidad implements Suscriber {
 
+    @Id
+    @GeneratedValue
+    private Integer id;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Miembro> miembros;
@@ -60,6 +64,10 @@ public class Comunidad extends EntidadPersistente {
 
     public List<Incidente> consultarIncidentesPorEstado(EstadoIncidente estado){
         return  this.incidentes.stream().filter(incidente -> incidente.getEstado().equals(estado)).collect(Collectors.toList());
+    }
+
+    public void notificar(){
+        //TODO
     }
 
 }

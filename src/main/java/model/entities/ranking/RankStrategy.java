@@ -13,7 +13,7 @@ public abstract class RankStrategy {
     @Transient
     private List<Incidente> incidentes;
 */
-    @Column
+
     private LocalDate fecha;
 
 

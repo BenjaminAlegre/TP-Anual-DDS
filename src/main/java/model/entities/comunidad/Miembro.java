@@ -3,7 +3,9 @@ package model.entities.comunidad;
 import lombok.Getter;
 import lombok.Setter;
 //import model.entities.entidades.EntidadPrestadora;
+import model.entities.entidades.EntidadPrestadora;
 import model.entities.localizacion.Localizacion;
+import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
 import model.entities.notificacion.Reportador;
 import model.entities.servicio.Monitoreable;
@@ -32,8 +34,11 @@ public class Miembro implements Reportador {
     @Column
     private String mail;
 
+    @Enumerated(EnumType.STRING)
+    private TipoMiembro tipo;
+
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(name = "deptoId")
     private Localizacion localizacion;
 
     @ManyToMany(mappedBy = "miembros")
@@ -52,8 +57,8 @@ public class Miembro implements Reportador {
     @CollectionTable(name = "horarios", joinColumns = @JoinColumn(name = "prestador_id"))
     private List<String> horariosDeNotificacion;
 
- //   @ManyToMany(mappedBy = "suscriptores")
-  //  private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras; //podria ser un Set<EntidadPrestadora>
+    @ManyToMany(mappedBy = "suscriptores")
+    private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras; //podria ser un Set<EntidadPrestadora>
 
 /*
     public Miembro(String nombre, String apellido, String mail, List<Localizacion> localizacion, List<Monitoreable> moritoreable, List<Comunidad> comunidades, MedioNotificacion medioNotificacion, List<String> horariosDeNotificacion, List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras) {
@@ -71,9 +76,28 @@ public class Miembro implements Reportador {
     public Miembro() {
 
     }
-
-
 */
+
+    public void asociarseAComunidad(Comunidad comunidad) {
+        comunidades.add(comunidad);
+    }
+
+    public void desasociarseDeComunidad(Comunidad comunidad) {
+        comunidades.remove(comunidad);
+    }
+
+    public Incidente cerrarIncidente(Incidente incidente) {
+        incidente.setEstado(EstadoIncidente.CERRADO);
+        return incidente;
+    }
+
+    public void suscribirseAEntidad(EntidadPrestadora entidadPrestadora) {
+        suscripcionesAEntidadesPrestadoras.add(entidadPrestadora);
+    }
+
+    public void notificar(){
+        //TODO
+    }
 
     @Override
     public Incidente generarIncidente() { //TODO
@@ -82,7 +106,7 @@ public class Miembro implements Reportador {
 
     @Override
     public void cerrarIncidente() {
-
+        //TODO
     }
 
 

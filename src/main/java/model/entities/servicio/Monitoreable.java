@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter@Setter
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo")
 public abstract class Monitoreable {
 
@@ -34,5 +34,8 @@ public abstract class Monitoreable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     private Establecimiento establecimiento;
+
+
+
 
 }

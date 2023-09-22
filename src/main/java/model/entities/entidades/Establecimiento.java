@@ -4,6 +4,7 @@ package model.entities.entidades;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.servicio.Monitoreable;
+import model.entities.servicio.Servicio;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,6 +27,14 @@ public abstract class Establecimiento {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "establecimiento",cascade = CascadeType.ALL)
     private List<Monitoreable> monitoreables;
 
+
+    public void agregarMonitoreable(Monitoreable monitoreable){
+        monitoreables.add(monitoreable);
+    }
+
+    public void quitarMonitoreable(Monitoreable monitoreable){
+        monitoreables.remove(monitoreable);
+    }
 
 
 }

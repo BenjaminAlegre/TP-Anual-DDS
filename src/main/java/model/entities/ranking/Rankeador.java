@@ -19,7 +19,8 @@ public class Rankeador {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Incidente> incidentes;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @Transient
+    //@OneToMany(fetch = FetchType.LAZY)
     private List<Incidente> rankings; //se va a mostrar solo el ultimo ranking
 
     @Transient
@@ -36,7 +37,7 @@ public class Rankeador {
 
     }
    /*
-    public Ranking makeRanking(){
+    public Ranking generarRanking(){
         return new Ranking(
                 this.mayorTiempoDeCierre(),
                 this.mayorCantidadIncidentes(),

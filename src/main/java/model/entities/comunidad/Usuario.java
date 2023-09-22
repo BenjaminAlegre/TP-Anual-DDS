@@ -18,8 +18,6 @@ public class Usuario extends EntidadPersistente {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    @Enumerated(EnumType.STRING)
-    private TipoMiembro tipoMiembro;
 
     @Column
     private String mail;

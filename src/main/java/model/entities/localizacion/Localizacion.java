@@ -20,7 +20,7 @@ public abstract class Localizacion {
     @Column
     private String nombre;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "localizacion", cascade = CascadeType.ALL)
-    private List<Miembro> miembros;
+   // @OneToMany(fetch = FetchType.EAGER, mappedBy = "localizacion", cascade = CascadeType.ALL)
+   // private List<Miembro> miembros;
 
 }
