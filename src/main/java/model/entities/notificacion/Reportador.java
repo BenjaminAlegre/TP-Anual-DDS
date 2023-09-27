@@ -2,7 +2,8 @@ package model.entities.notificacion;
 
 public interface Reportador {
 
-    public Incidente generarIncidente();
+    Incidente generarIncidente(Incidente incidente);
 
-    public void cerrarIncidente();
+    void cerrarIncidente(Incidente incidente);
+
 }

@@ -5,9 +5,7 @@ import lombok.Setter;
 //import model.entities.entidades.EntidadPrestadora;
 import model.entities.entidades.EntidadPrestadora;
 import model.entities.localizacion.Localizacion;
-import model.entities.notificacion.EstadoIncidente;
-import model.entities.notificacion.Incidente;
-import model.entities.notificacion.Reportador;
+import model.entities.notificacion.*;
 import model.entities.servicio.Monitoreable;
 
 import javax.persistence.*;
@@ -17,7 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Miembro implements Reportador {
+public class Miembro implements Reportador, Observador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -60,7 +58,7 @@ public class Miembro implements Reportador {
     @ManyToMany(mappedBy = "suscriptores")
     private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras; //podria ser un Set<EntidadPrestadora>
 
-/*
+
     public Miembro(String nombre, String apellido, String mail, List<Localizacion> localizacion, List<Monitoreable> moritoreable, List<Comunidad> comunidades, MedioNotificacion medioNotificacion, List<String> horariosDeNotificacion, List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -76,7 +74,7 @@ public class Miembro implements Reportador {
     public Miembro() {
 
     }
-*/
+
 
     public void asociarseAComunidad(Comunidad comunidad) {
         comunidades.add(comunidad);
@@ -86,28 +84,25 @@ public class Miembro implements Reportador {
         comunidades.remove(comunidad);
     }
 
-    public Incidente cerrarIncidente(Incidente incidente) {
-        incidente.setEstado(EstadoIncidente.CERRADO);
+    @Override
+    public Incidente generarIncidente(Incidente incidente) {
+        incidente.setEstado(EstadoIncidente.ACTIVO);
         return incidente;
+    }
+
+    @Override
+    public void cerrarIncidente(Incidente incidente) {
+        incidente.setEstado(EstadoIncidente.CERRADO);
     }
 
     public void suscribirseAEntidad(EntidadPrestadora entidadPrestadora) {
         suscripcionesAEntidadesPrestadoras.add(entidadPrestadora);
     }
 
-    public void notificar(){
-        //TODO
-    }
+
 
     @Override
-    public Incidente generarIncidente() { //TODO
-        return null;
+    public void serNotificadoPor(Observable observable) {
+        //TODO recibe la notificacion
     }
-
-    @Override
-    public void cerrarIncidente() {
-        //TODO
-    }
-
-
 }

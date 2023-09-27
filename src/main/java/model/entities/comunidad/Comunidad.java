@@ -2,9 +2,7 @@ package model.entities.comunidad;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.entities.notificacion.EstadoIncidente;
-import model.entities.notificacion.Incidente;
-import model.entities.notificacion.Suscriber;
+import model.entities.notificacion.*;
 import model.entities.persistencia.EntidadPersistente;
 
 import javax.persistence.*;
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
-public class Comunidad implements Suscriber {
+public class Comunidad implements Suscriber, Observable {
 
     @Id
     @GeneratedValue
@@ -35,6 +33,9 @@ public class Comunidad implements Suscriber {
             joinColumns = @JoinColumn(name="comunidad_id"),
             inverseJoinColumns=@JoinColumn(name="incidente_id"))
     private List<Incidente> incidentes;
+
+    @Transient
+    public List<Observador> observadores;
 
     public Comunidad(List<Miembro> miembros, List<Miembro> administradores, List<Incidente> incidentes) {
         this.miembros = new ArrayList<>();
@@ -66,8 +67,16 @@ public class Comunidad implements Suscriber {
         return  this.incidentes.stream().filter(incidente -> incidente.getEstado().equals(estado)).collect(Collectors.toList());
     }
 
+    public void agregarObservador(Observador observador){
+        this.observadores.add(observador);
+    }
+    public void eliminarObservador(Observador observador){
+        this.observadores.remove(observador);
+    }
+
+    @Override
     public void notificar(){
-        //TODO
+        this.observadores.forEach(observador -> observador.serNotificadoPor(this));
     }
 
 }
