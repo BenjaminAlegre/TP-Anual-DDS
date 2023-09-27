@@ -1,6 +1,15 @@
 package model.entities.ranking;
 
 
-public class RankTiempoDeCierre extends RankStrategy{
+import model.entities.entidades.Entidad;
 
+import java.util.List;
+
+public class RankTiempoDeCierre extends RankTemplateMethod {
+
+
+    @Override
+    public void generarRanking(List<Entidad> entidades) {
+
+    }
 }

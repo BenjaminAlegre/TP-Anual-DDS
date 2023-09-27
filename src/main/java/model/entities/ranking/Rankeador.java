@@ -1,62 +1,36 @@
 package model.entities.ranking;
 
-import lombok.Getter;
-import lombok.Setter;
-import model.entities.notificacion.Incidente;
 
-import javax.persistence.*;
+import model.entities.entidades.Entidad;
+import model.repositorios.RepositorioEntidades;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Getter
-@Setter
-public class Rankeador {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdRankeador;
+public class Rankeador implements Job {
+    RepositorioEntidades repositorioEntidades= new RepositorioEntidades();
+    public List<RankTemplateMethod> rankingsAGenerar = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Incidente> incidentes;
-
-    @Transient
-    //@OneToMany(fetch = FetchType.LAZY)
-    private List<Incidente> rankings; //se va a mostrar solo el ultimo ranking
-
-    @Transient
-    private RankStrategy rankeador;
-
-
-
-
-    public Rankeador(List<Incidente> incidentes) {
-        this.incidentes = new ArrayList<>();
+    public Rankeador() {
+        this.rankingsAGenerar.add(new RankCantidadIncidentes());
+        this.rankingsAGenerar.add(new RankImpacto());
+        this.rankingsAGenerar.add(new RankTiempoDeCierre());
     }
 
-    public Rankeador(){
-
-    }
-   /*
-    public Ranking generarRanking(){
-        return new Ranking(
-                this.mayorTiempoDeCierre(),
-                this.mayorCantidadIncidentes(),
-                this.mayorImpacto()
-
-                //TODO hacer logica de los metodos
-        )
+    public void generarRankings(List<Entidad> entidades){
+        for (RankTemplateMethod r: this.rankingsAGenerar
+             ) {
+            r.generarRanking(entidades);
+        }
     }
 
-
-    private List<Entidad> mayorTiempoDeCierre(){
-
+    @Override
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        List<Entidad> entidades = repositorioEntidades.buscarTodos();
+        generarRankings(entidades);
     }
-    private List<Entidad> mayorCantidadIncidentes(){
-
-    }
-    private List<Entidad> mayorImpacto(){
-
-    }
-*/
-
+    //TODO falta logica de generar rankings
 }

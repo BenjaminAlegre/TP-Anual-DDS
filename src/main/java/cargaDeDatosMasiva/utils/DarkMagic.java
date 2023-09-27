@@ -1,4 +1,4 @@
-package spark.utils;
+package cargaDeDatosMasiva.utils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 

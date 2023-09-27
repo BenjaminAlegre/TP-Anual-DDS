@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="demo-hibernate-PU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
+<!--        // aca cambie el nombre de la bd para el entity manager que tiene todas las transacciones-->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
-            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tpanual?serverTimezone=America/Buenos_Aires"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value=""/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-            <!--      <property name="hibernate.hbm2ddl.auto" value="update"/>-->
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
+
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/huella" />
+            <property name="hibernate.connection.username" value="root" />
+            <property name="hibernate.connection.password" value="123456789" />
+
+<!--            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tpanual?serverTimezone=America/Buenos_Aires"/>-->
+<!--            <property name="hibernate.connection.username" value="root"/>-->
+<!--            <property name="hibernate.connection.password" value=""/>-->
+
+
+
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- create | create-drop | validate | update -->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>-->
+<!--            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+<!--            &lt;!&ndash;      <property name="hibernate.hbm2ddl.auto" value="update"/>&ndash;&gt;-->
+<!--            <property name="hibernate.show_sql" value="true"/>-->
+<!--            <property name="hibernate.format_sql" value="true"/>-->
         </properties>
     </persistence-unit>
 </persistence>

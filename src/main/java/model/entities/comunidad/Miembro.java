@@ -55,7 +55,7 @@ public class Miembro implements Reportador {
 
     @ElementCollection
     @CollectionTable(name = "horarios", joinColumns = @JoinColumn(name = "prestador_id"))
-    private List<String> horariosDeNotificacion;
+    private List<String> horariosDeNotificacion = new ArrayList<>();
 
     @ManyToMany(mappedBy = "suscriptores")
     private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras; //podria ser un Set<EntidadPrestadora>

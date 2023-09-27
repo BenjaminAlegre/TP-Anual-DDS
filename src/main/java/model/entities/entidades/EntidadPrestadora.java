@@ -7,6 +7,7 @@ import model.entities.notificacion.Incidente;
 import model.entities.notificacion.Suscriber;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
@@ -20,11 +21,10 @@ public class EntidadPrestadora extends PersonaJuridica implements Suscriber {
     @JoinTable(name = "suscripciones",
             joinColumns = @JoinColumn(name="entidad_id"),
             inverseJoinColumns=@JoinColumn(name="suscriptor_id"))
-    private List<Miembro> suscriptores;
+    private List<Miembro> suscriptores = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "entidadReportadora")
-    private List<Incidente> incidentes;
+
 
     public void agregarSuscriptor(Miembro miembro){
         suscriptores.add(miembro);

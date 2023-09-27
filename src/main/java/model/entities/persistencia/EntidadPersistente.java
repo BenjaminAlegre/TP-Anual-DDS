@@ -12,4 +12,6 @@ public abstract class EntidadPersistente {
     @Id
     @GeneratedValue
     private Integer id;
+
+   // private Boolean borrado = false;
 }

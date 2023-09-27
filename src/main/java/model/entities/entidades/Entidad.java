@@ -4,8 +4,10 @@ package model.entities.entidades;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.localizacion.Localizacion;
+import model.entities.notificacion.Incidente;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,5 +33,10 @@ public abstract class Entidad {
     @JoinColumn(name = "idOrganismoDeControl")
     private OrganismoDeControl organismoDeControl;// TODO esto esta mal
 
+    @OneToMany(mappedBy = "entidadReportadora")
+    private List<Incidente> incidentes = new ArrayList<>();
 
+    public Integer cantidadIncidentes() {
+        return this.getIncidentes().size();
+    }
 }

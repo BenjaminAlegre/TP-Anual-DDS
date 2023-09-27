@@ -1,6 +1,23 @@
 package model.entities.ranking;
 
 
-public class RankImpacto {
+import model.entities.entidades.Entidad;
+import model.repositorios.rankings.RepositorioRankingsImpacto;
+import javax.persistence.Transient;
+import java.util.List;
 
+public class RankImpacto extends RankTemplateMethod {
+
+    @Transient
+    RepositorioRankingsImpacto repo = new RepositorioRankingsImpacto();
+
+    @Override
+    protected void guardarse() {
+
+    }
+
+    @Override
+    protected void rankear(List<Entidad> entidades) {
+
+    }
 }
