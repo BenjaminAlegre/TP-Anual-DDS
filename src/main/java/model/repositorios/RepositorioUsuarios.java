@@ -7,6 +7,12 @@ import model.entities.comunidad.Usuario;
 import java.util.List;
 
 public class RepositorioUsuarios {
+
+    public void agregar(Usuario usuario) {
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(usuario);
+        EntityManagerHelper.commit();
+    }
     public List<Usuario> buscarTodos() {
         return EntityManagerHelper
                 .getEntityManager()
