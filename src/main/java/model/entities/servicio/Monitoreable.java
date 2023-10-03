@@ -23,7 +23,7 @@ public abstract class Monitoreable {
     private List<Incidente> incidentes;
 
     @Column
-    private String funcionamientoHabitual;
+    private Boolean funcionamientoHabitual;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "miembros_monitoreables",
@@ -35,7 +35,13 @@ public abstract class Monitoreable {
     @JoinColumn(referencedColumnName = "id")
     private Establecimiento establecimiento;
 
+    public void agregarIncidente(Incidente incidente) {
+        incidentes.add(incidente);
+    }
 
+    public void eliminarIncidente(Incidente incidente) {
+        incidentes.add(incidente);
+    }
 
 
 }

@@ -6,8 +6,6 @@ import javax.persistence.*;
 @DiscriminatorValue("SUCURSAL")
 public class Sucursal extends Establecimiento {
 
-
-
     @ManyToOne
     private Organizacion organizacion;
 }
