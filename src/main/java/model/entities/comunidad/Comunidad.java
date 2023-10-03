@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
-import model.entities.notificacion.Suscriber;
-import model.entities.persistencia.EntidadPersistente;
+import model.entities.notificacion.Observable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
-public class Comunidad implements Suscriber {
+public class Comunidad implements Observable {
 
     @Id
     @GeneratedValue

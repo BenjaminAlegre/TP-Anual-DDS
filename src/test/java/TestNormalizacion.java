@@ -1,7 +1,7 @@
-import model.entities.entidades.adapters.adapters.ServicioGeoDds;
-import model.entities.entidades.adapters.entidadesDeNormalizacion.Direccion;
-import model.entities.entidades.adapters.entidadesDeNormalizacion.ListadoPosiblesDirecciones;
-import model.entities.entidades.adapters.entidadesDeNormalizacion.Provincia;
+import model.entities.normalizaciondirecciones.adapters.ServicioGeoDds;
+import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.Direccion;
+import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoPosiblesDirecciones;
+import model.entities.localizacion.Provincia;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

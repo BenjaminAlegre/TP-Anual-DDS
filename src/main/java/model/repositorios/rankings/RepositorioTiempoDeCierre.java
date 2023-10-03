@@ -1,6 +1,7 @@
 package model.repositorios.rankings;
 
 import Cron.db.EntityManagerHelper;
+import model.entities.ranking.RankTiempoDeCierre;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class RepositorioTiempoDeCierre {
                 .find(RepositorioTiempoDeCierre.class, id);
     }
 
-    public void guardar(RepositorioTiempoDeCierre rank) {
+    public void guardar(RankTiempoDeCierre rank) {
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().persist(rank);
         EntityManagerHelper.commit();

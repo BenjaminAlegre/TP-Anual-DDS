@@ -9,6 +9,7 @@ import model.entities.comunidad.Miembro;
 import model.entities.entidades.Entidad;
 import model.entities.entidades.EntidadPrestadora;
 import model.entities.servicio.Monitoreable;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -31,24 +32,37 @@ public class Incidente {
     private String observaciones;
 
     @Enumerated(EnumType.STRING)
-    private EstadoIncidente estado;
+    private EstadoIncidente estado = EstadoIncidente.ACTIVO;
 
     @Column
     private LocalDate horarioApertura;
     @Column
     private LocalDate horarioCierre;
 
-
     @ManyToOne
-    @JoinColumn(name = "idEntReportador")
+    @JoinColumn(name = "idEntReportador")//TODO maaaaaal
     private EntidadPrestadora entidadReportadora;
     @ManyToOne
-    @JoinColumn(name = "idMiembroReportador")
+    @JoinColumn(name = "idMiembroReportador")//TODO maaaaaal
     private Miembro miembroReportador;
     @ManyToOne
     @JoinColumn(name = "idEntidadAfectada")
     private Entidad entidadAfectada;
 
-    //@ManyToMany(mappedBy = "incidentes")
+    public boolean entraEnCalculoSemanal(LocalDate fecha) {
+        return this.estado.equals(EstadoIncidente.ACTIVO) & this.estaEnFecha(fecha);
+    }
+
+    private boolean estaEnFecha(LocalDate fecha) {
+        return this.getHorarioApertura().isAfter(fecha);
+    }
+
+    public Incidente(Monitoreable servicioAfectado, String observaciones, LocalDate horarioApertura, Entidad entidadAfectada) {
+        this.servicioAfectado = servicioAfectado;
+        this.observaciones = observaciones;
+        this.horarioApertura = horarioApertura;
+        this.entidadAfectada = entidadAfectada;
+    }
+//@ManyToMany(mappedBy = "incidentes")
     //private List<Comunidad> comunidades;
 }

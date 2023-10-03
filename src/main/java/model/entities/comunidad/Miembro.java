@@ -5,9 +5,7 @@ import lombok.Setter;
 //import model.entities.entidades.EntidadPrestadora;
 import model.entities.entidades.EntidadPrestadora;
 import model.entities.localizacion.Localizacion;
-import model.entities.notificacion.EstadoIncidente;
-import model.entities.notificacion.Incidente;
-import model.entities.notificacion.Reportador;
+import model.entities.notificacion.*;
 import model.entities.servicio.Monitoreable;
 
 import javax.persistence.*;
@@ -17,7 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Miembro implements Reportador {
+public class Miembro implements Reportador, Observador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -110,4 +108,8 @@ public class Miembro implements Reportador {
     }
 
 
+    @Override
+    public void serNortificadoPor(Observable observable) {
+
+    }
 }

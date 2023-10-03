@@ -3,6 +3,7 @@ package model.entities.localizacion;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.comunidad.Miembro;
+import model.entities.persistencia.EntidadPersistente;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,11 +12,9 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo")
-public abstract class Localizacion {
+public abstract class Localizacion extends EntidadPersistente {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Esto es para una clave primaria autoincremental
-    private Integer id;
+
 
     @Column
     private String nombre;

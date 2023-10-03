@@ -6,10 +6,7 @@ import lombok.Setter;
 import model.entities.entidades.Entidad;
 import model.entities.persistencia.EntidadPersistente;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +20,7 @@ public abstract class RankTemplateMethod extends EntidadPersistente {
 
     private LocalDate fecha = LocalDate.now();
 
+    @ManyToMany(mappedBy = "rankings")
     private List<Entidad> ranking = new ArrayList<>();
 
 

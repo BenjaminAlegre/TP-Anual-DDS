@@ -13,9 +13,9 @@ public class Departamento extends Localizacion{
 
     @ManyToOne
     @JoinColumn(name = "idProvincia")
-    private Provincia provincia;
+    public Provincia provincia;
 
     @Column
-    private String nombre;
+    public String nombre;
 
 }

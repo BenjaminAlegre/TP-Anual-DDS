@@ -15,10 +15,10 @@ public class Provincia extends Localizacion {
 
 
     @Column
-    private String codigoDeProvincia;
+    public String codigoDeProvincia;
 
     @Column
-    private String nombre;
+    public String nombre;
 
 
 }

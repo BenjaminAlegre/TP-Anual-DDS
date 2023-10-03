@@ -3,6 +3,7 @@ package model.entities.entidades;
 
 import lombok.Getter;
 import lombok.Setter;
+import model.entities.persistencia.EntidadPersistente;
 import model.entities.servicio.Monitoreable;
 import model.entities.servicio.Servicio;
 
@@ -13,10 +14,8 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // justificacion: como solo hay 3 atributos distintos creemos que la mejor opcion es in single table
 @DiscriminatorColumn(name = "tipoEstablecimiento")
-public abstract class Establecimiento {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public abstract class Establecimiento extends EntidadPersistente {
+
 
     @Column
     private String nombre;

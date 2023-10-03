@@ -5,6 +5,8 @@ import model.entities.entidades.Entidad;
 import model.repositorios.rankings.RepositorioRankingCantidadIncidentes;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @Entity
 public class RankCantidadIncidentes extends RankTemplateMethod {
 
+    @Transient
     RepositorioRankingCantidadIncidentes repo = new RepositorioRankingCantidadIncidentes();
 
     @Override
@@ -22,7 +25,8 @@ public class RankCantidadIncidentes extends RankTemplateMethod {
     @Override
     protected void rankear(List<Entidad> entidades) {
         List<Entidad> ordenadas = new ArrayList<Entidad>(entidades);
-        ordenadas.sort(Comparator.comparing(Entidad::cantidadIncidentes));
+        LocalDate fechaDeInicioRanking = this.getFecha().minusDays(7);
+        ordenadas.sort(Comparator.comparing(e->e.cantidadIncidentesSemanales(fechaDeInicioRanking)));
         RankCantidadIncidentes aPersistir = new RankCantidadIncidentes();
         this.setRanking(ordenadas);
     }

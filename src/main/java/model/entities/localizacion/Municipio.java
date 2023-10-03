@@ -12,15 +12,15 @@ public class Municipio extends Localizacion{
 
 
     @Column
-    private String nombre;
+    public String nombre;
 
     @ManyToOne
     @JoinColumn(name = "idDepartamento")
-    private Departamento departamento;
+    public Departamento departamento;
 
-    @ManyToOne
-    @JoinColumn(name = "idProvincia")
-    private Provincia provincia;
+//    @ManyToOne
+//    @JoinColumn(name = "idProvincia")
+//    private Provincia provincia;
 
 
 }
