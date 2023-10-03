@@ -76,6 +76,7 @@ public class Comunidad implements Suscriber, Observable {
 
     @Override
     public void notificar(){
+
         this.observadores.forEach(observador -> observador.serNotificadoPor(this));
     }
 

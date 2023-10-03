@@ -3,8 +3,7 @@ package model.entities.entidades;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.comunidad.Miembro;
-import model.entities.notificacion.Incidente;
-import model.entities.notificacion.Suscriber;
+import model.entities.notificacion.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
 @Getter @Setter
 @Entity
 @DiscriminatorValue("entidadPresadora")
-public class EntidadPrestadora extends PersonaJuridica implements Suscriber {
+public class EntidadPrestadora extends PersonaJuridica implements Observable, Reportador {
 
 
 
@@ -30,7 +29,24 @@ public class EntidadPrestadora extends PersonaJuridica implements Suscriber {
         suscriptores.add(miembro);
     }
 
+    @Override
     public void notificar(){
-        //TODO
+        this.suscriptores.forEach(suscriptor -> suscriptor.serNotificadoPor(this));
+    }
+
+    @Override
+    public Incidente generarIncidente(){
+        Incidente incidente = new Incidente();
+        incidente.setEntidadReportadora(this);
+        incidente.setEstado(EstadoIncidente.ACTIVO);
+        incidente.setHorarioApertura(java.time.LocalDate.now());
+        incidente.setObservaciones(null);
+        incidente.setServicioAfectado(null);
+        return incidente;
+    }
+
+    @Override
+    public void cerrarIncidente(Incidente incidente){
+        //No debe hacer nada
     }
 }

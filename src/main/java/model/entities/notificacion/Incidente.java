@@ -49,6 +49,19 @@ public class Incidente {
     @JoinColumn(name = "idEntidadAfectada")
     private Entidad entidadAfectada;
 
+    public Incidente() {
+    }
+
+    public Incidente(Monitoreable servicioAfectado, String observaciones, EstadoIncidente estado, LocalDate horarioApertura, LocalDate horarioCierre, EntidadPrestadora entidadReportadora, Miembro miembroReportador, Entidad entidadAfectada) {
+        this.servicioAfectado = servicioAfectado;
+        this.observaciones = observaciones;
+        this.estado = estado;
+        this.horarioApertura = horarioApertura;
+        this.horarioCierre = horarioCierre;
+        this.entidadReportadora = entidadReportadora;
+        this.miembroReportador = miembroReportador;
+        this.entidadAfectada = entidadAfectada;
+    }
     //@ManyToMany(mappedBy = "incidentes")
     //private List<Comunidad> comunidades;
 }

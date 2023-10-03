@@ -85,8 +85,15 @@ public class Miembro implements Reportador, Observador {
     }
 
     @Override
-    public Incidente generarIncidente(Incidente incidente) {
+    public Incidente generarIncidente() {
+        Incidente incidente = new Incidente();
         incidente.setEstado(EstadoIncidente.ACTIVO);
+        incidente.setMiembroReportador(this);
+
+        incidente.setHorarioApertura(null);
+
+        incidente.setObservaciones(null);
+        incidente.setServicioAfectado(null);
         return incidente;
     }
 
@@ -103,6 +110,11 @@ public class Miembro implements Reportador, Observador {
 
     @Override
     public void serNotificadoPor(Observable observable) {
-        //TODO recibe la notificacion
+        if(this.medioNotificacion == MedioNotificacion.WHATSAPP) {
+            //TODO
+        }
+        else if(this.medioNotificacion == MedioNotificacion.CORREO_ELECTRONICO) {
+            //TODO
+        }
     }
 }
