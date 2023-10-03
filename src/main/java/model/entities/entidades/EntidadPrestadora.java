@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.entities.comunidad.Miembro;
 import model.entities.notificacion.Incidente;
+import model.entities.notificacion.Observable;
 import model.entities.notificacion.Suscriber;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter @Setter
 @Entity
 @DiscriminatorValue("entidadPresadora")
-public class EntidadPrestadora extends PersonaJuridica implements Suscriber {
+public class EntidadPrestadora extends PersonaJuridica implements Suscriber,Observable {
 
 
 
@@ -24,13 +25,12 @@ public class EntidadPrestadora extends PersonaJuridica implements Suscriber {
     private List<Miembro> suscriptores = new ArrayList<>();
 
 
-
-
     public void agregarSuscriptor(Miembro miembro){
         suscriptores.add(miembro);
     }
 
+    @Override
     public void notificar(){
-        //TODO
+        this.suscriptores.forEach(suscriptor -> suscriptor.serNotificadoPor(this));
     }
 }
