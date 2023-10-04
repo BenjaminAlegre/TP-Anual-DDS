@@ -1,6 +1,5 @@
 package model.entities.normalizaciondirecciones.adapters;
 
-import model.entities.entidades.normalizaciondirecciones.entidadesDeNormalizacion.*;
 import model.entities.localizacion.Departamento;
 import model.entities.localizacion.Provincia;
 import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoDepartamentos;

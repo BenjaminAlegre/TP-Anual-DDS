@@ -5,6 +5,7 @@ import lombok.Setter;
 import model.entities.persistencia.EntidadPersistente;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -22,10 +23,9 @@ public abstract class PersonaJuridica extends EntidadPersistente {
     @Column
     private String personaAsignada;
 
-    /*
-    public Ranking mostrarInforme(){ creoq ue esto va por pantalla
-    }
-     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "personaJuridica", cascade = CascadeType.ALL)
+    public List<Entidad> entidades;
+
 
     public void mostrarInforme(){
         //TODO

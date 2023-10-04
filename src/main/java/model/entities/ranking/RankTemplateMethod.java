@@ -18,6 +18,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "tipoRanking")
 public abstract class RankTemplateMethod extends EntidadPersistente {
 
+    @Column
     private LocalDate fecha = LocalDate.now();
 
     @ManyToMany(mappedBy = "rankings")
@@ -31,6 +32,5 @@ public abstract class RankTemplateMethod extends EntidadPersistente {
 
     protected abstract void guardarse();
     protected abstract void rankear(List<Entidad> entidades);
-
 
 }

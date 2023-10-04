@@ -7,6 +7,12 @@ import java.util.List;
 
 public class RepositorioEntidades {
 
+    public void agregar(Entidad entidad) {
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().persist(entidad);
+        EntityManagerHelper.commit();
+    }
+
     public List<Entidad> buscarTodos() {
         return EntityManagerHelper
                 .getEntityManager()

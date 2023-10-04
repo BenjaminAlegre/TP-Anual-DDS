@@ -22,11 +22,12 @@ public class RankCantidadIncidentes extends RankTemplateMethod {
         repo.guardar(this);
     }
 
+
     @Override
     protected void rankear(List<Entidad> entidades) {
         List<Entidad> ordenadas = new ArrayList<Entidad>(entidades);
         LocalDate fechaDeInicioRanking = this.getFecha().minusDays(7);
-        ordenadas.sort(Comparator.comparing(e->e.cantidadIncidentesSemanales(fechaDeInicioRanking)));
+        ordenadas.sort(Comparator.comparing(e->e.tiempoPromedioDeCierreIncidentes(fechaDeInicioRanking)));
         RankCantidadIncidentes aPersistir = new RankCantidadIncidentes();
         this.setRanking(ordenadas);
     }

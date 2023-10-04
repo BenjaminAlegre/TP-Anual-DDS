@@ -13,7 +13,7 @@ public class RankImpacto extends RankTemplateMethod {
 
     @Override
     protected void guardarse() {
-
+        this.repo.guardar(this);
     }
 
     @Override

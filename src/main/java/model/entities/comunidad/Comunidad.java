@@ -2,11 +2,15 @@ package model.entities.comunidad;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.entities.notificacion.EstadoIncidente;
-import model.entities.notificacion.Incidente;
-import model.entities.notificacion.Observable;
+
+import model.entities.entidades.Entidad;
+import model.entities.notificacion.*;
+import model.entities.persistencia.EntidadPersistente;
+import model.entities.servicio.Monitoreable;
+
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,17 +18,17 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
-public class Comunidad implements Observable {
 
-    @Id
-    @GeneratedValue
-    private Integer id;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Miembro> miembros;
+public class Comunidad extends EntidadPersistente implements Observable {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "miembros_comunidad",
+            joinColumns = @JoinColumn(name="comunidad_id"),
+            inverseJoinColumns=@JoinColumn(name="miembro_id"))
+    private List<Miembro> miembros;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "administrador_comunidad",
             joinColumns = @JoinColumn(name="comunidad_id"),
             inverseJoinColumns=@JoinColumn(name="miembro_id"))
     private List<Miembro> administradores;
@@ -34,6 +38,9 @@ public class Comunidad implements Observable {
             joinColumns = @JoinColumn(name="comunidad_id"),
             inverseJoinColumns=@JoinColumn(name="incidente_id"))
     private List<Incidente> incidentes;
+
+    @Transient
+    public List<Observador> observadores;
 
     public Comunidad(List<Miembro> miembros, List<Miembro> administradores, List<Incidente> incidentes) {
         this.miembros = new ArrayList<>();
@@ -65,8 +72,18 @@ public class Comunidad implements Observable {
         return  this.incidentes.stream().filter(incidente -> incidente.getEstado().equals(estado)).collect(Collectors.toList());
     }
 
-    public void notificar(){
-        //TODO
+    public void agregarObservador(Observador observador){
+        this.observadores.add(observador);
     }
+    public void eliminarObservador(Observador observador){
+        this.observadores.remove(observador);
+    }
+
+    @Override
+    public void notificar(){
+
+        this.observadores.forEach(observador -> observador.serNotificadoPor(this));
+    }
+
 
 }

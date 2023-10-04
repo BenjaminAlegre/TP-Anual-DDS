@@ -2,6 +2,7 @@ package model.entities.normalizaciondirecciones.entidadesDeNormalizacion;
 
 import lombok.Getter;
 import lombok.Setter;
+import model.entities.localizacion.Departamento;
 import model.entities.localizacion.Provincia;
 
 import java.util.ArrayList;

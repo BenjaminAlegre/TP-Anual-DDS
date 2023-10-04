@@ -135,6 +135,32 @@
             <version>2.3.2</version>
         </dependency>
 
+
+            <!-- JavaMail API para enviar correos electrónicos -->
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.6.2</version> <!-- Actualiza a la última versión disponible -->
+            </dependency>
+
+            <!-- Implementación de JavaBeans Activation Framework (JAF) -->
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>javax.activation-api</artifactId>
+                <version>1.2.0</version> <!-- Actualiza a la última versión disponible -->
+            </dependency>
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+
+
     </dependencies>
 
 

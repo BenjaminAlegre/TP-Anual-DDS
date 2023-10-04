@@ -5,6 +5,7 @@ package model.entities.notificacion;
 import lombok.Getter;
 import lombok.Setter;
 //import model.entities.comunidad.Comunidad;
+import model.entities.comunidad.Comunidad;
 import model.entities.comunidad.Miembro;
 import model.entities.entidades.Entidad;
 import model.entities.entidades.EntidadPrestadora;
@@ -13,6 +14,7 @@ import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Entity
@@ -35,19 +37,19 @@ public class Incidente {
     private EstadoIncidente estado = EstadoIncidente.ACTIVO;
 
     @Column
-    private LocalDate horarioApertura;
+    private LocalDate horarioApertura = LocalDate.now();
     @Column
     private LocalDate horarioCierre;
 
     @ManyToOne
-    @JoinColumn(name = "idEntReportador")//TODO maaaaaal
-    private EntidadPrestadora entidadReportadora;
+    @JoinColumn(name = "id")
+    private String reportador;
     @ManyToOne
-    @JoinColumn(name = "idMiembroReportador")//TODO maaaaaal
-    private Miembro miembroReportador;
-    @ManyToOne
-    @JoinColumn(name = "idEntidadAfectada")
+    @JoinColumn(name = "id")
     private Entidad entidadAfectada;
+
+    @ManyToMany(mappedBy = "incidentes")
+    private List<Comunidad> comunidades;
 
     public boolean entraEnCalculoSemanal(LocalDate fecha) {
         return this.estado.equals(EstadoIncidente.ACTIVO) & this.estaEnFecha(fecha);
@@ -63,6 +65,25 @@ public class Incidente {
         this.horarioApertura = horarioApertura;
         this.entidadAfectada = entidadAfectada;
     }
-//@ManyToMany(mappedBy = "incidentes")
-    //private List<Comunidad> comunidades;
+
+    public Double tiempoDeCierre(){
+
+                Period periodo = Period.between(horarioCierre, horarioApertura);
+                double diasDiferencia = periodo.getDays() + periodo.getMonths() * 30.44 + periodo.getYears() * 365.25;
+                return diasDiferencia;
+    }
+
+    public Incidente() {
+    }
+
+    public Incidente(Monitoreable servicioAfectado, String observaciones, EstadoIncidente estado, LocalDate horarioApertura, LocalDate horarioCierre, String idReportador, Entidad entidadAfectada) {
+        this.servicioAfectado = servicioAfectado;
+        this.observaciones = observaciones;
+        this.estado = estado;
+        this.horarioApertura = horarioApertura;
+        this.horarioCierre = horarioCierre;
+        this.reportador = idReportador;
+        this.entidadAfectada = entidadAfectada;
+    }
+
 }

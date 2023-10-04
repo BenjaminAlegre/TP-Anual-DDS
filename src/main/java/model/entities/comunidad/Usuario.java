@@ -1,6 +1,7 @@
 package model.entities.comunidad;
 
 //import com.google.common.hash.Hashing;
+import com.google.common.hash.Hashing;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.persistencia.EntidadPersistente;
@@ -9,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.nio.charset.StandardCharsets;
 
 @Getter @Setter
 @Entity
@@ -18,7 +20,6 @@ public class Usuario extends EntidadPersistente {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-
     @Column
     private String mail;
 
@@ -26,10 +27,9 @@ public class Usuario extends EntidadPersistente {
     private String password;
 
 
-/*
-    public Usuario(Rol rol, TipoMiembro tipoMiembro, String mail, String password) {
+
+    public Usuario(Rol rol, String mail, String password) {
         this.rol = rol;
-        this.tipoMiembro = tipoMiembro;
         this.mail = mail;
         definirContrasenia(password);
     }
@@ -52,5 +52,4 @@ public class Usuario extends EntidadPersistente {
         return sha256hex;
     }
 
- */
 }

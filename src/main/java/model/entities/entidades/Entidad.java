@@ -27,17 +27,15 @@ public abstract class Entidad extends EntidadPersistente {
     private String nombre;
 
     @ManyToOne
+    @JoinColumn(name = "id")
     private Localizacion localizacion;
 
-//    @OneToOne
-//    @JoinColumn(name = "idEntidadPrestadora")
-//    private EntidadPrestadora entidadPrestadora; // TODO esto esta mal
-//
-//    @OneToOne
-//    @JoinColumn(name = "idOrganismoDeControl")
-//    private OrganismoDeControl organismoDeControl;// TODO esto esta mal
+    @ManyToOne
+    @JoinColumn(name = "id")
+    public PersonaJuridica personaJuridica;
 
-    @OneToMany(mappedBy = "entidadReportadora")
+
+    @OneToMany(mappedBy = "entidadAfectada", fetch = FetchType.LAZY)
     private List<Incidente> incidentes = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -46,8 +44,13 @@ public abstract class Entidad extends EntidadPersistente {
             inverseJoinColumns=@JoinColumn(name="ranking_id"))
     public List<RankTemplateMethod> rankings = new ArrayList<>();
 
+    private List<Incidente> traerIncidentesValidos(LocalDate fecha){
+        return
+        this.incidentes.stream().filter(i-> i.entraEnCalculoSemanal(fecha)).collect(Collectors.toList());
+    }
+
     public Integer cantidadIncidentesSemanales(LocalDate fecha) {
-        List<Incidente> incidentesValidos = this.incidentes.stream().filter(i-> i.entraEnCalculoSemanal(fecha)).collect(Collectors.toList());
+        List<Incidente> incidentesValidos = traerIncidentesValidos(fecha);
         Map<Monitoreable, Incidente> resultado = incidentesValidos.stream()
                 .collect(Collectors.toMap(
                         Incidente::getServicioAfectado,
@@ -56,6 +59,16 @@ public abstract class Entidad extends EntidadPersistente {
                 ));
 
         return new ArrayList<Incidente>(resultado.values()).size();
+
+    }
+
+    public Double tiempoPromedioDeCierreIncidentes(LocalDate fechaDeInicioRanking){
+        List<Incidente> incidentesValidos = traerIncidentesValidos(fechaDeInicioRanking).stream().filter(i -> i.getHorarioCierre() != null).collect(Collectors.toList());
+       Double total = 0.0;
+        for (Incidente i: incidentesValidos) {
+            total =+ i.tiempoDeCierre();
+        }
+        return total / incidentesValidos.size();
 
     }
 
