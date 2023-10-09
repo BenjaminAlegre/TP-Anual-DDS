@@ -19,6 +19,6 @@ public class PosicionRanking extends EntidadPersistente {
 
     @OneToOne(fetch = FetchType.EAGER)
     private Entidad entidad;
-    
+
     private Integer posicion;
 }
