@@ -6,7 +6,7 @@ import model.repositorios.rankings.RepositorioRankingsImpacto;
 import javax.persistence.Transient;
 import java.util.List;
 
-public class RankImpacto extends RankTemplateMethod {
+public class RankImpacto extends RankStrategy {
 
     @Transient
     RepositorioRankingsImpacto repo = new RepositorioRankingsImpacto();

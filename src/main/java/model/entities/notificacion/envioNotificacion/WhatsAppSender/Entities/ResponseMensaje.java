@@ -13,16 +13,12 @@ public class ResponseMensaje {
     String phone;
     String status;
     String deliveryStatus;
-
     String failureReason;
-
     String sentAt;
     String processedAt;
     String deliverAt;
     String expiresAt;
     String failedAt;
-
-
 
 
 }

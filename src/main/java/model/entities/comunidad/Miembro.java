@@ -2,7 +2,6 @@ package model.entities.comunidad;
 
 import lombok.Getter;
 import lombok.Setter;
-//import model.entities.entidades.EntidadPrestadora;
 import model.entities.entidades.Entidad;
 import model.entities.entidades.EntidadPrestadora;
 import model.entities.localizacion.Localizacion;
@@ -41,10 +40,10 @@ public class Miembro  extends EntidadPersistente implements Reportador, Observad
     private Localizacion localizacion;
 
     @ManyToMany(mappedBy = "miembros")
-    private List<Monitoreable> moritoreable;
+    private List<Monitoreable> moritoreable = new ArrayList<>();
 
     @ManyToMany(mappedBy = "miembros")
-    private List<Comunidad> comunidades;
+    private List<Comunidad> comunidades = new ArrayList<>();;
 
     @Enumerated(EnumType.STRING)
     private MedioNotificacion medioNotificacion;
@@ -57,19 +56,14 @@ public class Miembro  extends EntidadPersistente implements Reportador, Observad
     private List<String> horariosDeNotificacion = new ArrayList<>();
 
     @ManyToMany(mappedBy = "suscriptores")
-    private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras; //podria ser un Set<EntidadPrestadora>
+    private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras = new ArrayList<>();; //podria ser un Set<EntidadPrestadora>
 
 
-    public Miembro(String nombre, String apellido, String mail, List<Localizacion> localizacion, List<Monitoreable> moritoreable, List<Comunidad> comunidades, MedioNotificacion medioNotificacion, List<String> horariosDeNotificacion, List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras) {
+    public Miembro(String nombre, String apellido, String mail){
         this.nombre = nombre;
         this.apellido = apellido;
         this.mail = mail;
-        //this.localizacion = new ArrayList<>();
-        this.moritoreable = moritoreable;
-        this.comunidades = new ArrayList<>();
-        this.medioNotificacion = medioNotificacion;
-        this.horariosDeNotificacion = new ArrayList<>();
-        this.suscripcionesAEntidadesPrestadoras = suscripcionesAEntidadesPrestadoras;
+
     }
 
     public Miembro() {

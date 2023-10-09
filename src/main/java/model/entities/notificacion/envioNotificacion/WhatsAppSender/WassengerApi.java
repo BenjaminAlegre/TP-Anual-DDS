@@ -1,7 +1,8 @@
-package model.entities.notificacion.envioNotificacion.WhatsAppSender.adapters;
+package model.entities.notificacion.envioNotificacion.WhatsAppSender;
 
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import model.entities.notificacion.envioNotificacion.WhatsAppSender.Entities.Mensaje;
@@ -25,16 +26,19 @@ public  class WassengerApi {
         String wassenger_baseURL=propiedades.getProperty("wassenger_baseURL");
         String wassenger_token=propiedades.getProperty("wassenger_token");
 
-        String body = "{\"phone\":\"" +mensaje.getNumeroTelefono() +"\",\"message\":\""+mensaje.getMensaje()+"\"}";
+        String body = "{\"phone\":\"" +mensaje.getDestinatario() +"\",\"message\":\""+mensaje.getMensaje()+"\"}";
+           // System.out.println("{\"phone\":\"" +mensaje.getNumeroTelefono() +"\",\"message\":\""+mensaje.getMensaje()+"\"}"+"+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         HttpResponse<String> response = Unirest.post(wassenger_baseURL)
                 .header("Content-Type", "application/json")
                 .header("Token", wassenger_token)
                 .body(body)
                 .asString();
+
+            System.out.println(response.getBody()+ " " + response);
 //
 
-        Gson gson=new Gson();
+       Gson gson=new Gson();
         ResponseMensaje responseMensaje=gson.fromJson(response.getBody(),ResponseMensaje.class);
 
         return responseMensaje;

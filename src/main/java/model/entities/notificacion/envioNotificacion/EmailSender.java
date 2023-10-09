@@ -1,46 +1,56 @@
 package model.entities.notificacion.envioNotificacion;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import model.entities.notificacion.envioNotificacion.WhatsAppSender.Entities.Mensaje;
+
+import java.io.FileInputStream;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
-public class EmailSender {
+public class EmailSender extends EstrategiaNotificacion{
+
+        Properties properties = new Properties();
+        Session session;
+
+        public EmailSender() throws IOException{
+                InputStream lectura= new FileInputStream("src\\main\\resources\\configuracion.properties");
+                properties.load(lectura);
+                properties.put("mail.smtp.auth", "true");
+                properties.put("mail.smtp.starttls.enable", "true");
+                properties.put("mail.smtp.host", "smtp.gmail.com");
+                properties.put("mail.smtp.port", "587");
+
+                properties.put("mail.smtp.ssl.trust", "*");
 
 
-//
-//            // Configuración de las propiedades del servidor SMTP
-//            Properties properties = new Properties();
-//            properties.put("mail.smtp.host", "smtp.example.com"); // Cambia esto al servidor SMTP que estés utilizando
-//            properties.put("mail.smtp.port", "587"); // Puerto SMTP (587 es común para TLS)
-//            properties.put("mail.smtp.auth", "true"); // Habilita la autenticación
-//            properties.put("mail.smtp.starttls.enable", "true"); // Habilita STARTTLS para seguridad (TLS)
-//
-//            // Credenciales de autenticación
-//            String username = "tu_correo@example.com"; // Tu dirección de correo
-//            String password = "tu_contraseña"; // Tu contraseña
-//
-//            // Creación de una sesión de correo
-//            Session session = Session.getInstance(properties, new Authenticator() {
-//                @Override
-//                protected PasswordAuthentication getPasswordAuthentication() {
-//                    return new PasswordAuthentication(username, password);
-//                }
-//            });
-//    Message message = new MimeMessage(session);
-//            try {
-//
-//                // Creación del mensaje
-//
-//                message.setFrom(new InternetAddress(username)); // Remitente
-//                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("destinatario@example.com")); // Destinatario
-//                message.setSubject("Asunto del correo");
-//                message.setText("Contenido del correo electrónico");
-//
-//                // Envío del correo
-//                Transport.send(message);
-//
-//                System.out.println("Correo electrónico enviado exitosamente.");
-//            } catch (MessagingException e) {
-//                e.printStackTrace();
-//                System.err.println("Error al enviar el correo electrónico: " + e.getMessage());
-//            }
+                session = Session.getInstance(properties,
+                        new javax.mail.Authenticator() {
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                        return new PasswordAuthentication(properties.getProperty("username"), properties.getProperty("password"));
+                                }
+                        });
         }
+
+
+
+
+        @Override
+        public void enviarMensaje(Mensaje mensaje) throws IOException, UnirestException, MessagingException {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(properties.getProperty("username")));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(mensaje.getDestinatario())); // Recipient's email address
+                message.setSubject("Notificacion Incidente");
+                message.setText(mensaje.getMensaje());
+                session.setDebug(true);
+
+                Transport.send(message);
+
+                System.out.println("Email sent successfully!");
+
+        }
+}
 

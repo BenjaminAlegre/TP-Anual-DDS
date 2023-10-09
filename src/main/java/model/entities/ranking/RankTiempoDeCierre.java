@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Entity
-public class RankTiempoDeCierre extends RankTemplateMethod {
+public class RankTiempoDeCierre extends RankStrategy {
 
     @Transient
     RepositorioTiempoDeCierre repo = new RepositorioTiempoDeCierre();

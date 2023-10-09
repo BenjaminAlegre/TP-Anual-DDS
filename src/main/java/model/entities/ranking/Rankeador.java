@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Rankeador implements Job {
     RepositorioEntidades repositorioEntidades= new RepositorioEntidades();
-    public List<RankTemplateMethod> rankingsAGenerar = new ArrayList<>();
+    public List<RankStrategy> rankingsAGenerar = new ArrayList<>();
 
     public Rankeador() {
         this.rankingsAGenerar.add(new RankCantidadIncidentes());
@@ -21,7 +21,7 @@ public class Rankeador implements Job {
     }
 
     public void generarRankings(List<Entidad> entidades){
-        for (RankTemplateMethod r: this.rankingsAGenerar
+        for (RankStrategy r: this.rankingsAGenerar
              ) {
             r.generarRanking(entidades);
         }

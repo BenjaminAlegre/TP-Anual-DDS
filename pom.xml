@@ -140,9 +140,13 @@
             <dependency>
                 <groupId>com.sun.mail</groupId>
                 <artifactId>javax.mail</artifactId>
-                <version>1.6.2</version> <!-- Actualiza a la última versión disponible -->
+                <version>1.6.2</version>
             </dependency>
-
+        <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+        <version>1.6.2</version>
+    </dependency>
             <!-- Implementación de JavaBeans Activation Framework (JAF) -->
             <dependency>
                 <groupId>javax.activation</groupId>

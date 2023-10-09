@@ -7,7 +7,7 @@
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/huella" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/monitoreo" />
             <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="123456789" />
 
@@ -21,7 +21,7 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- create | create-drop | validate | update -->
+            <property name="hibernate.hbm2ddl.auto" value="create" /> <!-- create | create-drop | validate | update -->
 <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>-->
 <!--            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
 <!--            &lt;!&ndash;      <property name="hibernate.hbm2ddl.auto" value="update"/>&ndash;&gt;-->

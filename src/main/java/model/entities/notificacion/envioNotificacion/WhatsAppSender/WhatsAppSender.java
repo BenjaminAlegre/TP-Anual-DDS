@@ -2,14 +2,15 @@ package model.entities.notificacion.envioNotificacion.WhatsAppSender;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import lombok.Getter;
+import model.entities.comunidad.Miembro;
+import model.entities.notificacion.envioNotificacion.EstrategiaNotificacion;
 import model.entities.notificacion.envioNotificacion.WhatsAppSender.Entities.Mensaje;
 import model.entities.notificacion.envioNotificacion.WhatsAppSender.Entities.ResponseMensaje;
-import model.entities.notificacion.envioNotificacion.WhatsAppSender.adapters.WassengerApi;
 
 import java.io.IOException;
 
 @Getter
-public class WhatsAppSender {
+public class WhatsAppSender extends EstrategiaNotificacion {
     private static WhatsAppSender instancia = null;
     private WassengerApi adapter = new WassengerApi();
 
@@ -25,8 +26,9 @@ public class WhatsAppSender {
 //        }
 //        return instancia;
 //    }
+    @Override
+    public void enviarMensaje( Mensaje mensaje) throws UnirestException, IOException {
 
-    public void enviarMensaje(Mensaje mensaje) throws IOException, UnirestException {
         ResponseMensaje response= this.adapter.enviarMensaje(mensaje);
         if (!response.getStatus().equals("400") ){
         System.out.println("Se envio correctamente el  mensaje:   "+mensaje.getMensaje());

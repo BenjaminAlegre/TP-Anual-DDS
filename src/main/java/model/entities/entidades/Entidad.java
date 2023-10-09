@@ -6,7 +6,7 @@ import lombok.Setter;
 import model.entities.localizacion.Localizacion;
 import model.entities.notificacion.Incidente;
 import model.entities.persistencia.EntidadPersistente;
-import model.entities.ranking.RankTemplateMethod;
+import model.entities.ranking.RankStrategy;
 import model.entities.servicio.Monitoreable;
 
 import javax.persistence.*;
@@ -42,7 +42,7 @@ public abstract class Entidad extends EntidadPersistente {
     @JoinTable(name = "posisionesRankeadas",
             joinColumns = @JoinColumn(name="entidad_id"),
             inverseJoinColumns=@JoinColumn(name="ranking_id"))
-    public List<RankTemplateMethod> rankings = new ArrayList<>();
+    public List<RankStrategy> rankings = new ArrayList<>();
 
     private List<Incidente> traerIncidentesValidos(LocalDate fecha){
         return

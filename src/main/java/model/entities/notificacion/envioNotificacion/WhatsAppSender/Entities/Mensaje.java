@@ -5,13 +5,14 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Mensaje {
-    String numeroTelefono;
+    String destinatario;
     String mensaje;
+
 
     public Mensaje (){
     }
-    public Mensaje (String numero,String mensajeTexto){
-        this.numeroTelefono=numero;
+    public Mensaje (String destino,String mensajeTexto){
+        this.destinatario = destino;
         this.mensaje=mensajeTexto;
     }
 }

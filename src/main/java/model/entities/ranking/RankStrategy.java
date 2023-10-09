@@ -14,15 +14,15 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoRanking")
-public abstract class RankTemplateMethod extends EntidadPersistente {
+public abstract class RankStrategy extends EntidadPersistente {
 
     @Column
     private LocalDate fecha = LocalDate.now();
 
-    @ManyToMany(mappedBy = "rankings")
-    private List<Entidad> ranking = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "ranking", cascade = CascadeType.ALL)
+    private List<PosicionRanking> posiciones = new ArrayList<>();
 
 
     public void generarRanking(List<Entidad> entidades){

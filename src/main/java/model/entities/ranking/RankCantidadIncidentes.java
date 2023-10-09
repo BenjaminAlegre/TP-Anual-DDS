@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Entity
-public class RankCantidadIncidentes extends RankTemplateMethod {
+public class RankCantidadIncidentes extends RankStrategy {
 
     @Transient
     RepositorioRankingCantidadIncidentes repo = new RepositorioRankingCantidadIncidentes();
