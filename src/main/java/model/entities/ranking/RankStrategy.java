@@ -27,10 +27,17 @@ public abstract class RankStrategy extends EntidadPersistente {
 
     public void generarRanking(List<Entidad> entidades){
         this.rankear(entidades);
-        this.guardarse();
+
     }
 
-    protected abstract void guardarse();
     protected abstract void rankear(List<Entidad> entidades);
+
+    protected void genearPosiciones(List<Entidad> ordenadas){
+        for (Entidad e:ordenadas
+        ) {
+            PosicionRanking posicion = new PosicionRanking(this, e, ordenadas.indexOf(e) +1);
+            this.posiciones.add(posicion);
+        }
+    }
 
 }

@@ -21,4 +21,13 @@ public class PosicionRanking extends EntidadPersistente {
     private Entidad entidad;
 
     private Integer posicion;
+
+    public PosicionRanking(RankStrategy ranking, Entidad entidad, Integer posicion) {
+        this.ranking = ranking;
+        this.entidad = entidad;
+        this.posicion = posicion;
+    }
+
+    public PosicionRanking() {
+    }
 }

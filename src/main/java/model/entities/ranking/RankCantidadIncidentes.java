@@ -17,10 +17,6 @@ public class RankCantidadIncidentes extends RankStrategy {
     @Transient
     RepositorioRankingCantidadIncidentes repo = new RepositorioRankingCantidadIncidentes();
 
-    @Override
-    protected void guardarse() {
-        repo.guardar(this);
-    }
 
 
     @Override
@@ -28,8 +24,7 @@ public class RankCantidadIncidentes extends RankStrategy {
         List<Entidad> ordenadas = new ArrayList<Entidad>(entidades);
         LocalDate fechaDeInicioRanking = this.getFecha().minusDays(7);
         ordenadas.sort(Comparator.comparing(e->e.tiempoPromedioDeCierreIncidentes(fechaDeInicioRanking)));
-        RankCantidadIncidentes aPersistir = new RankCantidadIncidentes();
-        this.setRanking(ordenadas);
+        super.genearPosiciones(ordenadas);
     }
 
 }
