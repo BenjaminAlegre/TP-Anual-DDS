@@ -1,4 +1,4 @@
-package Cron.db.middlewares;
+package db.middlewares;
 
 import spark.Request;
 import spark.Response;

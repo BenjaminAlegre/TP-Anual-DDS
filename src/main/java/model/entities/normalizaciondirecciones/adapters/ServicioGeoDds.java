@@ -2,10 +2,7 @@ package model.entities.normalizaciondirecciones.adapters;
 
 import model.entities.localizacion.Departamento;
 import model.entities.localizacion.Provincia;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoDepartamentos;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoMunicipios;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoPosiblesDirecciones;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoProvincias;
+import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.*;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -15,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class ServicioGeoDds {
+public class ServicioGeoDds implements ServicioNormalizacion {
 
 
     private Retrofit retrofit;
@@ -41,16 +38,24 @@ public class ServicioGeoDds {
     }
 
 
-    public ListadoDepartamentos listadoDepartamentos(Provincia provincia) throws IOException {
-        Call<ListadoDepartamentos> requestDepartamentos = geoDdsService.departamentos(provincia.getNombre());
+    public List<Departamento> listadoDepartamentos(Provincia provincia) throws IOException {
+        Call<ListadoDepartamentos> requestDepartamentos = geoDdsService.departamentos(provincia.nombre);
+        System.out.println(requestDepartamentos.request());
         Response<ListadoDepartamentos> responseDepartamentos = requestDepartamentos.execute();
-        return responseDepartamentos.body();
+        System.out.println("ejecuto request");
+        return responseDepartamentos.body().departamentos;
 
     }
 
-    public ListadoMunicipios listadoMunicipios(Departamento departamento) throws IOException {
-        Call<ListadoMunicipios> requestMunicipios = geoDdsService.municipios(departamento.nombre);
+    public ListadoMunicipios  listadoMunicipiosDepartamento(Departamento departamento) throws IOException {
+        Call<ListadoMunicipios> requestMunicipios = geoDdsService.municipiosDepartamento(departamento.nombre);
         Response<ListadoMunicipios> responseMunicipios = requestMunicipios.execute();
+        return responseMunicipios.body();
+
+    }
+    public ListadoMunicipiosProvincia listadoMunicipiosProvincia(Provincia provincia) throws IOException {
+        Call<ListadoMunicipiosProvincia> requestMunicipios = geoDdsService.municipiosProvincia(provincia.nombre);
+        Response<ListadoMunicipiosProvincia> responseMunicipios = requestMunicipios.execute();
         return responseMunicipios.body();
 
     }

@@ -4,14 +4,10 @@ package model.entities.notificacion;
 
 import lombok.Getter;
 import lombok.Setter;
-//import model.entities.comunidad.Comunidad;
-import model.entities.comunidad.Comunidad;
-import model.entities.comunidad.Miembro;
-import model.entities.entidades.Entidad;
-import model.entities.entidades.EntidadPrestadora;
-import model.entities.servicio.Monitoreable;
-import net.bytebuddy.asm.Advice;
 
+import model.entities.comunidad.Comunidad;
+import model.entities.entidades.Entidad;
+import model.entities.servicio.Monitoreable;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
@@ -41,9 +37,10 @@ public class Incidente {
     @Column
     private LocalDate horarioCierre;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private String reportador;
+//    @ManyToOne
+//    @JoinColumn(name = "id")
+    private String reportador;//TODO Desnormalizar?
+
     @ManyToOne
     @JoinColumn(name = "id")
     private Entidad entidadAfectada;
@@ -82,7 +79,7 @@ public class Incidente {
         this.estado = estado;
         this.horarioApertura = horarioApertura;
         this.horarioCierre = horarioCierre;
-        this.reportador = idReportador;
+     this.reportador = idReportador;
         this.entidadAfectada = entidadAfectada;
     }
 

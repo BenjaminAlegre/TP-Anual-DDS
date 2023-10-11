@@ -22,9 +22,9 @@ public class RankCantidadIncidentes extends RankStrategy {
     @Override
     protected void rankear(List<Entidad> entidades) {
         List<Entidad> ordenadas = new ArrayList<Entidad>(entidades);
-        LocalDate fechaDeInicioRanking = this.getFecha().minusDays(7);
-        ordenadas.sort(Comparator.comparing(e->e.tiempoPromedioDeCierreIncidentes(fechaDeInicioRanking)));
+        ordenadas.sort(Comparator.comparing(e->e.tiempoPromedioDeCierreIncidentes(this.getFecha().minusDays(7))));
         super.genearPosiciones(ordenadas);
+        this.repo.guardar(this);
     }
 
 }

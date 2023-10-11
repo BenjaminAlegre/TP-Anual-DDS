@@ -1,9 +1,6 @@
 package model.entities.normalizaciondirecciones.adapters;
 
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoDepartamentos;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoMunicipios;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoPosiblesDirecciones;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoProvincias;
+import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.*;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -18,7 +15,10 @@ public interface GeoDdsService {
     Call<ListadoPosiblesDirecciones> normalizarDireccion(@Query("direccion") String direccionIngresada);
 
     @GET("municipios")
-    Call<ListadoMunicipios> municipios(@Query("departamento") String nombre);
+    Call<ListadoMunicipios> municipiosDepartamento(@Query("departamento") String nombre);
+
+    @GET("municipios")
+    Call<ListadoMunicipiosProvincia> municipiosProvincia(@Query("provincia") String nombre);
 
     @GET("departamentos")
     Call<ListadoDepartamentos> departamentos(@Query("provincia") String nombre);

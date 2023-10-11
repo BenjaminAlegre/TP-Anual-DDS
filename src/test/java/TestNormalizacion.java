@@ -1,6 +1,7 @@
+import model.entities.localizacion.Departamento;
+import model.entities.localizacion.Municipio;
 import model.entities.normalizaciondirecciones.adapters.ServicioGeoDds;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.Direccion;
-import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.ListadoPosiblesDirecciones;
+import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.*;
 import model.entities.localizacion.Provincia;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ public class TestNormalizacion {
         List<Provincia> provincias = servicioAPI.listadoProvincias();
         for (Provincia p : provincias
         ) {
-            System.out.println(p.nombre);
+            System.out.println("Id:"+p.id+" nombre:"+p.nombre);
         }
         System.out.println(provincias.size());
     }
@@ -33,6 +34,31 @@ public class TestNormalizacion {
              ) {
             System.out.println(d.toString());
 
+        }
+    }
+
+    @Test
+    public void traerDepartamentosBuenosAires() throws IOException {
+        Provincia provincia = new Provincia();
+        provincia.nombre = "buenos aires";
+        ListadoMunicipiosProvincia listado = this.servicioAPI.listadoMunicipiosProvincia(provincia
+              );
+        for (Municipio d: listado.municipios
+             ) {
+            System.out.println(d.nombre);
+        }
+    }
+
+    @Test
+    public void traerDepartamentosMisiones() throws IOException {
+        Provincia provincia = new Provincia();
+        provincia.nombre = "misiones";
+        List<Departamento> listado = this.servicioAPI.listadoDepartamentos(provincia
+        );
+        for (Departamento d: listado
+        ) {
+            System.out.println(d.nombre);
+            System.out.println(d.provincia.nombre);
         }
     }
 }

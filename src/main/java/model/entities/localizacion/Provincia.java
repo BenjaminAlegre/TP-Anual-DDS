@@ -3,22 +3,20 @@ package model.entities.localizacion;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
 @DiscriminatorValue("provincia")
 public class Provincia extends Localizacion {
 
 
-    @Column
-    public String codigoDeProvincia;
 
-    @Column
-    public String nombre;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Departamento> departamentos;
+    public void traerContenido(){
 
+    }
 
 }

@@ -9,16 +9,17 @@ import model.entities.persistencia.EntidadPersistente;
 import javax.persistence.*;
 import java.util.List;
 
-@Getter@Setter
+
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "tipo")
-public abstract class Localizacion extends EntidadPersistente {
+public abstract class Localizacion {
 
-
+    @Id
+    public Integer id;
 
     @Column
-    private String nombre;
+    public String nombre;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "localizacion", cascade = CascadeType.ALL)
     private List<Entidad> entidades;

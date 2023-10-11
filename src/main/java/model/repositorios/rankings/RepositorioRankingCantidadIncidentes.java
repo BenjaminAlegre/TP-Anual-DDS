@@ -1,6 +1,6 @@
 package model.repositorios.rankings;
 
-import Cron.db.EntityManagerHelper;
+import db.EntityManagerHelper;
 import model.entities.ranking.RankCantidadIncidentes;
 
 

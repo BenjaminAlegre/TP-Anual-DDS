@@ -1,4 +1,4 @@
-package Cron.db;
+package db;
 
 import javax.persistence.*;
 import java.util.function.Supplier;
@@ -11,7 +11,7 @@ public class EntityManagerHelper {
 
     static {
         try {
-            emf = Persistence.createEntityManagerFactory("Cron/db");
+            emf = Persistence.createEntityManagerFactory("db");
             threadLocal = new ThreadLocal<>();
         } catch (Exception e) {
             e.printStackTrace();
@@ -20,7 +20,7 @@ public class EntityManagerHelper {
 
     private static EntityManagerFactory emf() {
         if(emf == null || !emf.isOpen()) {
-            emf = Persistence.createEntityManagerFactory("Cron/db");
+            emf = Persistence.createEntityManagerFactory("db");
         }
         return emf;
     }

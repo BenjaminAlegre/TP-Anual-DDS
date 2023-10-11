@@ -10,12 +10,8 @@ import javax.persistence.*;
 @DiscriminatorValue("departamento")
 public class Departamento extends Localizacion{
 
-
     @ManyToOne
-    @JoinColumn(name = "idProvincia")
+    @JoinColumn(referencedColumnName = "id")
     public Provincia provincia;
-
-    @Column
-    public String nombre;
 
 }

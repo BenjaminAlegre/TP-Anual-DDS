@@ -1,4 +1,4 @@
-package Cron.db;
+package db;
 
 public enum Tipos {
     STRING,

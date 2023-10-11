@@ -4,25 +4,20 @@ import lombok.Getter;
 import lombok.Setter;
 import model.entities.localizacion.Departamento;
 import model.entities.localizacion.Provincia;
+import model.entities.persistencia.EntidadPersistente;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Getter @Setter
 
-public class ListadoDepartamentos {
-
-    private Provincia provincia;
+public class ListadoDepartamentos extends EntidadPersistente {
 
     public List<Departamento> departamentos;
 
-    public ListadoDepartamentos() {
-
-    }
-    public ListadoDepartamentos(Provincia provincia, List<Departamento> departamentos) {
-        this.provincia = provincia;
-        departamentos = departamentos;
+    public ListadoDepartamentos(List<Departamento> departamentos) {
+        this.departamentos = departamentos;
     }
 
     public Optional<Departamento> buscarDepartamento(String  nombre){
@@ -46,7 +41,8 @@ public class ListadoDepartamentos {
 
 
 
-class NombreDepartamento{
+
+    class NombreDepartamento{
         public String nombre;
 
     public NombreDepartamento(String nombre) {

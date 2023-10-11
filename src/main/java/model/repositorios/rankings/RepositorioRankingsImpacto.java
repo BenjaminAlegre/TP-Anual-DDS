@@ -1,9 +1,6 @@
 package model.repositorios.rankings;
 
-import Cron.db.EntityManagerHelper;
-import model.entities.comunidad.Usuario;
-import model.entities.entidades.Entidad;
-import model.entities.ranking.RankCantidadIncidentes;
+import db.EntityManagerHelper;
 import model.entities.ranking.RankImpacto;
 
 import java.util.List;

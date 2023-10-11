@@ -18,18 +18,12 @@ public class RankTiempoDeCierre extends RankStrategy {
     RepositorioTiempoDeCierre repo = new RepositorioTiempoDeCierre();
 
 
-    @Override
-    protected void guardarse() {
-        this.repo.guardar(this);
-    }
-
 
     @Override
     protected void rankear(List<Entidad> entidades) {
         List<Entidad> ordenadas = new ArrayList<Entidad>(entidades);
-        LocalDate fechaDeInicioRanking = this.getFecha().minusDays(7);
-        ordenadas.sort(Comparator.comparing(e->e.cantidadIncidentesSemanales(fechaDeInicioRanking)));
-        RankCantidadIncidentes aPersistir = new RankCantidadIncidentes();
-        this.setRanking(ordenadas);
+        ordenadas.sort(Comparator.comparing(e->e.cantidadIncidentesSemanales(this.getFecha().minusDays(7))));
+        super.genearPosiciones(ordenadas);
+        this.repo.guardar(this);
     }
 }

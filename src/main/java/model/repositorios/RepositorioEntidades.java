@@ -1,6 +1,6 @@
 package model.repositorios;
 
-import Cron.db.EntityManagerHelper;
+import db.EntityManagerHelper;
 import model.entities.entidades.Entidad;
 
 import java.util.List;
