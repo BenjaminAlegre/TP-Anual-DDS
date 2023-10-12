@@ -15,7 +15,7 @@ public class Organizacion extends Entidad{
     @Enumerated(EnumType.STRING)
     private TipoOrganizacion tipo;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizacion")
     private List<Sucursal> sucursales;
 
     public void agregarSucursal(Sucursal sucursal){

@@ -13,10 +13,12 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity(name = "Rankings")
+@Entity
+@Table(name = "Rankings")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoRanking")
 public abstract class RankStrategy extends EntidadPersistente {
+
 
     @Column
     private LocalDate fecha = LocalDate.now();

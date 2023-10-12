@@ -1,6 +1,7 @@
 package model.repositorios.localizacion;
 
 import db.EntityManagerHelper;
+import model.entities.localizacion.Departamento;
 import model.entities.localizacion.Provincia;
 import model.entities.normalizaciondirecciones.adapters.ServicioGeoDds;
 import model.entities.normalizaciondirecciones.adapters.ServicioNormalizacion;
@@ -24,9 +25,18 @@ public class RepositorioProvincias {
     public List<Provincia> buscarTodos() throws IOException {
        List<Provincia> provincias = this.traerDeBaseDeDatos();
        if(provincias == null)
-           return this.api.listadoProvincias();
+           return this.traerDeApi();
        else
            return provincias;
+    }
+
+    private List<Provincia> traerDeApi() throws IOException {
+        List<Provincia> listado = this.api.listadoProvincias();
+        for (Provincia p : listado
+        ) {
+            this.agregar(p);
+        }
+        return  listado;
     }
 
     public Provincia buscarPorId(Integer id) {

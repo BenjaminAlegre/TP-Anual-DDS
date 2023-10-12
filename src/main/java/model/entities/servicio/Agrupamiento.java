@@ -2,10 +2,7 @@ package model.entities.servicio;
 
 import model.entities.comunidad.Miembro;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +12,7 @@ import java.util.List;
 public class Agrupamiento extends Monitoreable {
 
 
-    @Transient
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Monitoreable> componentes;
 
     public Agrupamiento(List<Monitoreable> componentes) {
@@ -33,4 +30,14 @@ public class Agrupamiento extends Monitoreable {
         componentes.remove(monitoreable);
     }
 
+    @Override
+    public String descripcion() {
+        String cadena = "Servicios:";
+        for (Monitoreable m: componentes
+             ) {
+            cadena.concat(" "+m.descripcion()+",");
+        }
+        cadena = cadena.substring(0, cadena.length() - 1)+".";
+        return cadena;
+    }
 }

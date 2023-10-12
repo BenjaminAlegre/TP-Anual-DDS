@@ -17,4 +17,8 @@ public class MedioElevacion extends Servicio {
     @JoinColumn(name = "idTramo")
     private Tramo tramo;
 
+    @Override
+    public String descripcion() {
+        return "Medio de elevación tipo "+ this.tipo.toString()+" ubicado en "+ super.getEstablecimiento().descripcion();
+    }
 }

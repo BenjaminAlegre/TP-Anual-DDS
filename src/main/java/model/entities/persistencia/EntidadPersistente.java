@@ -2,16 +2,14 @@ package model.entities.persistencia;
 
 import lombok.Getter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @Getter
 @MappedSuperclass
 public abstract class EntidadPersistente {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, insertable = false)
     private Integer id;
 
-   // private Boolean borrado = false;
 }

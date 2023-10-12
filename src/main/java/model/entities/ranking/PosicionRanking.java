@@ -13,11 +13,13 @@ import javax.persistence.*;
 @Entity
 public class PosicionRanking extends EntidadPersistente {
 
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     private RankStrategy ranking;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "id")
     private Entidad entidad;
 
     private Integer posicion;

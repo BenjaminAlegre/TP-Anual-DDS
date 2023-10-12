@@ -3,6 +3,7 @@ package model.entities.servicio;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.comunidad.Miembro;
+import model.entities.entidades.Entidad;
 import model.entities.entidades.Establecimiento;
 import model.entities.notificacion.Incidente;
 
@@ -19,7 +20,8 @@ public abstract class Monitoreable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
 
-    @OneToMany(mappedBy = "servicioAfectado")
+//    @OneToMany(mappedBy = "servicioAfectado")
+    @Transient
     private List<Incidente> incidentes;
 
     @Column
@@ -35,6 +37,11 @@ public abstract class Monitoreable {
     @JoinColumn(referencedColumnName = "id")
     private Establecimiento establecimiento;
 
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "id")
+    private Agrupamiento agrupamiento;
+
     public void agregarIncidente(Incidente incidente) {
         incidentes.add(incidente);
     }
@@ -44,4 +51,10 @@ public abstract class Monitoreable {
     }
 
 
+    public Entidad entidad() {
+        return this.establecimiento.entidad();
+    }
+
+
+    public abstract String descripcion();
 }

@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @Getter
 public class WhatsAppSender extends EstrategiaNotificacion {
-    private static WhatsAppSender instancia = null;
     private WassengerApi adapter = new WassengerApi();
 
     public WhatsAppSender() throws IOException {

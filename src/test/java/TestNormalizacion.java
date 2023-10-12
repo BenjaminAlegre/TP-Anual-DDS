@@ -3,6 +3,7 @@ import model.entities.localizacion.Municipio;
 import model.entities.normalizaciondirecciones.adapters.ServicioGeoDds;
 import model.entities.normalizaciondirecciones.entidadesDeNormalizacion.*;
 import model.entities.localizacion.Provincia;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -60,5 +61,27 @@ public class TestNormalizacion {
             System.out.println(d.nombre);
             System.out.println(d.provincia.nombre);
         }
+    }
+
+    @Test
+    public void traerProvincias() throws IOException {
+        List<Provincia> provincias = this.servicioAPI.listadoProvincias();
+        for (Provincia p: provincias
+             ) {
+
+            System.out.println(p.nombre);
+        }
+    }
+
+    @Test
+    public void verificarSiEsProvincia(){
+        Provincia provincia = new Provincia();
+        provincia.nombre = "Buenos Aires";
+        Departamento departamento = new Departamento();
+        departamento.nombre = "Yapeyu";
+//        System.out.println(Provincia.esProvincia(provincia));
+//        System.out.println(Provincia.esProvincia(departamento));
+        Assert.assertEquals(Provincia.esProvincia(provincia),true);
+        Assert.assertEquals(Provincia.esProvincia(departamento),false);
     }
 }

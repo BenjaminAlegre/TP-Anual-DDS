@@ -11,8 +11,8 @@ import javax.persistence.*;
 public class Municipio extends Localizacion{
 
     @Column
-    private String departamento;
+    public String departamento;
 
     @Column
-    private String provincia;
+    public String provincia;
 }

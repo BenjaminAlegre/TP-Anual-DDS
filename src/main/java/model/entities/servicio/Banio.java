@@ -20,4 +20,8 @@ public class Banio extends Servicio {
     private TipoDeBanio tipo;
 
 
+    @Override
+    public String descripcion() {
+        return "Baño tipo: "+ this.tipo.toString()+" ubicado en "+ super.getEstablecimiento().descripcion();
+    }
 }

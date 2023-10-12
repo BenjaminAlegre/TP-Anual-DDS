@@ -21,7 +21,7 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create" /> <!-- create | create-drop | validate | update -->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" /> <!-- create | create-drop | validate | update -->
 <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>-->
 <!--            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
 <!--            &lt;!&ndash;      <property name="hibernate.hbm2ddl.auto" value="update"/>&ndash;&gt;-->

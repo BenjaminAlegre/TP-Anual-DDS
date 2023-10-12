@@ -7,16 +7,19 @@ import lombok.Setter;
 
 import model.entities.comunidad.Comunidad;
 import model.entities.entidades.Entidad;
+import model.entities.persistencia.EntidadPersistente;
 import model.entities.servicio.Monitoreable;
+import model.repositorios.incidentes.RepositorioIncidentes;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
-public class Incidente {
+@Entity
+public class Incidente  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,12 +44,31 @@ public class Incidente {
 //    @JoinColumn(name = "id")
     private String reportador;//TODO Desnormalizar?
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "id")
     private Entidad entidadAfectada;
 
     @ManyToMany(mappedBy = "incidentes")
     private List<Comunidad> comunidades;
+
+    @Transient
+    RepositorioIncidentes repoIncidentes = new RepositorioIncidentes();
+
+    public void guardate(){
+        this.repoIncidentes.guardar(this);
+    }
+
+    public Incidente(String nombre, Monitoreable servicioAfectado, String observaciones) {
+        this.reportador = nombre;
+        this.servicioAfectado = servicioAfectado;
+        this.cambiarEstadoServicioAfectado();
+        this.observaciones = observaciones;
+        this.entidadAfectada = servicioAfectado.entidad();
+    }
+
+    private void cambiarEstadoServicioAfectado() {
+        this.servicioAfectado.setFuncionamientoHabitual(false);
+    }
 
     public boolean entraEnCalculoSemanal(LocalDate fecha) {
         return this.estado.equals(EstadoIncidente.ACTIVO) & this.estaEnFecha(fecha);
@@ -56,12 +78,6 @@ public class Incidente {
         return this.getHorarioApertura().isAfter(fecha);
     }
 
-    public Incidente(Monitoreable servicioAfectado, String observaciones, LocalDate horarioApertura, Entidad entidadAfectada) {
-        this.servicioAfectado = servicioAfectado;
-        this.observaciones = observaciones;
-        this.horarioApertura = horarioApertura;
-        this.entidadAfectada = entidadAfectada;
-    }
 
     public Double tiempoDeCierre(){
 
@@ -81,6 +97,10 @@ public class Incidente {
         this.horarioCierre = horarioCierre;
      this.reportador = idReportador;
         this.entidadAfectada = entidadAfectada;
+    }
+
+    public String descripcionServicioAfectado(){
+        return servicioAfectado.descripcion();
     }
 
 }

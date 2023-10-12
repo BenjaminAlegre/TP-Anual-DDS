@@ -6,6 +6,7 @@ import lombok.Setter;
 import model.entities.localizacion.Localizacion;
 import model.entities.notificacion.Incidente;
 import model.entities.persistencia.EntidadPersistente;
+import model.entities.ranking.PosicionRanking;
 import model.entities.ranking.RankStrategy;
 import model.entities.servicio.Monitoreable;
 
@@ -17,32 +18,42 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-@Entity
 @Getter @Setter
+@Entity
+@Table(name="Entidad")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoEntidad")
 public abstract class Entidad extends EntidadPersistente {
 
+
     @Column
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "id")
     private Localizacion localizacion;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "id")
     public PersonaJuridica personaJuridica;
 
 
-    @OneToMany(mappedBy = "entidadAfectada", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "entidadAfectada")
     private List<Incidente> incidentes = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "posisionesRankeadas",
-            joinColumns = @JoinColumn(name="entidad_id"),
-            inverseJoinColumns=@JoinColumn(name="ranking_id"))
-    public List<RankStrategy> rankings = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "entidad")
+    private List<PosicionRanking> posiciones;
+
+
+
+
+
+
+
+
+
+
+
 
     private List<Incidente> traerIncidentesValidos(LocalDate fecha){
         return

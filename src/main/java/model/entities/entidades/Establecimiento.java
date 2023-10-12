@@ -36,4 +36,8 @@ public abstract class Establecimiento extends EntidadPersistente {
     }
 
 
+    public abstract Entidad entidad();
+
+    public abstract String descripcion();
+
 }
