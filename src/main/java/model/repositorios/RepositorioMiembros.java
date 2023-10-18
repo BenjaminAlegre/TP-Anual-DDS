@@ -36,4 +36,11 @@ public class RepositorioMiembros {
 //                    .getResultList();
 
     }
+
+    public List<Miembro> burcarPorHorario(String horarioBuscado) {
+        String jpql = "SELECT e FROM Miembro e JOIN e.horariosDeNotificacion h WHERE :horarioBuscado MEMBER OF h";
+        return EntityManagerHelper.getEntityManager().createQuery(jpql, Miembro.class)
+                .setParameter("horarioBuscado", horarioBuscado)
+                .getResultList();
+    }
 }

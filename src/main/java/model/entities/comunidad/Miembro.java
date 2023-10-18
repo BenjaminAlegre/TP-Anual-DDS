@@ -13,6 +13,7 @@ import model.repositorios.incidentes.RepositorioIncidentes;
 import javax.mail.MessagingException;
 import javax.persistence.*;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class Miembro  extends EntidadPersistente implements Reportador, Observad
     @ManyToMany(mappedBy = "suscriptores")
     private List<EntidadPrestadora> suscripcionesAEntidadesPrestadoras = new ArrayList<>();; //podria ser un Set<EntidadPrestadora>
 
-
+    private LocalDate ultimaNotificacion;
 
     public Miembro(String nombre, String apellido, String mail, String telefono){
         this.nombre = nombre;

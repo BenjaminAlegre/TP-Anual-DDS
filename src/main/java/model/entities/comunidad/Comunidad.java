@@ -85,4 +85,7 @@ public class Comunidad extends EntidadPersistente implements Observable {
     }
 
 
+    public List<Incidente> incidentesPorHorario(Miembro m) {
+        return this.incidentes.stream().filter(i -> i.reportableAMiembro(m)).collect(Collectors.toList());
+    }
 }

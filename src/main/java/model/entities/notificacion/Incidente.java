@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import model.entities.comunidad.Comunidad;
+import model.entities.comunidad.Miembro;
 import model.entities.entidades.Entidad;
 import model.entities.persistencia.EntidadPersistente;
 import model.entities.servicio.Monitoreable;
@@ -71,7 +72,7 @@ public class Incidente  {
     }
 
     public boolean entraEnCalculoSemanal(LocalDate fecha) {
-        return this.estado.equals(EstadoIncidente.ACTIVO) & this.estaEnFecha(fecha);
+        return this.estaActivo() & this.estaEnFecha(fecha);
     }
 
     private boolean estaEnFecha(LocalDate fecha) {
@@ -102,5 +103,14 @@ public class Incidente  {
     public String descripcionServicioAfectado(){
         return servicioAfectado.descripcion();
     }
+
+    public Boolean reportableAMiembro(Miembro m) { //TODO misma logica que sie netra en calculo semananal pero no se entide lo de las 24hs desde su apertura, creoq ue es asi lo que pide
+        return this.estaActivo() & this.estaEnFecha(m.getUltimaNotificacion()) & this.horarioApertura.isBefore(m.getUltimaNotificacion().plusDays(1));
+    }
+
+    private boolean estaActivo() {
+        return estado.equals(EstadoIncidente.ACTIVO);
+    }
+
 
 }
