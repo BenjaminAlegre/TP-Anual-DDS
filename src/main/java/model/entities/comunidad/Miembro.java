@@ -1,6 +1,7 @@
 package model.entities.comunidad;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.entidades.EntidadPrestadora;
@@ -20,7 +21,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Miembro  extends EntidadPersistente implements Reportador, Observador {
+public class Miembro extends EntidadPersistente implements Reportador, Observador {
 
 
     @Column
