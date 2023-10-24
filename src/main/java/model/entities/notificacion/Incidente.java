@@ -59,6 +59,7 @@ public class Incidente  {
         this.repoIncidentes.guardar(this);
     }
 
+    //Repostador string? ,
     public Incidente(String nombre, Monitoreable servicioAfectado, String observaciones) {
         this.reportador = nombre;
         this.servicioAfectado = servicioAfectado;

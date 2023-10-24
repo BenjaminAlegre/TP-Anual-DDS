@@ -2,10 +2,7 @@ import model.entities.comunidad.Comunidad;
 import model.entities.comunidad.MedioNotificacion;
 import model.entities.comunidad.Miembro;
 import model.entities.comunidad.TipoMiembro;
-import model.entities.entidades.EntidadPrestadora;
-import model.entities.entidades.LineaDeTransporte;
-import model.entities.entidades.Organizacion;
-import model.entities.entidades.TipoOrganizacion;
+import model.entities.entidades.*;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
 import model.entities.servicio.*;
@@ -20,6 +17,8 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static model.entities.entidades.TipoOrganizacion.BANCO;
 import static model.entities.entidades.Transporte.SUBTE;
@@ -75,6 +74,17 @@ public class ContextDb  extends AbstractPersistenceTest implements WithGlobalEnt
                 //Cargar comunidades
                 for (int i = 1; i <= 3; i++) {
                         Comunidad comunidad = new Comunidad();
+                        Miembro miembroCom = repositorioMiembros.buscarPorId(i);
+                        Miembro miembroAdmi = repositorioMiembros.buscarPorId(i+1);
+
+                        List<Miembro> miembros = new ArrayList<>();
+                        miembros.add(miembroCom);
+                        List<Miembro> admins = new ArrayList<>();
+                        admins.add(miembroAdmi);
+
+                        comunidad.setMiembros(miembros);
+                        comunidad.setAdministradores(admins);
+
                         repositorioComunidades.agregar(comunidad);
                 }
 
@@ -93,19 +103,9 @@ public class ContextDb  extends AbstractPersistenceTest implements WithGlobalEnt
                         repositorioEntidades.agregar(organizacion);
                 }
 
-                //Cargar Incidente
-                for (int i = 1; i<= 5; i++){
-                        Incidente incidente = new Incidente();
-                        incidente.setObservaciones("Observaciones " + i);
-                        incidente.setEstado(EstadoIncidente.ACTIVO);
-                        incidente.setHorarioApertura(LocalDate.now());
-                        incidente.setHorarioCierre(LocalDate.now().plusDays(1));
 
-                        repositorioIncidentes.guardar(incidente);
-                }
 
                 //Cargar Banios y MedioElevacion
-
                 for (TipoDeBanio tipo : TipoDeBanio.values()) {
                         Banio banio = new Banio();
                         banio.setTipo(tipo);
@@ -123,7 +123,23 @@ public class ContextDb  extends AbstractPersistenceTest implements WithGlobalEnt
                         repositorioServicios.agregar(medioElevacion);
                 }
 
+                //Cargar Incidente
+                for (int i = 1; i<= 5; i++){
+                        Incidente incidente = new Incidente();
+                        incidente.setReportador("Reportador " + i);
+                        incidente.setObservaciones("Observaciones " + i);
+                        incidente.setEstado(EstadoIncidente.ACTIVO);
+                        incidente.setHorarioApertura(LocalDate.now());
+                        incidente.setHorarioCierre(LocalDate.now().plusDays(5));
 
+                        Servicio servicio = repositorioServicios.buscarPorId(i);
+                        Entidad entidadAfectada = repositorioEntidades.buscarPorId(i);
+
+                        incidente.setServicioAfectado(servicio);
+                        incidente.setEntidadAfectada(entidadAfectada);
+
+                        repositorioIncidentes.guardar(incidente);
+                }
 
 
 

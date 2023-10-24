@@ -23,7 +23,6 @@ import java.util.List;
 @Setter
 public class Miembro extends EntidadPersistente implements Reportador, Observador {
 
-
     @Column
     private String nombre;
 
@@ -99,14 +98,10 @@ public class Miembro extends EntidadPersistente implements Reportador, Observado
         incidente.setEstado(EstadoIncidente.CERRADO);
     }
 
-
-
     public void suscribirseAEntidad(EntidadPrestadora entidad){//TODO posible cambio a entidad
         entidad.agregarSuscriptor(this);
         suscripcionesAEntidadesPrestadoras.add(entidad);
     }
-
-
 
     @Override
     public void serNotificadoPor(Observable observable, String mensaje) throws IOException, MessagingException, UnirestException { // usar case es ma extensible y declarativo, lo mejor seria objetos pero como solo son dos medios, case

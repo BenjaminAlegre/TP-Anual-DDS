@@ -43,7 +43,7 @@ public class Comunidad extends EntidadPersistente implements Observable {
 
     public Comunidad(List<Miembro> miembros, List<Miembro> administradores, List<Incidente> incidentes) {
         this.miembros = new ArrayList<>();
-       // this.administradores = new ArrayList<>();
+        this.administradores = new ArrayList<>();
         this.incidentes = new ArrayList<>();
     }
 
