@@ -1,7 +1,6 @@
 package model.entities.comunidad;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.entidades.EntidadPrestadora;
@@ -9,8 +8,6 @@ import model.entities.localizacion.Localizacion;
 import model.entities.notificacion.*;
 import model.entities.persistencia.EntidadPersistente;
 import model.entities.servicio.Monitoreable;
-import model.repositorios.incidentes.RepositorioIncidentes;
-
 import javax.mail.MessagingException;
 import javax.persistence.*;
 import java.io.IOException;
