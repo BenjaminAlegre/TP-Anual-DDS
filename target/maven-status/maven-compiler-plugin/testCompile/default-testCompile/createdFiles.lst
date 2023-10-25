@@ -1,0 +1,10 @@
+ContextDb.class
+TestWhtsApp.class
+TestLocalDate.class
+TestCron.class
+TestEmail.class
+TestNormalizacion.class
+TestLectura.class
+TestEntities\TestMiembro.class
+TestEntities\TestEntidades.class
+TestMunicipios.class

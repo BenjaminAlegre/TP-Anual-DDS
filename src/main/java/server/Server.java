@@ -1,6 +1,7 @@
 package server;
 
 
+import org.apache.log4j.BasicConfigurator;
 import spark.Spark;
 import spark.debug.DebugScreen;
 
@@ -8,7 +9,10 @@ import spark.debug.DebugScreen;
 public class Server {
 
 	public static void main(String[] args) throws Exception {
-		Spark.port(8080);
+
+		BasicConfigurator.configure();
+
+		Spark.port(3000);
 		Router.init();
 
 
