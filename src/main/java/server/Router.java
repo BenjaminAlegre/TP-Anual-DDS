@@ -28,16 +28,7 @@ public class Router {
     private static void configure() throws Exception {
 
        LoginController loginController = new LoginController();
-//        InicioAdministradorController inicioAdministradorController = new InicioAdministradorController();
-//        InicioMiembroController inicioMiembroController = new InicioMiembroController();
-//        InicioAgenteController inicioAgenteController = new InicioAgenteController();
-//        OrganizacionController organizacionController = new OrganizacionController();
-//        RegistroController registroController = new RegistroController();
-//        TransportePublicoController transportePublicoController = new TransportePublicoController();
-//        HCController hcController = new HCController();
-//        MunicipiosController municipiosController = new MunicipiosController();
-//        LocalidadesController localidadesController = new LocalidadesController();
-//        BaseController baseController = new BaseController();
+
 
         Spark.path("/login", () -> {
             Spark.get("", loginController::pantallaDeLogin, engine);
