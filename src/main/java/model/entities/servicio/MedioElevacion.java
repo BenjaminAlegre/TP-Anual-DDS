@@ -10,7 +10,7 @@ import javax.persistence.*;
 @DiscriminatorValue("medio_elevacion")
 public class MedioElevacion extends Servicio {
 
-    @Enumerated
+    @Enumerated( EnumType.STRING)
     private TipoDeElevacion tipo;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -1,1 +1,6 @@
-/.idea/
+# Excluye la carpeta .idea generada por IntelliJ IDEA
+.idea/
+
+# Excluye la carpeta target generada por Maven
+target/
+

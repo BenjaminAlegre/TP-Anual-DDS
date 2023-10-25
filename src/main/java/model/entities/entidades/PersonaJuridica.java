@@ -14,6 +14,7 @@ import java.util.List;
 public abstract class PersonaJuridica extends EntidadPersistente {
 
 
+
     @Column
     private String nombre;
     @Column

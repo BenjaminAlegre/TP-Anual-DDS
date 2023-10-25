@@ -1,6 +1,7 @@
 package model.entities.comunidad;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.entidades.EntidadPrestadora;
@@ -20,8 +21,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Miembro  extends EntidadPersistente implements Reportador, Observador {
-
+public class Miembro extends EntidadPersistente implements Reportador, Observador {
 
     @Column
     private String nombre;
@@ -98,14 +98,10 @@ public class Miembro  extends EntidadPersistente implements Reportador, Observad
         incidente.setEstado(EstadoIncidente.CERRADO);
     }
 
-
-
     public void suscribirseAEntidad(EntidadPrestadora entidad){//TODO posible cambio a entidad
         entidad.agregarSuscriptor(this);
         suscripcionesAEntidadesPrestadoras.add(entidad);
     }
-
-
 
     @Override
     public void serNotificadoPor(Observable observable, String mensaje) throws IOException, MessagingException, UnirestException { // usar case es ma extensible y declarativo, lo mejor seria objetos pero como solo son dos medios, case

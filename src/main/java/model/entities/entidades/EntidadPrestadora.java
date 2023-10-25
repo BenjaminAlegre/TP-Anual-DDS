@@ -53,6 +53,7 @@ public class EntidadPrestadora extends PersonaJuridica implements Observable, Re
         this.notificar(mensaje);
     }
 
+
     private String generarMensajeIncidente(Incidente incidenteANotificar) {
         return "La Entidad Prestadora " +this.getNombre()+ " ha reportado un incidente en el servicio "+ incidenteANotificar.descripcionServicioAfectado();
     }
