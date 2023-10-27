@@ -24,4 +24,11 @@ public class Banio extends Servicio {
     public String descripcion() {
         return "Baño tipo: "+ this.tipo.toString()+" ubicado en "+ super.getEstablecimiento().descripcion();
     }
+
+    public Banio(TipoDeBanio tipo) {
+        this.tipo = tipo;
+    }
+
+    public Banio() {
+    }
 }

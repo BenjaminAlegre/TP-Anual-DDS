@@ -20,6 +20,10 @@ public class RepositorioIncidentes {
         return EntityManagerHelper.getEntityManager()
                 .createQuery("from "+ Incidente.class.getName()+" where entidadAfectada_id="+entidad.getId()).getResultList();
     }
+    public List<Incidente> buscarPorNombreEntidad(String nombre){
+        return EntityManagerHelper.getEntityManager()
+                .createQuery("from "+ Incidente.class.getName()+" where entidadAfectada_id="+nombre).getResultList();
+    }
 
     public List<Incidente> buscarIncidentesPorEntidad(Entidad entidad) {
         EntityManager entityManager = EntityManagerHelper.getEntityManager();

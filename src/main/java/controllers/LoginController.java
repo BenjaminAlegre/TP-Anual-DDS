@@ -10,11 +10,9 @@ import spark.Response;
 
 public class LoginController {
 
-    private String domain;
+    private String domain = "https://dev-7yecyva5welnz3zc.us.auth0.com";;
 
     public LoginController() {
-        this.domain = "https://dev-7yecyva5welnz3zc.us.auth0.com";
-
     }
 
     public ModelAndView pantallaDeLogin(Request req, Response res) {
@@ -25,6 +23,8 @@ public class LoginController {
                 "&redirect_uri=http://localhost:3000/");
         return null;
     }
+
+
 
 
 }

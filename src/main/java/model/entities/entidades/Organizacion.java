@@ -26,4 +26,5 @@ public class Organizacion extends Entidad{
         sucursales.remove(sucursal);
     }
 
+
 }

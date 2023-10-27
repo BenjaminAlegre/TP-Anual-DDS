@@ -34,16 +34,26 @@ public class RepositorioMunicpios {
 
     public List<Municipio> buscarPorProvincia(Provincia provincia) throws IOException {
         List<Municipio> persisitido = this.traerDeBaseDeDatosPorProvincia(provincia);
-        if(persisitido == null) {
-            return this.trearDesdeApiPorPorProvincia(provincia);
+        if(persisitido.isEmpty()) {
+            List<Municipio> listado =  this.trearDesdeApiPorPorProvincia(provincia);
+            for (Municipio m: listado
+                 ) {
+                this.agregar(m);
+            }
+            return listado;
         }
         else
             return persisitido;
     }
     public List<Municipio> buscarPorDepartamento(Departamento departamento) throws IOException {
         List<Municipio> persisitido = this.traerDeBaseDeDatosPorDepartamento( departamento);
-        if(persisitido == null) {
-            return this.trearDesdeApiPorDepartamento(departamento);
+        if(persisitido.isEmpty()) {
+            List<Municipio> listado = this.trearDesdeApiPorDepartamento(departamento);
+            for (Municipio m: listado
+            ) {
+                this.agregar(m);
+            }
+            return listado;
         }
         else
             return persisitido;

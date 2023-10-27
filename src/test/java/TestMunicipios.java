@@ -11,12 +11,12 @@ public class TestMunicipios {
 
         Departamento departamento = new Departamento();
 
-        System.out.println(this.devolverCalse(buenosAires));
-        System.out.println(this.devolverCalse(departamento));
+        System.out.println(this.devolverClase(buenosAires));
+        System.out.println(this.devolverClase(departamento));
     }
 
 
-    public String devolverCalse(Localizacion localizacion){
+    public String devolverClase(Localizacion localizacion){
         if(localizacion.getClass().getName() == "Provincia"){
             System.out.println(localizacion.getClass().getName());
             return "si";

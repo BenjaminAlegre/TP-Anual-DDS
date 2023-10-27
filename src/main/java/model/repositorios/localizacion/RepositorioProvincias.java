@@ -24,8 +24,14 @@ public class RepositorioProvincias {
     }
     public List<Provincia> buscarTodos() throws IOException {
        List<Provincia> provincias = this.traerDeBaseDeDatos();
-       if(provincias == null)
-           return this.traerDeApi();
+       if(provincias.isEmpty()) {
+           List<Provincia> listado = this.traerDeApi();
+           for (Provincia p: provincias
+           ) {
+               this.agregar(p);
+           }
+           return listado;
+       }
        else
            return provincias;
     }

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
 public class TestMiembro {
 
 
-    private static EntityManagerFactory emf;
+    private static EntityManagerFactory emf; // no hace falta poner esto solo hace falta inportar lña clase EntityManager
     private static EntityManager em;
 
 

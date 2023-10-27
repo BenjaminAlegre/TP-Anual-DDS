@@ -30,8 +30,13 @@ public class RepositorioDepartamentos {
 
     public List<Departamento> buscarPorProvincia(Provincia provincia) throws IOException {
         List<Departamento> persisitido = this.traerDeBaseDeDatos(provincia);
-        if(persisitido == null) {
-            return this.trearDesdeApi(provincia);
+        if(persisitido.isEmpty()) {
+            List<Departamento> listado = this.trearDesdeApi(provincia);
+            for (Departamento d: listado
+                 ) {
+                this.agregar(d);
+            }
+            return listado;
         }
         else
             return persisitido;

@@ -91,15 +91,15 @@ public class Incidente  {
     public Incidente() {
     }
 
-    public Incidente(Monitoreable servicioAfectado, String observaciones, EstadoIncidente estado, LocalDate horarioApertura, LocalDate horarioCierre, String idReportador, Entidad entidadAfectada) {
-        this.servicioAfectado = servicioAfectado;
-        this.observaciones = observaciones;
-        this.estado = estado;
-        this.horarioApertura = horarioApertura;
-        this.horarioCierre = horarioCierre;
-     this.reportador = idReportador;
-        this.entidadAfectada = entidadAfectada;
-    }
+//    public Incidente(Monitoreable servicioAfectado, String observaciones, EstadoIncidente estado, LocalDate horarioApertura, LocalDate horarioCierre, String idReportador, Entidad entidadAfectada) {
+//        this.servicioAfectado = servicioAfectado;
+//        this.observaciones = observaciones;
+//        this.estado = estado;
+//        this.horarioApertura = horarioApertura;
+//        this.horarioCierre = horarioCierre;
+//     this.reportador = idReportador;
+//        this.entidadAfectada = entidadAfectada;
+//    }
 
     public String descripcionServicioAfectado(){
         return servicioAfectado.descripcion();
