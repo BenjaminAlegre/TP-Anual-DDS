@@ -2,6 +2,8 @@ package model.repositorios;
 
 import db.EntityManagerHelper;
 import model.entities.entidades.Entidad;
+import model.entities.entidades.Organizacion;
+import model.entities.entidades.TipoOrganizacion;
 
 import java.util.List;
 
@@ -27,5 +29,18 @@ public class RepositorioEntidades {
     }
 
 
+    public List<Entidad> buscarPorTipo(String tipo) {
+        return EntityManagerHelper
+                .getEntityManager()
+                .createQuery("from " + Entidad.class.getName() +  " WHERE tipo='" + tipo + "'" )
+                .getResultList();
+    }
+
+    public List<Organizacion> buscarPorTipoorg(String tipo) {
+        return EntityManagerHelper
+                .getEntityManager()
+                .createQuery("from " + Entidad.class.getName() + " where tipo=" + TipoOrganizacion.BANCO)
+                .getResultList();
+    }
 
 }

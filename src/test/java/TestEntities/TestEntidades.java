@@ -1,6 +1,7 @@
 package TestEntities;
 
 import model.entities.entidades.Entidad;
+import model.entities.entidades.Organizacion;
 import model.entities.notificacion.Incidente;
 import model.repositorios.RepositorioEntidades;
 import model.repositorios.incidentes.RepositorioIncidentes;
@@ -66,6 +67,16 @@ public class TestEntidades {
     @Test
     public void testReportableAMiembro() {
         //TODO
+    }
+
+    @Test
+    public void traerEntidadesPorTipo(){
+        List<Entidad> entidades = repositorioEntidades.buscarPorTipo("" +
+                "BANCO");
+        for (Entidad e: entidades
+             ) {
+            System.out.println(e.getNombre());
+        }
     }
 
 }

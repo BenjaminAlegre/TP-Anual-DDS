@@ -1,6 +1,7 @@
 package model.entities.entidades;
 
 
+import DTO.EntidadDTO;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.localizacion.Localizacion;
@@ -84,4 +85,7 @@ public abstract class Entidad extends EntidadPersistente {
     }
 
 
+    public EntidadDTO convertirADTO() {
+        return new EntidadDTO(this);
+    }
 }

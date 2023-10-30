@@ -1,6 +1,8 @@
 package server;
 
 
+import controllers.EntidadesController;
+import controllers.IncidentesController;
 import controllers.LoginController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -28,6 +30,8 @@ public class Router {
     private static void configure() throws Exception {
 
        LoginController loginController = new LoginController();
+       EntidadesController entidadesController = new EntidadesController();
+       IncidentesController incidentesController = new IncidentesController();
 
 
         Spark.path("/login", () -> {
@@ -35,7 +39,17 @@ public class Router {
         });
 
 
+        // Apertura Incidente
+        Spark.path("/aperturaIncidente", () -> {
+            Spark.get("", incidentesController::pantallaAperturaIncidentes, engine);
+        });
 
+
+//recursos asicronicos, se devuelve un strign en el formato json que son llos valores que se mostraran en los desplegables
+
+        Spark.path("/entidades",() ->{
+           Spark.get("", entidadesController::obtenerEntidadesPorTipo);
+        });
 
 
     }
