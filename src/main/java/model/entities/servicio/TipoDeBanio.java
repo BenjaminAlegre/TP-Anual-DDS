@@ -10,7 +10,7 @@ public enum TipoDeBanio {
     HOMBRES("Hombres"),
     MUJERES("Mujeres"),
     SIN_GENERO("Sin Genero"),
-    DESCAPACITADOS("Discapacitados");
+    DISCAPACITADOS("Discapacitados");
 
 
 
@@ -38,4 +38,5 @@ public enum TipoDeBanio {
     public static String valorEnString(TipoDeBanio tipo) {
         return tipo.label;
     }
+
 }

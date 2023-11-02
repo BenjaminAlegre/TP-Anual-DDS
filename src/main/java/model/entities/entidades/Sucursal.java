@@ -1,12 +1,17 @@
 package model.entities.entidades;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 @DiscriminatorValue("SUCURSAL")
 public class Sucursal extends Establecimiento {
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
     private Organizacion organizacion;
 

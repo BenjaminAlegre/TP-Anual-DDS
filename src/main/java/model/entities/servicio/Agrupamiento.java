@@ -12,7 +12,7 @@ import java.util.List;
 public class Agrupamiento extends Monitoreable {
 
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Monitoreable> componentes;
 
     public Agrupamiento(List<Monitoreable> componentes) {
@@ -39,5 +39,10 @@ public class Agrupamiento extends Monitoreable {
         }
         cadena = cadena.substring(0, cadena.length() - 1)+".";
         return cadena;
+    }
+
+    @Override
+    public String tipo() {
+        return "Agrupamiento";
     }
 }

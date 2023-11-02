@@ -1,8 +1,11 @@
 package model.entities.entidades;
 
+import model.entities.servicio.Monitoreable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,7 +13,7 @@ import java.util.List;
 public class Estacion extends Establecimiento {
 
     @ManyToMany(mappedBy = "estaciones")
-    private List<LineaDeTransporte> lineas;
+    private List<LineaDeTransporte> lineas = new ArrayList<>();
 
     @Override
     public Entidad entidad() {
@@ -30,5 +33,13 @@ public class Estacion extends Establecimiento {
         return "Estación "+ this.getNombre()+" de linea"+ this.lineas.get(0).getNombre()+" ubicada en "+ this.getUbicacion().toString();
     }
 
+
+    public void agregarLinea(LineaDeTransporte lineaDeTransporte) {
+        this.lineas.add(lineaDeTransporte);
+    }
+
+    public void agregarMonitoreable(Monitoreable servicio){
+        super.agregarMonitoreable(servicio);
+    }
 
 }

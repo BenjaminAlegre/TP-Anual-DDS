@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
 @Setter
 public class Comunidad extends EntidadPersistente implements Observable {
 
+    @Column
+    private String nombre;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "miembros_comunidad",
             joinColumns = @JoinColumn(name="comunidad_id"),
@@ -87,5 +90,9 @@ public class Comunidad extends EntidadPersistente implements Observable {
 
     public List<Incidente> incidentesPorHorario(Miembro m) {
         return this.incidentes.stream().filter(i -> i.reportableAMiembro(m)).collect(Collectors.toList());
+    }
+
+    public Comunidad(String nombre) {
+        this.nombre = nombre;
     }
 }

@@ -2,6 +2,7 @@ package model.repositorios;
 
 import db.EntityManagerHelper;
 import model.entities.comunidad.Miembro;
+import model.entities.servicio.Monitoreable;
 import model.entities.servicio.Servicio;
 import model.entities.servicio.Tramo;
 
@@ -25,6 +26,9 @@ public class RepositorioServicios {
         return EntityManagerHelper
                 .getEntityManager()
                 .find(Servicio.class, id);
+    }
+    public List<Monitoreable> buscarServiciosPorIdEstablecimiento(Integer id){
+        return EntityManagerHelper.getEntityManager().createQuery("from "+ Monitoreable.class.getName() +" where establecimiento_id="+ id).getResultList();
     }
 
 

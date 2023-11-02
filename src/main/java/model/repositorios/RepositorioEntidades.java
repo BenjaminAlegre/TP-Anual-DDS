@@ -43,4 +43,7 @@ public class RepositorioEntidades {
                 .getResultList();
     }
 
+    public String obtenerTipoDeEntidad(String entidad) {
+        return null;
+    }
 }

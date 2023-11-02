@@ -2,6 +2,7 @@ package model.entities.servicio;
 
 import lombok.Getter;
 import lombok.Setter;
+import DTO.MonitoreableDTO;
 import model.entities.comunidad.Miembro;
 import model.entities.entidades.Entidad;
 import model.entities.entidades.Establecimiento;
@@ -57,4 +58,17 @@ public abstract class Monitoreable {
 
 
     public abstract String descripcion();
+
+    public void agregarseAEstablecimiento(Establecimiento establecimiento){
+        this.establecimiento = establecimiento;
+    }
+
+    public void destruirMonitoreable() {
+    }
+
+    public MonitoreableDTO convertirADTO() {
+        return new MonitoreableDTO(this);
+    }
+
+    public abstract String tipo();
 }

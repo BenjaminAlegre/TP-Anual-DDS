@@ -8,7 +8,6 @@ import model.entities.localizacion.Localizacion;
 import model.entities.notificacion.Incidente;
 import model.entities.persistencia.EntidadPersistente;
 import model.entities.ranking.PosicionRanking;
-import model.entities.ranking.RankStrategy;
 import model.entities.servicio.Monitoreable;
 
 import javax.persistence.*;
@@ -46,8 +45,7 @@ public abstract class Entidad extends EntidadPersistente {
     private List<PosicionRanking> posiciones;
 
 
-
-
+    public abstract List<Establecimiento> getEstablecimientos();
 
 
 
@@ -88,4 +86,6 @@ public abstract class Entidad extends EntidadPersistente {
     public EntidadDTO convertirADTO() {
         return new EntidadDTO(this);
     }
+
+    public abstract boolean esOrganizacion();
 }

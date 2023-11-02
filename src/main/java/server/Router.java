@@ -1,9 +1,7 @@
 package server;
 
 
-import controllers.EntidadesController;
-import controllers.IncidentesController;
-import controllers.LoginController;
+import controllers.*;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import cargaDeDatosMasiva.utils.BooleanHelper;
@@ -32,6 +30,8 @@ public class Router {
        LoginController loginController = new LoginController();
        EntidadesController entidadesController = new EntidadesController();
        IncidentesController incidentesController = new IncidentesController();
+       EstablecimientosController establecimientosController = new EstablecimientosController();
+       ServiciosController serviciosController = new ServiciosController();
 
 
         Spark.path("/login", () -> {
@@ -47,8 +47,15 @@ public class Router {
 
 //recursos asicronicos, se devuelve un strign en el formato json que son llos valores que se mostraran en los desplegables
 
-        Spark.path("/entidades",() ->{
+        Spark.path("/entidadesPorTipo",() ->{
            Spark.get("", entidadesController::obtenerEntidadesPorTipo);
+        });
+        Spark.path("/establecimientosPorEntidad",() ->{
+            Spark.get("", establecimientosController::obtenerEstableciminetosDeEntidad);
+        });
+
+        Spark.path("/serviciosDeEstablecimiento",() ->{
+            Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
         });
 
 

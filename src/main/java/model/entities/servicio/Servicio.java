@@ -10,5 +10,4 @@ import javax.persistence.*;
 public abstract class Servicio extends Monitoreable {
 
 
-
 }

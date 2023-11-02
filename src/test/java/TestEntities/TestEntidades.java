@@ -1,17 +1,19 @@
 package TestEntities;
 
-import model.entities.entidades.Entidad;
-import model.entities.entidades.Organizacion;
+import controllers.ExponedorDeRecursos;
+import model.entities.entidades.*;
 import model.entities.notificacion.Incidente;
 import model.repositorios.RepositorioEntidades;
 import model.repositorios.incidentes.RepositorioIncidentes;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.annotation.Testable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import static model.entities.notificacion.EstadoIncidente.ACTIVO;
@@ -77,6 +79,32 @@ public class TestEntidades {
              ) {
             System.out.println(e.getNombre());
         }
+    }
+
+    @Test
+    public void trearOrgYSucursales(){
+        Organizacion entidad = (Organizacion) repositorioEntidades.buscarPorTipo("SUPERMERCADO").get(0);// solo tomo 1
+        List<Sucursal> sucursales = entidad.getSucursales();
+        for (Sucursal s: sucursales
+             ) {
+            System.out.println(s.getNombre());
+        }
+
+    }
+
+    @Test
+    public void traerLineaYEstaciones(){
+        LineaDeTransporte linea = (LineaDeTransporte) repositorioEntidades.buscarPorTipo("SUBTE").get(0);
+        for (Estacion e: linea.getEstaciones()
+             ) {
+            System.out.println(e.getNombre());
+        }
+    }
+
+    @Test
+    public void traerEstablecimientosPorIdEntidad(){
+        Entidad entidad = repositorioEntidades.buscarPorId(7);
+        System.out.println(entidad.getEstablecimientos());
     }
 
 }
