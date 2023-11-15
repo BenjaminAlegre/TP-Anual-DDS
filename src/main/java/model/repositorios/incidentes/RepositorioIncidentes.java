@@ -36,4 +36,23 @@ public class RepositorioIncidentes {
         // Ejecutamos la consulta y devolvemos la lista de incidentes
         return query.getResultList();
     }
+
+    public List<Incidente> obtenerTodos() {
+        return EntityManagerHelper.getEntityManager().createQuery("from "+Incidente.class.getName()).getResultList();
+    }
+
+    public Incidente buscarPorId(Integer id){
+        return EntityManagerHelper.getEntityManager().find(Incidente.class, id);
+    }
+
+    public void eliminar(Incidente incidente){
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().remove(incidente);
+        EntityManagerHelper.commit();
+    }
+    public void actualizar(Incidente incidente){
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(incidente);
+        EntityManagerHelper.commit();
+    }
 }

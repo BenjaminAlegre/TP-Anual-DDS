@@ -26,7 +26,7 @@
                                 <div class="col-md col-lg d-flex align-items-center">
                                     <div class="card-body p-4 p-lg-5 text-black">
 
-                                        <form>
+                                        <form action="/aperturaIncidente/registrarIncidente" method="POST">
 
                                             <div class="d-flex align-items-center mb-3 pb-1">
                                                 <span class="h1 fw-bold mb-0">Apertura de Incidente</span>
@@ -46,38 +46,47 @@
                                                 </select>
                                             </div>
 
-                                            <div class="form-outline mb-4">
-                                              <label class="form-label">Entidades:</label>
-                                              <select class="form-select form-select-lg"
-                                                  aria-label="Default select example" id="entidades" style="display:none" onchange="traerDatos(this, 'establecimiento','http://localhost:3000/establecimientosPorEntidad?entidad=')"  required>
-                                                  <!--Listado de estaciones o sucursales-->
-                                                   <option value="">Elija una opcion</option>
-                                              </select>
-                                          </div>
 
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label">Entidades:</label>
+                                                <select class="form-select form-select-lg" aria-label="Default select example"
+                                                        id="entidades" name="entidadId" style="display:none"
+                                                        onchange="traerDatos(this, 'establecimiento','http://localhost:3000/establecimientosPorEntidad?entidad=')"  required>
+                                                    <option value="">Elija una opcion</option>
+                                                </select>
+                                            </div>
 
 
                                             <div class="form-outline mb-4">
                                                 <label class="form-label">Establecimiento:</label>
                                                 <select class="form-select form-select-lg"
-                                                    aria-label="Default select example" id="establecimiento" style="display:none"onchange="traerDatos(this, 'servicio','http://localhost:3000/serviciosDeEstablecimiento?establecimiento=')"  required>
-                                                    <!--Listado de estaciones o sucursales-->
-                                                     <option value="">Elija una opcion</option>
+                                                        aria-label="Default select example"
+                                                        id="establecimiento"
+                                                        name="establecimientoId"
+                                                        style="display:none"
+                                                        onchange="traerDatos(this, 'servicio','http://localhost:3000/serviciosDeEstablecimiento?establecimiento=')"
+                                                        required>
+                                                    <option value="">Elija una opcion</option>
                                                 </select>
                                             </div>
 
                                             <div class="form-outline mb-4">
                                                 <label class="form-label">Servicio Afectado:</label>
                                                 <select class="form-select form-select-lg"
-                                                    aria-label="Default select example" id='servicio' style="display:none"  required>
+                                                        aria-label="Default select example"
+                                                        id='servicio'
+                                                        name="servicioId"
+                                                        style="display:none"
+                                                        required>
                                                     <option value="">Elija una opcion</option>
                                                 </select>
                                             </div>
 
+
                                             <div class="mb-3">
                                                 <label for="exampleFormControlTextarea1"
                                                     class="form-label">Observaciones</label>
-                                                <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" name="observaciones"
                                                     rows="3"></textarea>
                                             </div>
 
@@ -111,7 +120,7 @@ var y= document.getElementById(desplegable);
   fetch(ruta+x)
   .then(response => response.json())
   .then(data => {
-var x = document.getElementById(desplegable);
+    var x = document.getElementById(desplegable);
     for (const valor of data.valores) {
         x.options[x.options.length] = new Option(valor.nombre, valor.id);
                      }})

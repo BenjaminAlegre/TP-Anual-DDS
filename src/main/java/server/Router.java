@@ -42,7 +42,21 @@ public class Router {
         // Apertura Incidente
         Spark.path("/aperturaIncidente", () -> {
             Spark.get("", incidentesController::pantallaAperturaIncidentes, engine);
+            Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
         });
+
+        Spark.path("/mostrarIncidente", () -> {
+            Spark.get("", incidentesController::mostrarIncidente, engine);
+        });
+
+        Spark.path("/mostrarIncidentes", () -> {
+            //Spark.get("", incidentesController::obtenerIncidentes);
+            Spark.get("", incidentesController::mostrarIncidentes);
+            Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
+        });
+
+
+
 
 
 //recursos asicronicos, se devuelve un strign en el formato json que son llos valores que se mostraran en los desplegables
@@ -57,6 +71,7 @@ public class Router {
         Spark.path("/serviciosDeEstablecimiento",() ->{
             Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
         });
+
 
 
     }
