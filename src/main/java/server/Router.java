@@ -50,10 +50,11 @@ public class Router {
         });
 
         Spark.path("/mostrarIncidentes", () -> {
-            //Spark.get("", incidentesController::obtenerIncidentes);
-            Spark.get("", incidentesController::mostrarIncidentes);
-            Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
+            Spark.get("", incidentesController::mostrarIncidentes, engine);
         });
+
+        Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
+
 
 
 

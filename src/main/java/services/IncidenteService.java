@@ -70,6 +70,8 @@ public class IncidenteService {
         if (incidente != null) {
             incidente.setEstado(EstadoIncidente.CERRADO);
             repoIncidentes.actualizar(incidente);
+        }else {
+            throw new RuntimeException("No se encontro el incidente");
         }
     }
 

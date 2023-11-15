@@ -35,16 +35,25 @@ public class IncidentesController {
 
 
     public ModelAndView mostrarIncidentes(Request req, Response res) {
+        List<Incidente> incidentes = incidenteService.obtenerTodos();
+        System.out.println("Incidentes: " + incidentes); // Solo para depuración
+
         Map<String, Object> modelo = new HashMap<>();
-        modelo.put("incidentes", incidenteService.obtenerTodos());
+        modelo.put("incidentes", incidentes);
         return new ModelAndView(modelo, "mostrarIncidente.hbs");
     }
 
     public ModelAndView cerrarIncidente(Request req, Response res) {
         Integer id = Integer.parseInt(req.params(":id"));
-        incidenteService.cerrarIncidente(id);
-        res.redirect("/mostrarIncidentes");
+        try {
+            incidenteService.cerrarIncidente(id);
+            res.redirect("/mostrarIncidentes");
+        } catch (Exception e) {
+            e.printStackTrace(); // Para depuración
+            res.status(500); // Indica un error interno del servidor
+        }
         return null;
     }
+
 
 }
