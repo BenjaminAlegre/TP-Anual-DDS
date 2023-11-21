@@ -79,7 +79,7 @@ public class Router {
 
         Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
 
-
+        //TODO: esto no funcina, estbaa probando
         Spark.get("/apiPesado/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
        // Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado, engine);
         Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
