@@ -52,5 +52,12 @@ public class TestCrearIncidentes {
     }
 
 
+    @Test
+    public void traerIncidentesPorEstado(){
+        List<Incidente> incidentesTraido = repositorioIncidentes.buscarPorEstado("CERRADO");
+        Assert.assertEquals(incidentesTraido.get(0).getEstado(), EstadoIncidente.CERRADO);
+        Assert.assertEquals(incidentesTraido.size(), 4);
+    }
+
 
 }

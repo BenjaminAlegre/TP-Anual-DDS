@@ -7,6 +7,8 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import cargaDeDatosMasiva.utils.BooleanHelper;
 import cargaDeDatosMasiva.utils.HandlebarsTemplateEngineBuilder;
 
+import java.util.Base64;
+
 
 public class Router {
     private static HandlebarsTemplateEngine engine;
@@ -32,16 +34,38 @@ public class Router {
        IncidentesController incidentesController = new IncidentesController();
        EstablecimientosController establecimientosController = new EstablecimientosController();
        ServiciosController serviciosController = new ServiciosController();
+       AuthController authController = new AuthController();
 
-
+       // Login
         Spark.path("/login", () -> {
             Spark.get("", loginController::pantallaDeLogin, engine);
         });
 
+        Spark.path("/callback", () -> {
+            Spark.get("", authController::pantallaDeLogin, engine);
+        });
 
         // Apertura Incidente
+
         Spark.path("/aperturaIncidente", () -> {
-            Spark.get("", incidentesController::pantallaAperturaIncidentes, engine);
+            Spark.before("/*", (req, res) -> {
+                System.out.println("Filtro de autenticación");
+                if (req.cookie("jwt") == null) {
+                    res.redirect("/login");
+
+                } else {
+                    String jwtToken = req.cookie("jwt");
+                    String jwtPayload = Router.decodeJWT(jwtToken);
+                    String namespace = "http://localhost:3000/";
+                    String roles = Router.obtenerValor(jwtPayload, namespace + "roles");
+//                    System.out.println("usser: " + roles);
+                    if (roles == null || !roles.contains("falopa de la buena")) {
+                        res.redirect("/mostrarTodosIncidentes");
+                    }
+                }
+            });
+
+            Spark.get("/", incidentesController::pantallaAperturaIncidentes, engine);
             Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
         });
 
@@ -49,11 +73,16 @@ public class Router {
             Spark.get("", incidentesController::mostrarIncidente, engine);
         });
 
-        Spark.path("/mostrarIncidentes", () -> {
-            Spark.get("", incidentesController::mostrarIncidentes, engine);
+        Spark.path("/mostrarTodosIncidentes", () -> {
+            Spark.get("", incidentesController::mostrarTodosIncidentes, engine);
         });
 
         Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
+
+
+        Spark.get("/apiPesado/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
+       // Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado, engine);
+        Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
 
 
 
@@ -73,8 +102,47 @@ public class Router {
             Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
         });
 
-
-
     }
+
+//TODO: Esto debería estar en una clase aparte
+    private static String decodeJWT(String jwtToken) {
+        try {
+            // Dividir el JWT en partes (encabezado, payload, firma)
+            String[] parts = jwtToken.split("\\.");
+
+
+            // Decodificar Base64 URL de la carga útil (payload)
+            String base64Payload = parts[1].replace('-', '+').replace('_', '/');
+            String payload = new String(Base64.getDecoder().decode(base64Payload), "UTF-8");
+
+            return payload;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String obtenerValor(String jsonString, String campo) {
+        int indiceInicio = jsonString.indexOf("\"" + campo + "\":");
+
+        if (indiceInicio != -1) {
+            int indiceFin = jsonString.indexOf(",", indiceInicio);
+            if (indiceFin == -1) {
+                indiceFin = jsonString.indexOf("}", indiceInicio);
+            }
+
+            if (indiceFin != -1) {
+                // Extraer el valor del campo
+                String valorCampo = jsonString.substring(indiceInicio + campo.length() + 4, indiceFin);
+                // Eliminar comillas si están presentes
+                valorCampo = valorCampo.replace("\"", "").trim();
+                return valorCampo;
+            }
+        }
+
+        return null;
+    }
+
 
 }

@@ -9,13 +9,8 @@ header,main{
 }
 
 main{
-    height: 140vh;
-}
-
-select.form-select {
-    font-family: 'Urbanist';
-}
-
-.card{
-    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:200vh;
 }

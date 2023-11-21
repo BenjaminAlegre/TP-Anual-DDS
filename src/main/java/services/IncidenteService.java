@@ -13,12 +13,12 @@ import spark.Request;
 import spark.Response;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class IncidenteService {
     private RepositorioIncidentes repoIncidentes = new RepositorioIncidentes();
     private RepositorioServicios repoServicios = new RepositorioServicios();
-
     private RepositorioEntidades repoEntidades = new RepositorioEntidades();
     private RepositorioEstablecimientos repoEstablecimientos = new RepositorioEstablecimientos();
     public void guardarIncidente(Request req) {
@@ -69,6 +69,7 @@ public class IncidenteService {
         Incidente incidente = repoIncidentes.buscarPorId(id);
         if (incidente != null) {
             incidente.setEstado(EstadoIncidente.CERRADO);
+            incidente.setHorarioCierre(LocalDate.now());
             repoIncidentes.actualizar(incidente);
         }else {
             throw new RuntimeException("No se encontro el incidente");
@@ -77,5 +78,9 @@ public class IncidenteService {
 
     public List<Incidente> obtenerTodos() {
         return repoIncidentes.obtenerTodos();
+    }
+
+    public List<Incidente> obtenerPorEstado(String estado) {
+        return repoIncidentes.buscarPorEstado(estado);
     }
 }

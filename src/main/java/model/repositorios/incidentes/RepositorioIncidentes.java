@@ -2,6 +2,7 @@ package model.repositorios.incidentes;
 
 import db.EntityManagerHelper;
 import model.entities.entidades.Entidad;
+import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
 
 import javax.persistence.EntityManager;
@@ -28,12 +29,11 @@ public class RepositorioIncidentes {
     public List<Incidente> buscarIncidentesPorEntidad(Entidad entidad) {
         EntityManager entityManager = EntityManagerHelper.getEntityManager();
 
-        // Usamos JPQL para realizar la consulta
+        // JPQL para realizar la consulta
         String jpql = "SELECT i FROM Incidente i WHERE i.entidadAfectada = :entidad";
         TypedQuery<Incidente> query = entityManager.createQuery(jpql, Incidente.class);
         query.setParameter("entidad", entidad);
 
-        // Ejecutamos la consulta y devolvemos la lista de incidentes
         return query.getResultList();
     }
 
@@ -43,6 +43,15 @@ public class RepositorioIncidentes {
 
     public Incidente buscarPorId(Integer id){
         return EntityManagerHelper.getEntityManager().find(Incidente.class, id);
+    }
+
+
+    public List<Incidente> buscarPorEstado(String estado) {
+        EstadoIncidente estadoEnum = EstadoIncidente.valueOf(estado);
+        return EntityManagerHelper.getEntityManager()
+                .createQuery("from " + Incidente.class.getName() + " where estado = :estado", Incidente.class)
+                .setParameter("estado", estadoEnum)
+                .getResultList();
     }
 
     public void eliminar(Incidente incidente){

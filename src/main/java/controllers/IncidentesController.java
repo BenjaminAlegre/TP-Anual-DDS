@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+import static model.entities.notificacion.EstadoIncidente.ACTIVO;
+
 public class IncidentesController {
 
     private IncidenteService incidenteService = new IncidenteService();
@@ -29,13 +31,14 @@ public class IncidentesController {
     }
     public ModelAndView registrarIncidente(Request req, Response res) {
         incidenteService.guardarIncidente(req);
-        res.redirect("/mostrarIncidentes");
+        res.redirect("/mostrarIncidente");
         return null;
     }
 
 
-    public ModelAndView mostrarIncidentes(Request req, Response res) {
-        List<Incidente> incidentes = incidenteService.obtenerTodos();
+    public ModelAndView mostrarTodosIncidentes(Request req, Response res) {
+//        List<Incidente> incidentes = incidenteService.obtenerTodos();
+        List<Incidente> incidentes = incidenteService.obtenerPorEstado("ACTIVO");
         System.out.println("Incidentes: " + incidentes); // Solo para depuración
 
         Map<String, Object> modelo = new HashMap<>();
@@ -55,5 +58,20 @@ public class IncidentesController {
         return null;
     }
 
+    public String mostrarIncidentesPorEstado(Request req, Response res) {
+        String estado = req.queryParams("estado");
+        List<Incidente> incidentes = incidenteService.obtenerPorEstado(estado);
+
+//        Map<String, Object> modelo = new HashMap<>();
+//        modelo.put("incidentes", incidentes);
+//        return new ModelAndView(modelo, "buscarIncidente.hbs");
+
+        res.type("application/json");
+        return new Gson().toJson(incidentes);
+    }
+
+    public ModelAndView pantallaBuscarIncidentesPorEstado(Request req, Response res) {
+        return new ModelAndView(null, "buscarIncidente.hbs");
+    }
 
 }
