@@ -13,7 +13,9 @@ import model.entities.servicio.Monitoreable;
 import model.repositorios.incidentes.RepositorioIncidentes;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
 
@@ -37,9 +39,9 @@ public class Incidente  {
     private EstadoIncidente estado = EstadoIncidente.ACTIVO;
 
     @Column
-    private LocalDate horarioApertura = LocalDate.now();
+    private LocalDateTime horarioApertura = LocalDateTime.now();
     @Column
-    private LocalDate horarioCierre;
+    private LocalDateTime horarioCierre;
 
 //    @ManyToOne
 //    @JoinColumn(name = "id")
@@ -77,15 +79,17 @@ public class Incidente  {
     }
 
     private boolean estaEnFecha(LocalDate fecha) {
-        return this.getHorarioApertura().isAfter(fecha);
+        return this.getHorarioApertura().toLocalDate().isAfter(fecha);
     }
 
 
     public Double tiempoDeCierre(){
+//        Period periodo = Period.between(horarioCierre, horarioApertura);
+//        double diasDiferencia = periodo.getDays() + periodo.getMonths() * 30.44 + periodo.getYears() * 365.25;
+//        return diasDiferencia;
+        Duration duracion = Duration.between(horarioApertura, horarioCierre);
+        return (double) duracion.toHours() / 24; // Devuelve la diferencia en días
 
-                Period periodo = Period.between(horarioCierre, horarioApertura);
-                double diasDiferencia = periodo.getDays() + periodo.getMonths() * 30.44 + periodo.getYears() * 365.25;
-                return diasDiferencia;
     }
 
     public Incidente() {
@@ -106,7 +110,7 @@ public class Incidente  {
     }
 
     public Boolean reportableAMiembro(Miembro m) { //TODO misma logica que sie netra en calculo semananal pero no se entide lo de las 24hs desde su apertura, creoq ue es asi lo que pide
-        return this.estaActivo() & this.estaEnFecha(m.getUltimaNotificacion()) & this.horarioApertura.isBefore(m.getUltimaNotificacion().plusDays(1));
+        return this.estaActivo() & this.estaEnFecha(m.getUltimaNotificacion()) & this.horarioApertura.toLocalDate().isBefore(m.getUltimaNotificacion().plusDays(1));
     }
 
     private boolean estaActivo() {

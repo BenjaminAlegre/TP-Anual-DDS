@@ -48,7 +48,7 @@ public class Router {
         // Apertura Incidente
 
         Spark.path("/aperturaIncidente", () -> {
-            Spark.before("/*", (req, res) -> {
+            Spark.before("/*", (req, res) -> {//TODO: obviamente esto se pondra en una clase aparte
                 System.out.println("Filtro de autenticación");
                 if (req.cookie("jwt") == null) {
                     res.redirect("/login");
@@ -68,26 +68,21 @@ public class Router {
             Spark.get("/", incidentesController::pantallaAperturaIncidentes, engine);
             Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
         });
-
+        //No Muestra incidentes
         Spark.path("/mostrarIncidente", () -> {
             Spark.get("", incidentesController::mostrarIncidente, engine);
         });
-
+        //Muestra incidentes activos
         Spark.path("/mostrarTodosIncidentes", () -> {
             Spark.get("", incidentesController::mostrarTodosIncidentes, engine);
         });
 
         Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
 
-        //TODO: esto no funcina, estbaa probando
+        //TODO: esto no funcina, estaba probando
         Spark.get("/apiPesado/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
        // Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado, engine);
         Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
-
-
-
-
-
 
 //recursos asicronicos, se devuelve un strign en el formato json que son llos valores que se mostraran en los desplegables
 

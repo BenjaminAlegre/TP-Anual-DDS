@@ -31,7 +31,7 @@ public class IncidentesController {
     }
     public ModelAndView registrarIncidente(Request req, Response res) {
         incidenteService.guardarIncidente(req);
-        res.redirect("/mostrarIncidente");
+        res.redirect("/mostrarTodosIncidentes");
         return null;
     }
 

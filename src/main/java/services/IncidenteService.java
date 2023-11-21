@@ -47,7 +47,7 @@ public class IncidenteService {
 
             Servicio servicio = repoServicios.buscarPorId(servicioId);
 
-            LocalDate horarioApertura = LocalDate.now();
+            LocalDateTime horarioApertura = LocalDateTime.now();
 
             Incidente incidente = new Incidente();
             incidente.setEntidadAfectada(entidadAfectada);
@@ -69,7 +69,7 @@ public class IncidenteService {
         Incidente incidente = repoIncidentes.buscarPorId(id);
         if (incidente != null) {
             incidente.setEstado(EstadoIncidente.CERRADO);
-            incidente.setHorarioCierre(LocalDate.now());
+            incidente.setHorarioCierre(LocalDateTime.now());
             repoIncidentes.actualizar(incidente);
         }else {
             throw new RuntimeException("No se encontro el incidente");
