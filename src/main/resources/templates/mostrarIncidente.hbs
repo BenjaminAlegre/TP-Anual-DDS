@@ -20,7 +20,7 @@
             <h2 class="text-center mb-4">Lista de Incidentes</h2>
             <div id="incidentesContainer" class="row">
                 {{#each incidentes}}
-                    <div class="card" style="width: 20rem;">
+                    <div id="incidente-{{this.id}}" class="card" style="width: 20rem;">
                         <div class="card-body">
                             <h3 class="card-title">Incidente #{{this.id}}</h3>
                             <h6 class="card-text">Estado: {{this.estado}}</h6>
@@ -43,8 +43,10 @@
          .then(response => {
              if (response.ok) {
                  console.log('Incidente cerrado con éxito');
-                 // Aquí puedes actualizar la UI o recargar la página
-                 location.reload(); // Recarga la página para ver los cambios
+                 var incidenteElement = document.getElementById('incidente-' + incidenteId);
+                if (incidenteElement) {
+                    incidenteElement.remove();
+                }
              } else {
                  console.error('Error al cerrar el incidente');
              }

@@ -50,7 +50,7 @@ public class IncidentesController {
         Integer id = Integer.parseInt(req.params(":id"));
         try {
             incidenteService.cerrarIncidente(id);
-            res.redirect("/mostrarIncidentes");
+            res.redirect("/mostrarTodosIncidentes");
         } catch (Exception e) {
             e.printStackTrace(); // Para depuración
             res.status(500); // Indica un error interno del servidor
