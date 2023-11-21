@@ -97,7 +97,34 @@ public class Router {
             Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
         });
 
+        //Vistas Agregadas
+        Spark.path("/buscarIncidenteComunidad", () -> {
+            Spark.get("", incidentesController::pantallaBuscarIncidenteComunidad, engine);
+        });
+        Spark.path("/cargaMasiva", () -> {
+            Spark.get("", incidentesController::pantallaCargaMasiva, engine);
+        });
+        Spark.path("/mostrarIncidenteAbierto", () -> {
+            Spark.get("", incidentesController::pantallaMostrarIncidenteAbierto, engine);
+        });
+        Spark.path("/mostrarIncidenteCerrado", () -> {
+            Spark.get("", incidentesController::pantallaMostrarIncidenteCerrado, engine);
+        });
+        Spark.path("/paginaPrincipal", () -> {
+            Spark.get("", incidentesController::pantallaPaginaPrincipal, engine);
+        });
+        Spark.path("/rankings", () -> {
+            Spark.get("", incidentesController::pantallaRankings, engine);
+        });
+        Spark.path("/resultadoBusqueda", () -> {
+            Spark.get("", incidentesController::pantallaResultadoBusqueda, engine);
+        });
+        Spark.path("/sugerenciaRevisionIncidente", () -> {
+            Spark.get("", incidentesController::pantallaSugerenciaRevisionIncidente, engine);
+        });
+
     }
+
 
 //TODO: Esto debería estar en una clase aparte
     private static String decodeJWT(String jwtToken) {

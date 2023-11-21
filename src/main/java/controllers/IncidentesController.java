@@ -74,4 +74,31 @@ public class IncidentesController {
         return new ModelAndView(null, "buscarIncidente.hbs");
     }
 
+    public ModelAndView pantallaBuscarIncidenteComunidad(Request req, Response res) {
+        return new ModelAndView(null, "buscarIncidenteComunidad.hbs");
+    }
+
+    public ModelAndView pantallaMostrarIncidenteAbierto(Request req, Response res) {
+        return new ModelAndView(null, "mostrarIncidenteAbierto.hbs");
+    }
+    public ModelAndView pantallaMostrarIncidenteCerrado(Request req, Response res) {
+        return new ModelAndView(null, "mostrarIncidenteCerrado.hbs");
+    }
+    public ModelAndView pantallaCargaMasiva(Request req, Response res) {
+        return new ModelAndView(null, "cargaMasiva.hbs");
+    }
+    public ModelAndView pantallaRankings(Request req, Response res) {
+        return new ModelAndView(null, "rankings.hbs");
+    }
+    public ModelAndView pantallaPaginaPrincipal(Request req, Response res) {
+        return new ModelAndView(null, "paginaPrincipal.hbs");
+    }
+    public ModelAndView pantallaResultadoBusqueda(Request req, Response res) {
+        return new ModelAndView(null, "resultadoBusqueda.hbs");
+    }
+    public ModelAndView pantallaSugerenciaRevisionIncidente(Request req, Response res) {
+        return new ModelAndView(null, "sugerenciaRevisionIncidente.hbs");
+    }
+
+
 }
