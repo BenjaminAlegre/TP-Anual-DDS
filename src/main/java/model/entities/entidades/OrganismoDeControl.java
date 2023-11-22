@@ -10,5 +10,14 @@ import javax.persistence.*;
 @DiscriminatorValue("organismoDeControl")
 public class OrganismoDeControl extends PersonaJuridica{
 
+    public OrganismoDeControl(String nombre, String cuit, String personaAsignada, String telefono){
+        this.setNombre(nombre);
+        this.setCuit(cuit);
+        this.setPersonaAsignada(personaAsignada);
+        this.setTelefono(Integer.valueOf(telefono));
+    }
 
+    public OrganismoDeControl() {
+
+    }
 }

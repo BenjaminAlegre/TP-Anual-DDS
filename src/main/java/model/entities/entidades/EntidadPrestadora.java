@@ -40,6 +40,10 @@ public class EntidadPrestadora extends PersonaJuridica implements Observable, Re
     @Transient
     Incidente incidenteANotificar;
 
+    public EntidadPrestadora() {
+
+    }
+
     public void agregarSuscriptor(Miembro miembro){
         suscriptores.add(miembro);
     }
@@ -60,7 +64,7 @@ public class EntidadPrestadora extends PersonaJuridica implements Observable, Re
 
     @Override
     public void cerrarIncidente(Incidente incidente){
-            incidente.setEstado(EstadoIncidente.CERRADO);
+        incidente.setEstado(EstadoIncidente.CERRADO);
     }
 
     @Override
@@ -74,5 +78,11 @@ public class EntidadPrestadora extends PersonaJuridica implements Observable, Re
         });
     }
 
+    public EntidadPrestadora(String nombre, String cuit, String personaAsignada, String telefono){
+        this.setPersonaAsignada(personaAsignada);
+        this.setNombre(nombre);
+        this.setCuit(cuit);
+        this.setTelefono(Integer.valueOf(telefono));
+    }
 
 }

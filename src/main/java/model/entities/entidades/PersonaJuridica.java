@@ -18,7 +18,7 @@ public abstract class PersonaJuridica extends EntidadPersistente {
     @Column
     private String nombre;
     @Column
-    private Integer cuit;
+    private String cuit;
     @Column
     private Integer telefono;
     @Column

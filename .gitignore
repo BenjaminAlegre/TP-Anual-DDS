@@ -4,3 +4,5 @@
 # Excluye la carpeta target generada por Maven
 target/
 
+#lo que se sube con la carga masiva
+upload/

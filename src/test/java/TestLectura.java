@@ -8,7 +8,7 @@ import java.io.IOException;
 public class TestLectura {
 
     @Test
-    public void leer() throws IOException, CsvValidationException {
+    public void leer() throws Exception {
         Importador importador = new Importador();
         importador.generarObjetos("archivo.csv");
     }

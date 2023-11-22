@@ -35,8 +35,10 @@ public class Router {
        EstablecimientosController establecimientosController = new EstablecimientosController();
        ServiciosController serviciosController = new ServiciosController();
        AuthController authController = new AuthController();
+       AdministradorController administradorController = new AdministradorController();
 
-       // Login
+
+        // Login
         Spark.path("/login", () -> {
             Spark.get("", loginController::pantallaDeLogin, engine);
         });
@@ -96,8 +98,18 @@ public class Router {
         Spark.path("/serviciosDeEstablecimiento",() ->{
             Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
         });
+//Carga masiva
 
-        //Vistas Agregadas
+        Spark.path("/cargaMasiva", () -> {
+            Spark.get("", administradorController::pantallaCargaMasiva , engine);
+            Spark.post("", administradorController :: cargarDatos);
+//            Spark.after("", (request, response)->{
+//                System.out.println("--------------------------------------CIERRA ENTITY MANAGER Carga Masiva");
+//                EntityManagerHelper.closeEntityManager();});
+        });
+
+
+    //Vistas Agregadas
         Spark.path("/buscarIncidenteComunidad", () -> {
             Spark.get("", incidentesController::pantallaBuscarIncidenteComunidad, engine);
         });

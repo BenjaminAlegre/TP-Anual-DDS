@@ -15,11 +15,9 @@ import spark.Response;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
+
 import java.util.Base64;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
 
 public class AuthController {
 
