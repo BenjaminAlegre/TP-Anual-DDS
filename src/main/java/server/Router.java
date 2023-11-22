@@ -82,11 +82,12 @@ public class Router {
         Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
 
         //TODO: esto no funcina, estaba probando
-        Spark.get("/apiPesado/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
+        Spark.get("/prueba/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
        // Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado, engine);
         Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
 
 //recursos asicronicos, se devuelve un strign en el formato json que son llos valores que se mostraran en los desplegables
+
 
         Spark.path("/entidadesPorTipo",() ->{
            Spark.get("", entidadesController::obtenerEntidadesPorTipo);
@@ -110,6 +111,10 @@ public class Router {
 
 
     //Vistas Agregadas
+
+        Spark.path("/buscarIncidentesPorEstado",() ->{
+            Spark.get("", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
+        });
         Spark.path("/buscarIncidenteComunidad", () -> {
             Spark.get("", incidentesController::pantallaBuscarIncidenteComunidad, engine);
         });
