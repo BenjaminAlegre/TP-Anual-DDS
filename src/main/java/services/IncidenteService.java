@@ -1,5 +1,6 @@
 package services;
 
+import DTO.IncidenteDTO;
 import model.entities.entidades.Entidad;
 import model.entities.entidades.Establecimiento;
 import model.entities.notificacion.EstadoIncidente;
@@ -15,6 +16,7 @@ import spark.Response;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class IncidenteService {
     private RepositorioIncidentes repoIncidentes = new RepositorioIncidentes();
@@ -83,4 +85,13 @@ public class IncidenteService {
     public List<Incidente> obtenerPorEstado(String estado) {
         return repoIncidentes.buscarPorEstado(estado);
     }
+
+    public List<IncidenteDTO> obtenerPorEstadoToDTO(String estado) {
+        List<Incidente> incidentes = repoIncidentes.buscarPorEstado(estado);
+        return incidentes.stream()
+                .map(incidente -> new IncidenteDTO(incidente.getId(), incidente.getEstado().toString(), incidente.getObservaciones()))
+                .collect(Collectors.toList());
+    }
+
+
 }
