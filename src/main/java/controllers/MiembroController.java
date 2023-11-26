@@ -39,5 +39,19 @@ public class MiembroController {
         return repoMiembroComunidad.obtenerMiembroComunidades(aux);
     }
 
+    public ModelAndView mostrarComunidadesDeMiembro(Request req, Response res) {
+        String idMiembro = req.params(":id");
+        List<MiembroComunidad> comunidades = obtenerMiembroComunidades(idMiembro);
+
+        System.out.println("Comunidades de miembro: " + comunidades.size());
+        // Preparar datos para la vista
+        Map<String, Object> model = new HashMap<>();
+        model.put("comunidades", comunidades);
+        model.put("miembroId", idMiembro);
+
+        // Renderizar vista con Handlebars
+        return new ModelAndView(model, "comunidadDeMiembro.hbs");
+
+    }
 
 }
