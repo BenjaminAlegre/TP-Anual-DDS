@@ -26,7 +26,7 @@ public class MiembroController {
         model.put("miembroId", idMiembro);
 
         // Renderizar vista con Handlebars
-          return new ModelAndView(model, "comunidades.hbs");
+          return new ModelAndView(model, "comunidadDeMiembro.hbs");
     }
 
 
