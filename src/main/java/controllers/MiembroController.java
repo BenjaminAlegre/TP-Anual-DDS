@@ -1,7 +1,9 @@
 package controllers;
 
 import model.entities.comunidad.Comunidad;
+import model.entities.comunidad.MiembroComunidad;
 import model.repositorios.RepositorioComunidades;
+import model.repositorios.RepositorioMiembroComunidad;
 import model.repositorios.RepositorioMiembros;
 import spark.ModelAndView;
 import spark.Request;
@@ -16,10 +18,13 @@ public class MiembroController {
     RepositorioMiembros repoMiembros = new RepositorioMiembros();
     RepositorioComunidades repoComunidades = new RepositorioComunidades();
 
+    RepositorioMiembroComunidad repoMiembroComunidad = new RepositorioMiembroComunidad();
+
     public ModelAndView pantallaComunidadesDeMiembro(Request req, Response res) {
         String idMiembro = req.params(":id");
-        List<Comunidad> comunidades = obtenerComunidadesDeMiembro(idMiembro);
+        List<MiembroComunidad> comunidades = obtenerMiembroComunidades(idMiembro);
 
+        System.out.println("Comunidades de miembro: " + comunidades.size());
         // Preparar datos para la vista
         Map<String, Object> model = new HashMap<>();
         model.put("comunidades", comunidades);
@@ -29,12 +34,10 @@ public class MiembroController {
           return new ModelAndView(model, "comunidadDeMiembro.hbs");
     }
 
-
-
-
-    public List<Comunidad> obtenerComunidadesDeMiembro(String idMiembro) {
-
-        List<Comunidad> comunidades = repoComunidades.obtenerComunidadesDeMiembro(idMiembro);
-        return comunidades; // Devolver la lista real de comunidades
+    public List<MiembroComunidad> obtenerMiembroComunidades(String idMiembro) {
+        Integer aux = Integer.parseInt(idMiembro);
+        return repoMiembroComunidad.obtenerMiembroComunidades(aux);
     }
+
+
 }

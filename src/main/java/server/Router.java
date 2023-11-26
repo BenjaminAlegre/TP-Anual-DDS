@@ -128,6 +128,10 @@ public class Router {
             Spark.get("/:id/comunidades", miembroController::pantallaComunidadesDeMiembro, engine);
         });
 
+        Spark.path("/apiLiviano/miembro", () -> {
+            Spark.get("/:id/comunidades", miembroController::pantallaComunidadesDeMiembro, engine);
+        });
+
 
 
         //Vistas Agregadas

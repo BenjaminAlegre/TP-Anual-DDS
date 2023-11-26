@@ -32,8 +32,8 @@ public class Miembro extends EntidadPersistente implements Reportador, Observado
     @Column
     private String mail;
 
-    @Enumerated(EnumType.STRING)
-    private TipoMiembro tipo;
+//    @Enumerated(EnumType.STRING)
+//    private TipoMiembro tipo;
 
     @ManyToOne
     @JoinColumn(name = "deptoId")
@@ -44,6 +44,9 @@ public class Miembro extends EntidadPersistente implements Reportador, Observado
 
     @ManyToMany(mappedBy = "miembros")
     private List<Comunidad> comunidades = new ArrayList<>();
+
+    @OneToMany(mappedBy = "miembro")
+    private List<MiembroComunidad> comunidadesMiembro = new ArrayList<>();
 
     @ManyToMany(mappedBy = "administradores")
     private List<Comunidad> comunidadesAdministradas = new ArrayList<>();
@@ -76,12 +79,19 @@ public class Miembro extends EntidadPersistente implements Reportador, Observado
     }
 
 
-    public void asociarseAComunidad(Comunidad comunidad) {
-        comunidades.add(comunidad);
-    }
+//    public void asociarseAComunidad(Comunidad comunidad) {
+//        comunidades.add(comunidad);
+//    }
+//
+//    public void desasociarseDeComunidad(Comunidad comunidad) {
+//        comunidades.remove(comunidad);
+//    }
 
-    public void desasociarseDeComunidad(Comunidad comunidad) {
-        comunidades.remove(comunidad);
+    public void asociarseAComunidad(Comunidad comunidad, TipoMiembro tipoMiembro) {
+        MiembroComunidad miembroComunidad = new MiembroComunidad(comunidad, this, tipoMiembro);
+        comunidadesMiembro.add(miembroComunidad);
+        comunidad.agregarMiembro(this);
+
     }
 
     @Override

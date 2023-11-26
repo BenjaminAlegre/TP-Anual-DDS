@@ -44,6 +44,9 @@ public class Comunidad extends EntidadPersistente implements Observable {
     @Transient
     public List<Observador> observadores;
 
+    @OneToMany(mappedBy = "comunidad")
+    private List<MiembroComunidad> miembrosComunidad = new ArrayList<>();
+
     public Comunidad(List<Miembro> miembros, List<Miembro> administradores, List<Incidente> incidentes) {
         this.miembros = new ArrayList<>();
         this.administradores = new ArrayList<>();

@@ -22,7 +22,8 @@
             {{#if comunidades}}
                 {{#each comunidades}}
                     <div class="comunidad-box">
-                        Nombre: {{this.nombre}}
+                        Nombre de la Comunidad: {{this.comunidad.nombre}}
+                        Tipo de Miembro: {{this.tipoMiembro}}
                     </div>
                 {{/each}}
             {{else}}
