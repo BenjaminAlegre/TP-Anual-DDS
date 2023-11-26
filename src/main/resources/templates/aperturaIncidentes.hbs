@@ -123,6 +123,7 @@ var y= document.getElementById(desplegable);
     var x = document.getElementById(desplegable);
     for (const valor of data.valores) {
         x.options[x.options.length] = new Option(valor.nombre, valor.id);
+        conole.log(valor.nombre);
                      }})
 }
 async function traerDatos2(seleccionable, desplegable, ruta){

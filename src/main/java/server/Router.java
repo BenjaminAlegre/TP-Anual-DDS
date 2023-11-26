@@ -36,7 +36,7 @@ public class Router {
        ServiciosController serviciosController = new ServiciosController();
        AuthController authController = new AuthController();
        AdministradorController administradorController = new AdministradorController();
-
+       RankingsController rankingsController = new RankingsController();
 
         // Login
         Spark.path("/login", () -> {
@@ -50,22 +50,22 @@ public class Router {
         // Apertura Incidente
 
         Spark.path("/aperturaIncidente", () -> {
-            Spark.before("/*", (req, res) -> {//TODO: obviamente esto se pondra en una clase aparte
-                System.out.println("Filtro de autenticación");
-                if (req.cookie("jwt") == null) {
-                    res.redirect("/login");
-
-                } else {
-                    String jwtToken = req.cookie("jwt");
-                    String jwtPayload = Router.decodeJWT(jwtToken);
-                    String namespace = "http://localhost:3000/";
-                    String roles = Router.obtenerValor(jwtPayload, namespace + "roles");
-//                    System.out.println("usser: " + roles);
-                    if (roles == null || !roles.contains("falopa de la buena")) {
-                        res.redirect("/mostrarTodosIncidentes");
-                    }
-                }
-            });
+//            Spark.before("/*", (req, res) -> {//TODO: obviamente esto se pondra en una clase aparte
+//                System.out.println("Filtro de autenticación");
+//                if (req.cookie("jwt") == null) {
+//                    res.redirect("/login");
+//
+//                } else {
+//                    String jwtToken = req.cookie("jwt");
+//                    String jwtPayload = Router.decodeJWT(jwtToken);
+//                    String namespace = "http://localhost:3000/";
+//                    String roles = Router.obtenerValor(jwtPayload, namespace + "roles");
+////                    System.out.println("usser: " + roles);
+//                    if (roles == null || !roles.contains("falopa de la buena")) {
+//                        res.redirect("/mostrarTodosIncidentes");
+//                    }
+//                }
+//            });
 
             Spark.get("/", incidentesController::pantallaAperturaIncidentes, engine);
             Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
@@ -98,6 +98,8 @@ public class Router {
         Spark.path("/serviciosDeEstablecimiento",() ->{
             Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
         });
+
+
 //Carga masiva
 
         Spark.path("/cargaMasiva", () -> {
@@ -106,6 +108,14 @@ public class Router {
 //            Spark.after("", (request, response)->{
 //                System.out.println("--------------------------------------CIERRA ENTITY MANAGER Carga Masiva");
 //                EntityManagerHelper.closeEntityManager();});
+        });
+
+// Rankings
+        Spark.path("/rankingsSemanales",() ->{
+            Spark.get("", rankingsController::pantallaRankings, engine);
+            Spark.get("/buscar", rankingsController::mostrarRanking, engine);
+            Spark.get("/buscarAsync", rankingsController::enviarRanking);
+            Spark.get("/pesado", rankingsController::pantallaRankingPesado, engine);
         });
 
 
@@ -134,6 +144,7 @@ public class Router {
         Spark.path("/sugerenciaRevisionIncidente", () -> {
             Spark.get("", incidentesController::pantallaSugerenciaRevisionIncidente, engine);
         });
+
 
     }
 

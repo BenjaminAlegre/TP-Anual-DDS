@@ -1,5 +1,6 @@
 package model.entities.ranking;
 
+import DTO.PosicionDTO;
 import lombok.Getter;
 import lombok.Setter;
 import model.entities.entidades.Entidad;
@@ -29,7 +30,13 @@ public class PosicionRanking extends EntidadPersistente {
         this.entidad = entidad;
         this.posicion = posicion;
     }
-
+    private String nombreEntidad(){
+        return this.entidad.getNombre();
+    }
     public PosicionRanking() {
+    }
+
+    public PosicionDTO convertirADTO(){
+        return new PosicionDTO(this.posicion.toString(), this.nombreEntidad());
     }
 }

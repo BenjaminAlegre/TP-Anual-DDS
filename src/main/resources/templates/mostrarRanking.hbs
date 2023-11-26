@@ -27,25 +27,27 @@
                             <div class="col-md col-lg d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
                                     <div class="d-flex align-items-center mb-3 pb-1">
-                                        <span class="h1 fw-bold mb-0">Rankings de Incidentes</span>
+                                        <span class="h1 fw-bold mb-0">{{tipoRanking}}</span>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                    <form action="/rankingsSemanales/buscar" method="GET">
+                              <table class="table mx-auto">
+                                <thead>
+                                  <tr>
+                                    <th>Posición</th>
+                                        <th>Entidad</th>
 
-                                        <label class="form-label">Tipo de Rankings</label>
-                                        <select class="form-select form-select-lg"
-                                               name="tipo" aria-label="Default select example" required>
-                                            <option value="">Seleccione ranking según entidades con...</option>
-
-                                            <option value="RankTiempoDeCierre">Mayor tiempo promedio de tiempo de cierre de incidentes</option>
-                                            <option value="RankCantidadIncidentes">Mayor cantidad de incidentes reportados en la semana</option>
-                                            <option value="RankImpacto">Mayor grado de impacto de las problemáticas</option>
-                                        </select>
-                                        <div class="pt-2 mb-4">
-                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Buscar</button>
-                                        </div>
-                                        </from>
+                                        </tr>
+                                         </thead>
+                                         <tbody>
+                                          {{#each posicion}}
+                                          <tr>
+                                         <td>{{posicion}}</td>
+                                         <td>{{nombreEntidad}}</td>
+                                          </tr>
+                                          {{/each}}
+                                          </tbody>
+                                         </table>
                                     </div>
 
                                 </div>

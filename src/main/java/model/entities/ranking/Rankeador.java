@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rankeador implements Job {
-    RepositorioEntidades repositorioEntidades= new RepositorioEntidades();
+    public RepositorioEntidades repositorioEntidades= new RepositorioEntidades();
     public List<RankStrategy> rankingsAGenerar = new ArrayList<>();
 
     public Rankeador() {

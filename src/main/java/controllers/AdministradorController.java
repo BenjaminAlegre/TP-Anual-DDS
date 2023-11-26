@@ -14,7 +14,7 @@ public class AdministradorController {
 
     public Response cargarDatos(Request request, Response response) {
         new CargadorMasivo(request, response).start();
-        response.redirect("/login");
+        response.redirect("/aperturaIncidente.hbs");
         return response;
     }
 
