@@ -1,5 +1,6 @@
 package controllers;
 
+import DTO.IncidenteDTO;
 import com.google.gson.Gson;
 import model.entities.notificacion.Incidente;
 import services.IncidenteService;
@@ -10,6 +11,7 @@ import spark.Response;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import static model.entities.notificacion.EstadoIncidente.ACTIVO;
 
@@ -98,6 +100,18 @@ public class IncidentesController {
     }
     public ModelAndView pantallaSugerenciaRevisionIncidente(Request req, Response res) {
         return new ModelAndView(null, "sugerenciaRevisionIncidente.hbs");
+    }
+
+    public String mostrarIncidentesPorEstadoPrueba(Request req, Response res) {
+        try {
+            String estado = req.queryParams("estado");
+            List<IncidenteDTO> incidentesDTO = incidenteService.obtenerPorEstadoToDTO(estado);
+            res.type("application/json");
+            return new Gson().toJson(incidentesDTO);
+        } catch (Exception e) {
+            res.status(500);
+            return "Error al procesar la solicitud: " + e.getMessage();
+        }
     }
 
 

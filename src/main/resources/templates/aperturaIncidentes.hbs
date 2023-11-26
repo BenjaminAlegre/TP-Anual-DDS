@@ -112,6 +112,7 @@
     <script>
 
 async function traerDatos(seleccionable, desplegable, ruta) {
+<<<<<<< HEAD
   var x = seleccionable.value;
 var y= document.getElementById(desplegable);
   y.options.length = 0;
@@ -124,16 +125,29 @@ var y= document.getElementById(desplegable);
     for (const valor of data.valores) {
         x.options[x.options.length] = new Option(valor.nombre, valor.id);
         conole.log(valor.nombre);
+=======
+    var x = seleccionable.value;
+    var y= document.getElementById(desplegable);
+    y.options.length = 0;
+    y.options[0] =   new Option("Elija una opcion", "");
+    y.style.display = "block";
+    fetch(ruta+x)
+    .then(response => response.json())
+    .then(data => {
+        var x = document.getElementById(desplegable);
+        for (const valor of data.valores) {
+            x.options[x.options.length] = new Option(valor.nombre, valor.id);
+>>>>>>> 604feab21ae13ecb6dd549a0da49ba9574dd066e
                      }})
 }
 async function traerDatos2(seleccionable, desplegable, ruta){
-document.getElementById("lista").value=""
-const x = seleccionable.value;
-let lista = [];
+    document.getElementById("lista").value=""
+    const x = seleccionable.value;
+    let lista = [];
     var y= document.getElementById(desplegable);
-y.style.display = "block";
-          y.options.length = 0;
-          y.options[0] =   new Option("", "");
+    y.style.display = "block";
+    y.options.length = 0;
+    y.options[0] =   new Option("", "");
     fetch(ruta+x)
       .then(response => response.json())
       .then(data => {

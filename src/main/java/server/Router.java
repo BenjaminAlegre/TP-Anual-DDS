@@ -50,22 +50,22 @@ public class Router {
         // Apertura Incidente
 
         Spark.path("/aperturaIncidente", () -> {
-//            Spark.before("/*", (req, res) -> {//TODO: obviamente esto se pondra en una clase aparte
-//                System.out.println("Filtro de autenticación");
-//                if (req.cookie("jwt") == null) {
-//                    res.redirect("/login");
-//
-//                } else {
-//                    String jwtToken = req.cookie("jwt");
-//                    String jwtPayload = Router.decodeJWT(jwtToken);
-//                    String namespace = "http://localhost:3000/";
-//                    String roles = Router.obtenerValor(jwtPayload, namespace + "roles");
-////                    System.out.println("usser: " + roles);
-//                    if (roles == null || !roles.contains("falopa de la buena")) {
-//                        res.redirect("/mostrarTodosIncidentes");
-//                    }
-//                }
-//            });
+            Spark.before("/*", (req, res) -> {//TODO: obviamente esto se pondra en una clase aparte
+                System.out.println("Filtro de autenticación");
+                if (req.cookie("jwt") == null) {
+                    res.redirect("/login");
+
+                } else {
+                    String jwtToken = req.cookie("jwt");
+                    String jwtPayload = Router.decodeJWT(jwtToken);
+                    String namespace = "http://localhost:3000/";
+                    String roles = Router.obtenerValor(jwtPayload, namespace + "roles");
+//                    System.out.println("usser: " + roles);
+                    if (roles == null || !roles.contains("falopa de la buena")) {
+                        res.redirect("/mostrarTodosIncidentes");
+                    }
+                }
+            });
 
             Spark.get("/", incidentesController::pantallaAperturaIncidentes, engine);
             Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
@@ -82,12 +82,11 @@ public class Router {
         Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
 
         //TODO: esto no funcina, estaba probando
-        Spark.get("/apiPesado/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
+        Spark.get("/prueba/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
        // Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado, engine);
-        Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
+        //Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
 
-//recursos asicronicos, se devuelve un strign en el formato json que son llos valores que se mostraran en los desplegables
-
+        //recursos asicronicos, se devuelve un strign en el formato json que son los valores que se mostraran en los desplegables
         Spark.path("/entidadesPorTipo",() ->{
            Spark.get("", entidadesController::obtenerEntidadesPorTipo);
         });
@@ -120,6 +119,16 @@ public class Router {
 
 
     //Vistas Agregadas
+
+        Spark.path("/buscarIncidentesPorEstado",() ->{
+            Spark.get("", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
+            Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstadoPrueba);
+
+        });
+
+        //Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstadoPrueba);
+
+
         Spark.path("/buscarIncidenteComunidad", () -> {
             Spark.get("", incidentesController::pantallaBuscarIncidenteComunidad, engine);
         });
