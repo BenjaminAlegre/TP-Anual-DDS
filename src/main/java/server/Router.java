@@ -2,12 +2,17 @@ package server;
 
 
 import controllers.*;
+import model.entities.comunidad.Comunidad;
+import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import controllers.utils.BooleanHelper;
 import controllers.utils.HandlebarsTemplateEngineBuilder;
 
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Router {
@@ -37,6 +42,7 @@ public class Router {
        AuthController authController = new AuthController();
        AdministradorController administradorController = new AdministradorController();
        RankingsController rankingsController = new RankingsController();
+       MiembroController miembroController = new MiembroController();
 
         // Login
         Spark.path("/login", () -> {
@@ -99,8 +105,7 @@ public class Router {
         });
 
 
-//Carga masiva
-
+        //Carga masiva
         Spark.path("/cargaMasiva", () -> {
             Spark.get("", administradorController::pantallaCargaMasiva , engine);
             Spark.post("", administradorController :: cargarDatos);
@@ -109,7 +114,7 @@ public class Router {
 //                EntityManagerHelper.closeEntityManager();});
         });
 
-// Rankings
+        // Rankings
         Spark.path("/rankingsSemanales",() ->{
             Spark.get("", rankingsController::pantallaRankings, engine);
             Spark.get("/buscar", rankingsController::mostrarRanking, engine);
@@ -117,8 +122,15 @@ public class Router {
             Spark.get("/pesado", rankingsController::pantallaRankingPesado, engine);
         });
 
+        // Administracion de tipos de usuarios y observadores
 
-    //Vistas Agregadas
+        Spark.path("/miembro", () -> {
+            Spark.get("/:id/comunidades", miembroController::pantallaComunidadesDeMiembro, engine);
+        });
+
+
+
+        //Vistas Agregadas
 
         Spark.path("/buscarIncidentesPorEstado",() ->{
             Spark.get("", incidentesController::pantallaBuscarIncidentesPorEstado, engine);

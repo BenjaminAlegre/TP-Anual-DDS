@@ -60,18 +60,6 @@ public class IncidentesController {
         return null;
     }
 
-    public String mostrarIncidentesPorEstado(Request req, Response res) {
-        String estado = req.queryParams("estado");
-        List<Incidente> incidentes = incidenteService.obtenerPorEstado(estado);
-
-//        Map<String, Object> modelo = new HashMap<>();
-//        modelo.put("incidentes", incidentes);
-//        return new ModelAndView(modelo, "buscarIncidente.hbs");
-
-        res.type("application/json");
-        return new Gson().toJson(incidentes);
-    }
-
     public ModelAndView pantallaBuscarIncidentesPorEstado(Request req, Response res) {
         return new ModelAndView(null, "buscarIncidente.hbs");
     }
