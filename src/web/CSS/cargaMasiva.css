@@ -4,17 +4,22 @@
     font-family: 'Urbanist';
 }
 
-.contenido{
+main{
     background-color: #140152;
     justify-content: center;
     align-items: center;
-    height:100vh; 
-    margin-bottom: 20px;
+    margin-bottom: 10px; 
+    height: 100vh;
 }
 
-.texto, p{
+.texto{
     text-align: left;
     color:black;
+}
+
+.p{
+    text-align: center;
+    color: white;
 }
 
 form {
@@ -28,6 +33,7 @@ form {
     padding: 20px; /* Opcional: Añade espaciado interior al formulario */
 }
 
-
-  
-
+.card-body {
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
