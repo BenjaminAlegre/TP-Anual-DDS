@@ -11,7 +11,10 @@
   <body>
 
     <header>
-        <img src="../img/volver atras 64px.png" style="margin-left:3vw; margin-top:3vh">
+        <a class="navbar-brand" href="/paginaPrincipal">
+            <img src="../img/volver atras 64px.png" style="margin-left:3vw; margin-top:3vh">
+            <a class="navbar-brand" href="">
+                <img src="../img/logo1.png" alt="logo" class="img-fluid with-border"/></a>
     </header>
 
     <main>
@@ -112,20 +115,7 @@
     <script>
 
 async function traerDatos(seleccionable, desplegable, ruta) {
-<<<<<<< HEAD
-  var x = seleccionable.value;
-var y= document.getElementById(desplegable);
-  y.options.length = 0;
-  y.options[0] =   new Option("Elija una opcion", "");
-  y.style.display = "block";
-  fetch(ruta+x)
-  .then(response => response.json())
-  .then(data => {
-    var x = document.getElementById(desplegable);
-    for (const valor of data.valores) {
-        x.options[x.options.length] = new Option(valor.nombre, valor.id);
-        conole.log(valor.nombre);
-=======
+
     var x = seleccionable.value;
     var y= document.getElementById(desplegable);
     y.options.length = 0;
@@ -137,7 +127,7 @@ var y= document.getElementById(desplegable);
         var x = document.getElementById(desplegable);
         for (const valor of data.valores) {
             x.options[x.options.length] = new Option(valor.nombre, valor.id);
->>>>>>> 604feab21ae13ecb6dd549a0da49ba9574dd066e
+
                      }})
 }
 async function traerDatos2(seleccionable, desplegable, ruta){

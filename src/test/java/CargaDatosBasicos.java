@@ -1,16 +1,10 @@
-import model.entities.comunidad.Comunidad;
-import model.entities.comunidad.MedioNotificacion;
-import model.entities.comunidad.Miembro;
-import model.entities.comunidad.TipoMiembro;
+import model.entities.comunidad.*;
 import model.entities.entidades.*;
 import model.entities.localizacion.Provincia;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
 import model.entities.servicio.*;
-import model.repositorios.RepositorioComunidades;
-import model.repositorios.RepositorioEntidades;
-import model.repositorios.RepositorioMiembros;
-import model.repositorios.RepositorioServicios;
+import model.repositorios.*;
 import model.repositorios.incidentes.RepositorioIncidentes;
 import model.repositorios.localizacion.RepositorioProvincias;
 import model.repositorios.rankings.RepositorioTramo;
@@ -34,6 +28,7 @@ public class CargaDatosBasicos {
     RepositorioComunidades repositorioComunidades = new RepositorioComunidades();
     RepositorioEntidades repositorioEntidades = new RepositorioEntidades();
     RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
+    RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
 
 
     @Test
@@ -49,6 +44,22 @@ public class CargaDatosBasicos {
 
         Assert.assertEquals(provincias.size(),24);
     }
+
+    @Test
+    public void cargarUsuario(){
+        String[][] usuarios = {{"juanrodriguez10@example.com", "1234"},
+                            {"maria1234@example.com", "1234"},
+                            {"matiasgarcia@example.com", "1234"}};
+
+        Usuario usuario = new Usuario("juanrodriguez10@example.com", "1234", Rol.USUARIO);
+        Usuario usuario2 = new Usuario("maria1234@example.com", "1234", Rol.USUARIO);
+        Usuario usuario3 = new Usuario("matiasgarcia@example.com", "1234", Rol.ADMINSTRADOR);
+        repositorioUsuarios.agregar(usuario);
+        repositorioUsuarios.agregar(usuario2);
+        repositorioUsuarios.agregar(usuario3);
+    }
+
+
 
     @Test
     public void cargarMiembros(){
@@ -186,6 +197,7 @@ public class CargaDatosBasicos {
     }
 
 
+
     private void agregarSucursales(Organizacion organizacion, String[] sucursales) {
         for (String nombreSucursal : sucursales
         ) {
@@ -195,6 +207,8 @@ public class CargaDatosBasicos {
             agregarBanios(sucursal);
         }
     }
+
+
 
     @Test
     public void cargarIncidentes(){

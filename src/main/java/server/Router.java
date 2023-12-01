@@ -3,16 +3,14 @@ package server;
 
 import controllers.*;
 import model.entities.comunidad.Comunidad;
+import services.AutenticacionService;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import controllers.utils.BooleanHelper;
 import controllers.utils.HandlebarsTemplateEngineBuilder;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Router {
@@ -34,6 +32,8 @@ public class Router {
 
     private static void configure() throws Exception {
 
+        AutenticacionService autenticacionService = new AutenticacionService();
+
        LoginController loginController = new LoginController();
        EntidadesController entidadesController = new EntidadesController();
        IncidentesController incidentesController = new IncidentesController();
@@ -43,6 +43,7 @@ public class Router {
        AdministradorController administradorController = new AdministradorController();
        RankingsController rankingsController = new RankingsController();
        MiembroController miembroController = new MiembroController();
+
 
         // Login
         Spark.path("/login", () -> {
@@ -55,22 +56,12 @@ public class Router {
 
         // Apertura Incidente
 
-        Spark.path("/aperturaIncidente", () -> {
-            Spark.before("/*", (req, res) -> {//TODO: obviamente esto se pondra en una clase aparte
-                System.out.println("Filtro de autenticación");
-                if (req.cookie("jwt") == null) {
-                    res.redirect("/login");
 
-                } else {
-                    String jwtToken = req.cookie("jwt");
-                    String jwtPayload = Router.decodeJWT(jwtToken);
-                    String namespace = "http://localhost:3000/";
-                    String roles = Router.obtenerValor(jwtPayload, namespace + "roles");
-//                    System.out.println("usser: " + roles);
-                    if (roles == null || !roles.contains("falopa de la buena")) {
-                        res.redirect("/mostrarTodosIncidentes");
-                    }
-                }
+        Spark.path("/aperturaIncidente", () -> {
+            Spark.before("/*", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("falopa de la buena");
+                autenticacionService.authRol(req, res, roles);
             });
 
             Spark.get("/", incidentesController::pantallaAperturaIncidentes, engine);
@@ -78,6 +69,11 @@ public class Router {
         });
         //No Muestra incidentes
         Spark.path("/mostrarIncidente", () -> {
+            Spark.before("/*", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("falopa de la buena");
+                autenticacionService.authRol(req, res, roles);
+            });
             Spark.get("", incidentesController::mostrarIncidente, engine);
         });
         //Muestra incidentes activos

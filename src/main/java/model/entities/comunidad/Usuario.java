@@ -28,10 +28,10 @@ public class Usuario extends EntidadPersistente {
 
 
 
-    public Usuario(Rol rol, String mail, String password) {
-        this.rol = rol;
+    public Usuario( String mail, String password, Rol rol) {
         this.mail = mail;
         definirContrasenia(password);
+        this.rol = rol;
     }
 
     public Usuario() {
