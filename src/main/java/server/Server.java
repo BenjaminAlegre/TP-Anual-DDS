@@ -10,7 +10,7 @@ public class Server {
 
 	public static void main(String[] args) throws Exception {
 
-		//BasicConfigurator.configure();
+		BasicConfigurator.configure();
 
 		Spark.port(3000);
 		Router.init();

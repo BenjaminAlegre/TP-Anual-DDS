@@ -12,23 +12,24 @@
 
 
   <body>
+
     <header class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="paginaPrincipal">
+        <a class="navbar-brand" href="javascript:history.go(-1)">
             <img src="../img/volver atras 64px.png" alt="logo" class="img-fluid with-border"/></a>
-        <a class="navbar-brand" href="">
-            <img src="../img/logo1.png" alt="logo" class="img-fluid with-border"/></a>
-        <a class="navbar-brand" href="#">Monitoreo de Servicios públicos</a>
+        <a class="navbar-brand">
+            <img src="../img/logo1.png"
+                 alt="logo" class="img-fluid with-border"/></a>
+        <a class="navbar-brand ms-auto">Monitoreo de Servicios públicos</a>
     </header>
-    <div class="container">
-        <div class="contenido">
+
+
             <main style="max-height: 100vh; overflow-y: auto;">
-                <section class="vh-100">
-                    <div class="container py-5 h-100">
-                        <div class="row d-flex justify-content-center align-items-center h-100">
-                            <div class="col col-xl-10">
-                                <div class="card">
-                                    <div class="row g-0">
-                                        <div class="col-md col-lg d-flex align-items-center">
+                <section class="vh-100 d-flex justify-content-center align-items-center">
+
+
+
+                                <div class="card text-center">
+
                                             <div class="card-body p-4 p-lg-5 text-black">
                                                 <form action="/cargaMasiva" method="post" enctype="multipart/form-data">
                                                     <div class="align-items-center">
@@ -48,7 +49,7 @@
 
                                                     <div class="pt-1 mb-4">
                                                         <button class="btn btn-dark btn-lg btn-block" style="margin: 20px 0 20px 0;" onclick="uploadFile()">Cargar Archivo</button>
-                                                        <button class="btn btn-dark btn-lg btn-block" style="margin: 20px 0 20px 0;" type="submit">Cargar Archivo</button>
+                                                        <button class="btn btn-dark btn-lg btn-block" style="margin: 20px 0 20px 0;" type="submit">Subir</button>
 
                                                     </div>
                                                      <div id="progressBarContainer" style="display: none;">
@@ -58,16 +59,14 @@
                                                 </form>
 
                                             </div>
-                                        </div>
-                                    </div>
+
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+
                 </section>
             </main>
-        </div>
-    </div>
+
 
 
 

@@ -4,16 +4,15 @@
     font-family: 'Urbanist';
 }
 
-header,main{
-    background-color: #140152;
-}
-
 main{
-    display: flex;
+    background-color: #140152;
     justify-content: center;
     align-items: center;
-    height:100vh;
+    margin-bottom: 10px; 
+    height: 100vh;
+   height:100vh;
 }
+
 select.form-select {
     font-family: 'Urbanist';
 }
@@ -21,6 +20,7 @@ select.form-select {
 .card{
     border-radius: 1rem;
 }
+
 .sugerencia{
     position: fixed;
     font-size: 20px;

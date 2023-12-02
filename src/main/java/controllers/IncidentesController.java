@@ -80,9 +80,8 @@ public class IncidentesController {
     public ModelAndView pantallaRankings(Request req, Response res) {
         return new ModelAndView(null, "rankings.hbs");
     }
-    public ModelAndView pantallaPaginaPrincipal(Request req, Response res) {
-        return new ModelAndView(null, "paginaPrincipal.hbs");
-    }
+
+
     public ModelAndView pantallaResultadoBusqueda(Request req, Response res) {
         return new ModelAndView(null, "resultadoBusqueda.hbs");
     }
