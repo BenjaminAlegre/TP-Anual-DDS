@@ -43,7 +43,7 @@ public class Router {
        AdministradorController administradorController = new AdministradorController();
        RankingsController rankingsController = new RankingsController();
        MiembroController miembroController = new MiembroController();
-
+        PantallaPrincipalController pantallaPrincipalController = new PantallaPrincipalController();
 
         // Login
         Spark.path("/login", () -> {
@@ -54,9 +54,15 @@ public class Router {
             Spark.get("", authController::pantallaDeLogin, engine);
         });
 
+        //Paginas Principales
+        Spark.path("/paginaPrincipal", () -> {
+            Spark.get("", pantallaPrincipalController::pantallaPaginaPrincipal, engine);
+            Spark.get("/administrador", pantallaPrincipalController::pantallaPrincipalAdministrador, engine);
+            Spark.get("/entidad", pantallaPrincipalController::pantallaPrincipalEntidad, engine);
+            Spark.get("/miembro", pantallaPrincipalController::pantallaPrincipalMiembro, engine);
+        });
+
         // Apertura Incidente
-
-
         Spark.path("/aperturaIncidente", () -> {
             Spark.before("/*", (req, res) -> {
                 List<String> roles = new ArrayList<>();
@@ -67,7 +73,7 @@ public class Router {
             Spark.get("/", incidentesController::pantallaAperturaIncidentes, engine);
             Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
         });
-        //No Muestra incidentes
+        //No Muestra incidentes(?)
         Spark.path("/mostrarIncidente", () -> {
             Spark.before("/*", (req, res) -> {
                 List<String> roles = new ArrayList<>();
@@ -85,8 +91,6 @@ public class Router {
 
         //TODO: esto no funcina, estaba probando
         Spark.get("/prueba/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
-       // Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado, engine);
-        //Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
 
         //recursos asicronicos, se devuelve un strign en el formato json que son los valores que se mostraran en los desplegables
         Spark.path("/entidadesPorTipo",() ->{
@@ -119,7 +123,7 @@ public class Router {
         });
 
         // Administracion de tipos de usuarios y observadores
-
+        //TODO: discutir funcionalidad completa de esto(y si esta bien por ahora)
         Spark.path("/miembro", () -> {
             Spark.get("/:id/comunidades", miembroController::pantallaComunidadesDeMiembro, engine);
         });
@@ -130,8 +134,7 @@ public class Router {
 
 
 
-        //Vistas Agregadas
-
+        //Buscar incidentes por estado
         Spark.path("/buscarIncidentesPorEstado",() ->{
             Spark.get("", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
             Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstadoPrueba);
@@ -140,12 +143,14 @@ public class Router {
 
         //Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstadoPrueba);
 
-
+        //TODO: ya existe una vista para filtrar por estado, esta deberia existir con la otra o reemplazarla?
         Spark.path("/buscarIncidenteComunidad", () -> {
             Spark.get("", incidentesController::pantallaBuscarIncidenteComunidad, engine);
         });
-        Spark.path("/cargaMasiva", () -> {
-            Spark.get("", incidentesController::pantallaCargaMasiva, engine);
+
+        //TODO: discutir si estas vistas deberian ser borradas
+        Spark.path("/resultadoBusqueda", () -> {
+            Spark.get("", incidentesController::pantallaResultadoBusqueda, engine);
         });
         Spark.path("/mostrarIncidenteAbierto", () -> {
             Spark.get("", incidentesController::pantallaMostrarIncidenteAbierto, engine);
@@ -153,15 +158,7 @@ public class Router {
         Spark.path("/mostrarIncidenteCerrado", () -> {
             Spark.get("", incidentesController::pantallaMostrarIncidenteCerrado, engine);
         });
-        Spark.path("/paginaPrincipal", () -> {
-            Spark.get("", incidentesController::pantallaPaginaPrincipal, engine);
-        });
-        Spark.path("/rankings", () -> {
-            Spark.get("", incidentesController::pantallaRankings, engine);
-        });
-        Spark.path("/resultadoBusqueda", () -> {
-            Spark.get("", incidentesController::pantallaResultadoBusqueda, engine);
-        });
+        //TODO: IMPORTANTE SABER QUE HACE ESTO
         Spark.path("/sugerenciaRevisionIncidente", () -> {
             Spark.get("", incidentesController::pantallaSugerenciaRevisionIncidente, engine);
         });
@@ -170,45 +167,46 @@ public class Router {
     }
 
 
-//TODO: Esto debería estar en una clase aparte
-    private static String decodeJWT(String jwtToken) {
-        try {
-            // Dividir el JWT en partes (encabezado, payload, firma)
-            String[] parts = jwtToken.split("\\.");
+//TODO: Esto deberia ser borrado(?)
 
-
-            // Decodificar Base64 URL de la carga útil (payload)
-            String base64Payload = parts[1].replace('-', '+').replace('_', '/');
-            String payload = new String(Base64.getDecoder().decode(base64Payload), "UTF-8");
-
-            return payload;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private static String obtenerValor(String jsonString, String campo) {
-        int indiceInicio = jsonString.indexOf("\"" + campo + "\":");
-
-        if (indiceInicio != -1) {
-            int indiceFin = jsonString.indexOf(",", indiceInicio);
-            if (indiceFin == -1) {
-                indiceFin = jsonString.indexOf("}", indiceInicio);
-            }
-
-            if (indiceFin != -1) {
-                // Extraer el valor del campo
-                String valorCampo = jsonString.substring(indiceInicio + campo.length() + 4, indiceFin);
-                // Eliminar comillas si están presentes
-                valorCampo = valorCampo.replace("\"", "").trim();
-                return valorCampo;
-            }
-        }
-
-        return null;
-    }
+//    private static String decodeJWT(String jwtToken) {
+//        try {
+//            // Dividir el JWT en partes (encabezado, payload, firma)
+//            String[] parts = jwtToken.split("\\.");
+//
+//
+//            // Decodificar Base64 URL de la carga útil (payload)
+//            String base64Payload = parts[1].replace('-', '+').replace('_', '/');
+//            String payload = new String(Base64.getDecoder().decode(base64Payload), "UTF-8");
+//
+//            return payload;
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+//    private static String obtenerValor(String jsonString, String campo) {
+//        int indiceInicio = jsonString.indexOf("\"" + campo + "\":");
+//
+//        if (indiceInicio != -1) {
+//            int indiceFin = jsonString.indexOf(",", indiceInicio);
+//            if (indiceFin == -1) {
+//                indiceFin = jsonString.indexOf("}", indiceInicio);
+//            }
+//
+//            if (indiceFin != -1) {
+//                // Extraer el valor del campo
+//                String valorCampo = jsonString.substring(indiceInicio + campo.length() + 4, indiceFin);
+//                // Eliminar comillas si están presentes
+//                valorCampo = valorCampo.replace("\"", "").trim();
+//                return valorCampo;
+//            }
+//        }
+//
+//        return null;
+//    }
 
 
 }
