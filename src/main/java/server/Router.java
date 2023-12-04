@@ -125,11 +125,14 @@ public class Router {
         // Administracion de tipos de usuarios y observadores
         //TODO: discutir funcionalidad completa de esto(y si esta bien por ahora)
         Spark.path("/miembro", () -> {
-            Spark.get("/:id/comunidades", miembroController::pantallaComunidadesDeMiembro, engine);
+            Spark.get("/:id/comunidadesLiviano", miembroController::pantallaComunidadesDeMiembro, engine);
+            Spark.post("/:id/comunidadesLiviano/:comunidadId/cambiarTipo", miembroController::cambiarTipoMiembroLiviano);
         });
 
-        Spark.path("/apiLiviano/miembro", () -> {
-            Spark.get("/:id/comunidades", miembroController::mostrarComunidadesDeMiembro, engine);
+        Spark.path("/miembroPesado", () -> {
+            Spark.get("/:id/comunidades", miembroController::pantallaMiembroComunidadPesado, engine);
+            Spark.post("/:id/comunidades/:comunidadId/cambiarTipo", miembroController::cambiarTipoMiembroPesado);
+
         });
 
 

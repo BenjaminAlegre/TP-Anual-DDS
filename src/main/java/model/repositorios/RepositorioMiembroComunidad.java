@@ -21,6 +21,27 @@ public class RepositorioMiembroComunidad {
         return miembroComunidad;
     }
 
+    public MiembroComunidad buscarPorMiembroYComunidad(Integer idComunidad, Integer idMiembro) {
+        EntityManager entityManager = EntityManagerHelper.getEntityManager();
+
+        try {
+            // Realizar la consulta utilizando JPQL (Java Persistence Query Language)
+            String jpql = "SELECT mc FROM MiembroComunidad mc " +
+                    "WHERE mc.miembro.id = :idMiembro " +
+                    "AND mc.comunidad.id = :idComunidad";
+
+            MiembroComunidad miembroComunidad = entityManager
+                    .createQuery(jpql, MiembroComunidad.class)
+                    .setParameter("idMiembro", idMiembro)
+                    .setParameter("idComunidad", idComunidad)
+                    .getSingleResult();
+
+            return miembroComunidad;
+        } finally {
+            entityManager.close();
+        }
+    }
+
     public void eliminar(MiembroComunidad miembroComunidad) {
         EntityManager em = EntityManagerHelper.getEntityManager();
         em.getTransaction().begin();
@@ -70,7 +91,11 @@ public class RepositorioMiembroComunidad {
                     .getResultList();
 
             return miembroComunidades;
-        } finally {
+        } catch (Exception e) {
+            System.out.println("ERRROOOOOOOOOOOOOOOOOOOOOOOR");
+            throw new RuntimeException(e);
+}
+        finally {
             entityManager.close();
         }
     }
