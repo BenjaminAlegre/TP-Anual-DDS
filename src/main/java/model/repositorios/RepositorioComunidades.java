@@ -28,6 +28,12 @@ public class RepositorioComunidades {
                 .find(Comunidad.class, id);
     }
 
+    public void actualizar(Comunidad com) {
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(com);
+        EntityManagerHelper.commit();
+    }
+
     public List<Comunidad> obtenerComunidadesDeMiembro(String idMiembro) {
         EntityManager entityManager = EntityManagerHelper.getEntityManager();
         TypedQuery<Comunidad> query = entityManager.createQuery(

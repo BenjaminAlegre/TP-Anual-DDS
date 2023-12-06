@@ -56,6 +56,22 @@ public class Router {
 
         //Paginas Principales
         Spark.path("/paginaPrincipal", () -> {
+            Spark.before("/miembro", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("miembro");
+                autenticacionService.authRol(req, res, roles);
+            });
+            Spark.before("/administrador", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("administrador");
+                autenticacionService.authRol(req, res, roles);
+            });
+            Spark.before("/entidad", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("entidad");
+                autenticacionService.authRol(req, res, roles);
+            });
+
             Spark.get("", pantallaPrincipalController::pantallaPaginaPrincipal, engine);
             Spark.get("/administrador", pantallaPrincipalController::pantallaPrincipalAdministrador, engine);
             Spark.get("/entidad", pantallaPrincipalController::pantallaPrincipalEntidad, engine);
@@ -66,27 +82,38 @@ public class Router {
         Spark.path("/aperturaIncidente", () -> {
             Spark.before("/*", (req, res) -> {
                 List<String> roles = new ArrayList<>();
-                roles.add("falopa de la buena");
+                roles.add("miembro");
+                roles.add("entidad");
                 autenticacionService.authRol(req, res, roles);
             });
 
             Spark.get("/", incidentesController::pantallaAperturaIncidentes, engine);
             Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
         });
-        //No Muestra incidentes(?)
-        Spark.path("/mostrarIncidente", () -> {
-            Spark.before("/*", (req, res) -> {
-                List<String> roles = new ArrayList<>();
-                roles.add("falopa de la buena");
-                autenticacionService.authRol(req, res, roles);
-            });
-            Spark.get("", incidentesController::mostrarIncidente, engine);
-        });
+
+//        Spark.path("/mostrarIncidente", () -> {
+//            Spark.before("/*", (req, res) -> {
+//                List<String> roles = new ArrayList<>();
+//                roles.add("miembro");
+//                autenticacionService.authRol(req, res, roles);
+//            });
+//            Spark.get("", incidentesController::mostrarIncidente, engine);
+//        });
         //Muestra incidentes activos
         Spark.path("/mostrarTodosIncidentes", () -> {
+            Spark.before("/*", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("miembro");
+                autenticacionService.authRol(req, res, roles);
+            });
             Spark.get("", incidentesController::mostrarTodosIncidentes, engine);
         });
 
+        Spark.before("/cerrarIncidente/*", (req, res) -> {
+            List<String> roles = new ArrayList<>();
+            roles.add("miembro");
+            autenticacionService.authRol(req, res, roles);
+        });
         Spark.post("/cerrarIncidente/:id", incidentesController::cerrarIncidente);
 
         //TODO: esto no funcina, estaba probando
@@ -107,7 +134,12 @@ public class Router {
 
         //Carga masiva
         Spark.path("/cargaMasiva", () -> {
-            Spark.get("", administradorController::pantallaCargaMasiva , engine);
+            Spark.before("/*", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("administrador");
+                autenticacionService.authRol(req, res, roles);
+            });
+            Spark.get("/", administradorController::pantallaCargaMasiva , engine);
             Spark.post("", administradorController :: cargarDatos);
 //            Spark.after("", (request, response)->{
 //                System.out.println("--------------------------------------CIERRA ENTITY MANAGER Carga Masiva");
@@ -116,23 +148,27 @@ public class Router {
 
         // Rankings
         Spark.path("/rankingsSemanales",() ->{
-            Spark.get("", rankingsController::pantallaRankings, engine);
+            Spark.before("/*", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("entidad");
+                roles.add("administrador");
+                autenticacionService.authRol(req, res, roles);
+            });
+            Spark.get("/", rankingsController::pantallaRankings, engine);
             Spark.get("/buscar", rankingsController::mostrarRanking, engine);
             Spark.get("/buscarAsync", rankingsController::enviarRanking);
             Spark.get("/pesado", rankingsController::pantallaRankingPesado, engine);
         });
 
         // Administracion de tipos de usuarios y observadores
-        //TODO: discutir funcionalidad completa de esto(y si esta bien por ahora)
-        Spark.path("/miembro", () -> {
-            Spark.get("/:id/comunidadesLiviano", miembroController::pantallaComunidadesDeMiembro, engine);
-            Spark.post("/:id/comunidadesLiviano/:comunidadId/cambiarTipo", miembroController::cambiarTipoMiembroLiviano);
+        Spark.path("/miembroLiviano", () -> {
+            Spark.get("/comunidades", miembroController::pantallaComunidadesDeMiembro, engine);
+            Spark.post("/comunidades/:comunidadId/cambiarTipo", miembroController::cambiarTipoMiembroLiviano);
         });
 
         Spark.path("/miembroPesado", () -> {
-            Spark.get("/:id/comunidades", miembroController::pantallaMiembroComunidadPesado, engine);
-            Spark.post("/:id/comunidades/:comunidadId/cambiarTipo", miembroController::cambiarTipoMiembroPesado);
-
+            Spark.get("/comunidades", miembroController::pantallaMiembroComunidadPesado, engine);
+            Spark.post("/comunidades/:comunidadId/cambiarTipo", miembroController::cambiarTipoMiembroPesado);
         });
 
 
@@ -140,16 +176,28 @@ public class Router {
         //Buscar incidentes por estado
         Spark.path("/buscarIncidentesPorEstado",() ->{
             Spark.get("", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
-            Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstadoPrueba);
-
+            Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
         });
 
-        //Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstadoPrueba);
-
-        //TODO: ya existe una vista para filtrar por estado, esta deberia existir con la otra o reemplazarla?
-        Spark.path("/buscarIncidenteComunidad", () -> {
+        //Buscar incidentes por estado y comunidad
+        Spark.path("/buscarIncidentesPorEstadoYComunidad", () -> {
+            Spark.before("/*", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("miembro");
+                autenticacionService.authRol(req, res, roles);
+            });
             Spark.get("", incidentesController::pantallaBuscarIncidenteComunidad, engine);
+            Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesEstadoComunidad);
         });
+
+        Spark.before("/obtenerComunidades/*", (req, res) -> {
+            List<String> roles = new ArrayList<>();
+            roles.add("miembro");
+            autenticacionService.authRol(req, res, roles);
+        });
+        Spark.get("/obtenerComunidades/:idUsuario", miembroController::obtenerComunidades);
+
+
 
         //TODO: discutir si estas vistas deberian ser borradas
         Spark.path("/resultadoBusqueda", () -> {
@@ -161,8 +209,13 @@ public class Router {
         Spark.path("/mostrarIncidenteCerrado", () -> {
             Spark.get("", incidentesController::pantallaMostrarIncidenteCerrado, engine);
         });
-        //TODO: IMPORTANTE SABER QUE HACE ESTO
+
         Spark.path("/sugerenciaRevisionIncidente", () -> {
+            Spark.before("/*", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("miembro");
+                autenticacionService.authRol(req, res, roles);
+            });
             Spark.get("", incidentesController::pantallaSugerenciaRevisionIncidente, engine);
         });
 

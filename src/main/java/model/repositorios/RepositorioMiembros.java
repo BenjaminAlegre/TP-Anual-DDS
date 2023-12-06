@@ -27,6 +27,14 @@ public class RepositorioMiembros {
                 .find(Miembro.class, id);
     }
 
+    public Miembro buscarPorEmail(String mail) {
+        return EntityManagerHelper
+                .getEntityManager()
+                .createQuery("from " + Miembro.class.getName() + " where mail = :email", Miembro.class)
+                .setParameter("email", mail)
+                .getSingleResult();
+    }
+
     public List<Miembro> obtenerMimebrosPorHorarioNotificacion(LocalDate horario){
 
             return null;

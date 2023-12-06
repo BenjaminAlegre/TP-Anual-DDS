@@ -59,5 +59,15 @@ public class TestCrearIncidentes {
         Assert.assertEquals(incidentesTraido.size(), 4);
     }
 
+//    @Test
+//    public void traerIncidentesPorEstadoYComunidad(){
+//       // List<Incidente> incidentesTraido = repositorioIncidentes.buscarPorEstadoYComunidad("ACTIVO", 4);
+//
+//        Assert.assertEquals(incidentesTraido.get(0).getEstado(), EstadoIncidente.ACTIVO);
+////        Assert.assertEquals(incidentesTraido.get(0).getEstado(), EstadoIncidente.CERRADO);
+//        System.out.println(incidentesTraido.get(0).getComunidades().get(0).getNombre());
+////        System.out.println(incidentesTraido.get(0).getComunidades().get(0).getIncidentes().get(0).getEstado());
+//    }
+
 
 }

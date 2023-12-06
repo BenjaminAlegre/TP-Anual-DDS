@@ -1,6 +1,7 @@
 package model.repositorios.incidentes;
 
 import db.EntityManagerHelper;
+import model.entities.comunidad.Comunidad;
 import model.entities.entidades.Entidad;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
@@ -8,6 +9,8 @@ import model.entities.notificacion.Incidente;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+
+
 
 public class RepositorioIncidentes {
 
@@ -53,6 +56,21 @@ public class RepositorioIncidentes {
                 .setParameter("estado", estadoEnum)
                 .getResultList();
     }
+
+    public List<Incidente> buscarPorEstadoYComunidad(String estado, String idComunidad) {
+        EstadoIncidente estadoEnum = EstadoIncidente.valueOf(estado);
+
+        EntityManager em = EntityManagerHelper.getEntityManager();
+
+
+        return EntityManagerHelper.getEntityManager()
+                .createQuery("from " + Incidente.class.getName() + " where estado = :estado and :comunidad member of comunidades", Incidente.class)
+                .setParameter("estado", estadoEnum)
+                .setParameter("comunidad", em.find(Comunidad.class, idComunidad))
+                .getResultList();
+    }
+
+
 
     public void eliminar(Incidente incidente){
         EntityManagerHelper.beginTransaction();

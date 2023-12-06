@@ -29,5 +29,5 @@ public class AutenticacionService {
     private boolean validadorRol (String rol , List<String> listaRolesDisp){
         return listaRolesDisp.stream().anyMatch( rolEncontrado -> rol.contains(rolEncontrado));
     }
-
+    //request.session().attribute("id");
 }

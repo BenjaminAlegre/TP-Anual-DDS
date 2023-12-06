@@ -2,6 +2,8 @@ package controllers;
 
 import DTO.IncidenteDTO;
 import com.google.gson.Gson;
+import model.entities.comunidad.Comunidad;
+import model.entities.comunidad.MiembroComunidad;
 import model.entities.notificacion.Incidente;
 import services.IncidenteService;
 import spark.ModelAndView;
@@ -65,7 +67,12 @@ public class IncidentesController {
     }
 
     public ModelAndView pantallaBuscarIncidenteComunidad(Request req, Response res) {
-        return new ModelAndView(null, "buscarIncidenteComunidad.hbs");
+        Integer idMiembro = req.session().attribute("idMiembro");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("idUsuario", idMiembro);
+
+        return new ModelAndView(model, "buscarIncidenteComunidad.hbs");
     }
 
     public ModelAndView pantallaMostrarIncidenteAbierto(Request req, Response res) {
@@ -89,10 +96,23 @@ public class IncidentesController {
         return new ModelAndView(null, "sugerenciaRevisionIncidente.hbs");
     }
 
-    public String mostrarIncidentesPorEstadoPrueba(Request req, Response res) {
+    public String mostrarIncidentesPorEstado(Request req, Response res) {
         try {
             String estado = req.queryParams("estado");
             List<IncidenteDTO> incidentesDTO = incidenteService.obtenerPorEstadoToDTO(estado);
+            res.type("application/json");
+            return new Gson().toJson(incidentesDTO);
+        } catch (Exception e) {
+            res.status(500);
+            return "Error al procesar la solicitud: " + e.getMessage();
+        }
+    }
+
+    public String mostrarIncidentesEstadoComunidad(Request req, Response res) {
+        try {
+            String estado = req.queryParams("estado");
+            String comunidad = req.queryParams("comunidad");
+            List<IncidenteDTO> incidentesDTO = incidenteService.obtenerPorEstadoYComunidadToDTO(estado, comunidad);
             res.type("application/json");
             return new Gson().toJson(incidentesDTO);
         } catch (Exception e) {

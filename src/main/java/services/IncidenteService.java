@@ -93,5 +93,13 @@ public class IncidenteService {
                 .collect(Collectors.toList());
     }
 
+    public List<IncidenteDTO> obtenerPorEstadoYComunidadToDTO(String estado, String idComunidad) {
+        List<Incidente> incidentes = repoIncidentes.buscarPorEstadoYComunidad(estado, idComunidad);
+        return incidentes.stream()
+                .map(incidente -> new IncidenteDTO(incidente.getId(), incidente.getEstado().toString(), incidente.getObservaciones()))
+                .collect(Collectors.toList());
+    }
+
+
 
 }

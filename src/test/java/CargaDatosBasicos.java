@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class CargaDatosBasicos {
     RepositorioEntidades repositorioEntidades = new RepositorioEntidades();
     RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
     RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
+    RepositorioServicios repositorioServicios = new RepositorioServicios();
 
 
     @Test
@@ -63,9 +65,9 @@ public class CargaDatosBasicos {
 
     @Test
     public void cargarMiembros(){
-        String[][] miembros = {{"Lionel", "Messi", "leo_messi@gmail.com","+541138157280"},
-                {"Rodrigo", "De Paul", "rdepaul@example.com", "+5491138157280"},
-                {"Angel", "Di María", "vacunador@gmail.com.ar", "+5491138157280"}};
+        String[][] miembros = {{"Lionel", "Messi", "miembro@miembro.com","+541138157280"},
+                {"Rodrigo", "De Paul", "entidad@entidad.com", "+5491138157280"},
+                {"Angel", "Di María", "administrador@admnistrador.com", "+5491138157280"}};
         for (String[] dato: miembros
              ) {
             Miembro miembro = new Miembro(dato[0], dato[1], dato[2], dato[3]);
@@ -210,25 +212,46 @@ public class CargaDatosBasicos {
 
 
 
-    @Test
-    public void cargarIncidentes(){
-        //Cargar Incidente
+//    @Test
+//    public void cargarIncidentes(){
 //        for (int i = 1; i<= 5; i++){
 //            Incidente incidente = new Incidente();
-//            incidente.setReportador("Reportador " + i);
+////            incidente.setReportador("Reportador " + i);
 //            incidente.setObservaciones("Observaciones " + i);
 //            incidente.setEstado(EstadoIncidente.ACTIVO);
-//            incidente.setHorarioApertura(LocalDate.now());
-//            incidente.setHorarioCierre(LocalDate.now().plusDays(5));
+//            incidente.setHorarioApertura(LocalDateTime.now());
+//            incidente.setHorarioCierre(LocalDateTime.now().plusDays(5));
 //
 //            Servicio servicio = repositorioServicios.buscarPorId(i);
 //            Entidad entidadAfectada = repositorioEntidades.buscarPorId(i);
+//            Comunidad comunidad = repositorioComunidades.buscarPorId(i);
+//            List<Comunidad> comunidades = new ArrayList<>();
+//            comunidades.add(comunidad);
 //
 //            incidente.setServicioAfectado(servicio);
 //            incidente.setEntidadAfectada(entidadAfectada);
+//            incidente.setComunidades(comunidades);
 //
 //            repositorioIncidentes.guardar(incidente);
 //        }
-    }
+//    }
+//
+//    @Test
+//    public void cargarIncidenteAComunidad(){
+//        for (int i = 1; i<= 5; i++){
+//            Incidente incidente = repositorioIncidentes.buscarPorId(i);
+//            Comunidad comunidad = repositorioComunidades.buscarPorId(i);
+//
+//
+//            List<Incidente> incidentes = new ArrayList<>();
+//            incidentes.add(incidente);
+//
+//            comunidad.setIncidentes(incidentes);
+//
+//            repositorioComunidades.actualizar(comunidad);
+//        }
+//    }
+
+
 
 }

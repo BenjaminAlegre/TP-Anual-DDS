@@ -28,7 +28,7 @@
                     <div class="comunidad-box">
                         Nombre de la Comunidad: {{this.comunidad.nombre}}
                         Tipo de Miembro: {{this.tipoMiembro}}
-                        <form action="/miembro/{{miembroId}}/comunidadesLiviano/{{this.comunidad.id}}/cambiarTipo" method="post">
+                        <form action="/miembroLiviano/{{miembroId}}/comunidades/{{this.comunidad.id}}/cambiarTipo" method="post">
                             <select name="nuevoTipoMiembro">
                                 <option value="OBSERVADOR">Observador</option>
                                 <option value="AFECTADO">Afectado</option>

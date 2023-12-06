@@ -1,5 +1,6 @@
 package controllers;
 
+import DTO.ComunidadDTO;
 import DTO.MiembroComunidadDTO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -27,7 +28,8 @@ public class MiembroController {
     RepositorioMiembroComunidad repoMiembroComunidad = new RepositorioMiembroComunidad();
 
     public ModelAndView pantallaComunidadesDeMiembro(Request req, Response res) {
-        String idMiembro = req.params(":id");
+        Integer idMiembro = req.session().attribute("idMiembro");
+
         List<MiembroComunidad> comunidades = obtenerMiembroComunidades(idMiembro);
 
         System.out.println("Comunidades de miembro: " + comunidades.size());
@@ -41,30 +43,57 @@ public class MiembroController {
     }
 
     public ModelAndView cambiarTipoMiembroLiviano(Request req, Response res) {
-        String idMiembro = req.params(":id");
+        Integer idMiembro = req.session().attribute("idMiembro");
         String idComunidad = req.params(":comunidadId");
         String nuevoTipoMiembro = req.queryParams("nuevoTipoMiembro");
 
-        MiembroComunidad miembroComunidad = repoMiembroComunidad.buscarPorMiembroYComunidad(Integer.parseInt(idComunidad), Integer.parseInt(idMiembro));
+        MiembroComunidad miembroComunidad = repoMiembroComunidad.buscarPorMiembroYComunidad(Integer.parseInt(idComunidad), idMiembro);
         miembroComunidad.setTipoMiembro(TipoMiembro.valueOf(nuevoTipoMiembro));
         repoMiembroComunidad.actualizar(miembroComunidad);
 
-        res.redirect("/miembro/" + idMiembro + "/comunidadesLiviano");
+        res.redirect("/miembroLiviano/" + idMiembro + "/comunidades");
         return null;
     }
 
+    public List<MiembroComunidad> obtenerMiembroComunidades(Integer idMiembro) {
+
+        return repoMiembroComunidad.obtenerMiembroComunidades(idMiembro);
+    }
+    public String obtenerComunidades(Request req, Response res) {
+        Integer idMiembro = req.session().attribute("idMiembro");
+
+
+        List<MiembroComunidad> comunidades = repoMiembroComunidad.obtenerMiembroComunidades(idMiembro);
+        List<ComunidadDTO> comunidadesDTO = comunidades.stream()
+                .map(c -> new ComunidadDTO(c.getId(), c.getComunidad().getNombre()))
+                .collect(Collectors.toList());
+        res.type("application/json");
+        return new Gson().toJson(comunidadesDTO);
+    }
+
+
+    public ModelAndView pantallaMiembroComunidadPesado(Request req, Response res) {
+        Integer idMiembro = req.session().attribute("idMiembro");
+        List<MiembroComunidad> comunidades = obtenerMiembroComunidades(idMiembro);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("comunidades", comunidades);
+        model.put("miembroId", idMiembro);
+
+        return new ModelAndView(model, "comunidadDeMiembroPesado.hbs");
+    }
 
     public String cambiarTipoMiembroPesado(Request req, Response res) {
         res.type("application/json");
         try {
-            String idMiembro = req.params(":id");
+            Integer idMiembro = req.session().attribute("idMiembro");
             String idComunidad = req.params(":comunidadId");
 
             // Recupera el cuerpo de la solicitud y analiza el JSON
             JsonObject json = new Gson().fromJson(req.body(), JsonObject.class);
             String nuevoTipoMiembro = json.get("nuevoTipoMiembro").getAsString();
 
-            MiembroComunidad miembroComunidad = repoMiembroComunidad.buscarPorMiembroYComunidad(Integer.parseInt(idComunidad), Integer.parseInt(idMiembro));
+            MiembroComunidad miembroComunidad = repoMiembroComunidad.buscarPorMiembroYComunidad(Integer.parseInt(idComunidad), idMiembro);
             miembroComunidad.setTipoMiembro(TipoMiembro.valueOf(nuevoTipoMiembro));
             repoMiembroComunidad.actualizar(miembroComunidad);
             return "{\"status\":\"success\"}";
@@ -73,23 +102,6 @@ public class MiembroController {
             res.status(500);
             return "{\"status\":\"error\", \"message\":\"" + e.getClass().getSimpleName() + ": " + e.getMessage() + "\"}";
         }
-    }
-
-    public List<MiembroComunidad> obtenerMiembroComunidades(String idMiembro) {
-        Integer aux = Integer.parseInt(idMiembro);
-        return repoMiembroComunidad.obtenerMiembroComunidades(aux);
-    }
-
-
-    public ModelAndView pantallaMiembroComunidadPesado(Request req, Response res) {
-        String idMiembro = req.params(":id");
-        List<MiembroComunidad> comunidades = obtenerMiembroComunidades(idMiembro);
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("comunidades", comunidades);
-        model.put("miembroId", idMiembro);
-
-        return new ModelAndView(model, "comunidadDeMiembroPesado.hbs");
     }
 
     public List<MiembroComunidadDTO> miembroComunidadDTO(List<MiembroComunidad> comunidades){
