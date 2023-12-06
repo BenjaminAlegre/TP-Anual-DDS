@@ -212,45 +212,7 @@ public class CargaDatosBasicos {
 
 
 
-//    @Test
-//    public void cargarIncidentes(){
-//        for (int i = 1; i<= 5; i++){
-//            Incidente incidente = new Incidente();
-////            incidente.setReportador("Reportador " + i);
-//            incidente.setObservaciones("Observaciones " + i);
-//            incidente.setEstado(EstadoIncidente.ACTIVO);
-//            incidente.setHorarioApertura(LocalDateTime.now());
-//            incidente.setHorarioCierre(LocalDateTime.now().plusDays(5));
-//
-//            Servicio servicio = repositorioServicios.buscarPorId(i);
-//            Entidad entidadAfectada = repositorioEntidades.buscarPorId(i);
-//            Comunidad comunidad = repositorioComunidades.buscarPorId(i);
-//            List<Comunidad> comunidades = new ArrayList<>();
-//            comunidades.add(comunidad);
-//
-//            incidente.setServicioAfectado(servicio);
-//            incidente.setEntidadAfectada(entidadAfectada);
-//            incidente.setComunidades(comunidades);
-//
-//            repositorioIncidentes.guardar(incidente);
-//        }
-//    }
-//
-//    @Test
-//    public void cargarIncidenteAComunidad(){
-//        for (int i = 1; i<= 5; i++){
-//            Incidente incidente = repositorioIncidentes.buscarPorId(i);
-//            Comunidad comunidad = repositorioComunidades.buscarPorId(i);
-//
-//
-//            List<Incidente> incidentes = new ArrayList<>();
-//            incidentes.add(incidente);
-//
-//            comunidad.setIncidentes(incidentes);
-//
-//            repositorioComunidades.actualizar(comunidad);
-//        }
-//    }
+
 
 
 

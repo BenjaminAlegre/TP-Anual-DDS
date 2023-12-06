@@ -162,11 +162,21 @@ public class Router {
 
         // Administracion de tipos de usuarios y observadores
         Spark.path("/miembroLiviano", () -> {
+            Spark.before("/miembro", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("miembro");
+                autenticacionService.authRol(req, res, roles);
+            });
             Spark.get("/comunidades", miembroController::pantallaComunidadesDeMiembro, engine);
             Spark.post("/comunidades/:comunidadId/cambiarTipo", miembroController::cambiarTipoMiembroLiviano);
         });
 
         Spark.path("/miembroPesado", () -> {
+            Spark.before("/miembro", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("miembro");
+                autenticacionService.authRol(req, res, roles);
+            });
             Spark.get("/comunidades", miembroController::pantallaMiembroComunidadPesado, engine);
             Spark.post("/comunidades/:comunidadId/cambiarTipo", miembroController::cambiarTipoMiembroPesado);
         });

@@ -5,6 +5,7 @@ import model.entities.comunidad.Comunidad;
 import model.entities.entidades.Entidad;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
+import model.repositorios.RepositorioComunidades;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -57,17 +58,21 @@ public class RepositorioIncidentes {
                 .getResultList();
     }
 
-    public List<Incidente> buscarPorEstadoYComunidad(String estado, String idComunidad) {
+    public List<Incidente> buscarPorEstadoYComunidad(String estado, Comunidad comunidad) {
         EstadoIncidente estadoEnum = EstadoIncidente.valueOf(estado);
 
-        EntityManager em = EntityManagerHelper.getEntityManager();
+        EntityManager entityManager = EntityManagerHelper.getEntityManager();
 
 
-        return EntityManagerHelper.getEntityManager()
-                .createQuery("from " + Incidente.class.getName() + " where estado = :estado and :comunidad member of comunidades", Incidente.class)
-                .setParameter("estado", estadoEnum)
-                .setParameter("comunidad", em.find(Comunidad.class, idComunidad))
-                .getResultList();
+        TypedQuery<Incidente> query = entityManager.createQuery(
+                "SELECT i FROM Incidente i JOIN i.comunidades c " +
+                        "WHERE i.estado = :estado AND c = :comunidad",
+                Incidente.class);
+
+        query.setParameter("estado", estadoEnum);
+        query.setParameter("comunidad", comunidad);
+
+        return query.getResultList();
     }
 
 

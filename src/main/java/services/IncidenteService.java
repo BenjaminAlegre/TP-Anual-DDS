@@ -1,11 +1,13 @@
 package services;
 
 import DTO.IncidenteDTO;
+import model.entities.comunidad.Comunidad;
 import model.entities.entidades.Entidad;
 import model.entities.entidades.Establecimiento;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
 import model.entities.servicio.Servicio;
+import model.repositorios.RepositorioComunidades;
 import model.repositorios.RepositorioEntidades;
 import model.repositorios.RepositorioEstablecimientos;
 import model.repositorios.RepositorioServicios;
@@ -23,6 +25,8 @@ public class IncidenteService {
     private RepositorioServicios repoServicios = new RepositorioServicios();
     private RepositorioEntidades repoEntidades = new RepositorioEntidades();
     private RepositorioEstablecimientos repoEstablecimientos = new RepositorioEstablecimientos();
+    private RepositorioComunidades repoComunidades = new RepositorioComunidades();
+
     public void guardarIncidente(Request req) {
 
         try {
@@ -94,7 +98,8 @@ public class IncidenteService {
     }
 
     public List<IncidenteDTO> obtenerPorEstadoYComunidadToDTO(String estado, String idComunidad) {
-        List<Incidente> incidentes = repoIncidentes.buscarPorEstadoYComunidad(estado, idComunidad);
+        Comunidad comunidad = repoComunidades.buscarPorId(Integer.parseInt(idComunidad));
+        List<Incidente> incidentes = repoIncidentes.buscarPorEstadoYComunidad(estado, comunidad);
         return incidentes.stream()
                 .map(incidente -> new IncidenteDTO(incidente.getId(), incidente.getEstado().toString(), incidente.getObservaciones()))
                 .collect(Collectors.toList());

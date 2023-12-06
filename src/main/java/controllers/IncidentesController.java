@@ -112,8 +112,15 @@ public class IncidentesController {
         try {
             String estado = req.queryParams("estado");
             String comunidad = req.queryParams("comunidad");
+
+            System.out.println("Estado: " + estado);
+            System.out.println("Comunidaad: " + comunidad);
+
             List<IncidenteDTO> incidentesDTO = incidenteService.obtenerPorEstadoYComunidadToDTO(estado, comunidad);
             res.type("application/json");
+
+            System.out.println("Er Sheison: " + new Gson().toJson(incidentesDTO));
+
             return new Gson().toJson(incidentesDTO);
         } catch (Exception e) {
             res.status(500);
