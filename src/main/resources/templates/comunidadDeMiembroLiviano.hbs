@@ -11,7 +11,7 @@
   <body>
 
   <header class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="javascript:history.go(-1)">
+      <a class="navbar-brand" href="/paginaPrincipal/miembro">
           <img src="../../img/volver atras 64px.png" alt="logo" class="img-fluid with-border"/></a>
       <a class="navbar-brand">
           <img src="../../img/logo1.png" alt="logo" class="img-fluid with-border"/></a>
@@ -28,8 +28,9 @@
                     <div class="comunidad-box">
                         Nombre de la Comunidad: {{this.comunidad.nombre}}
                         Tipo de Miembro: {{this.tipoMiembro}}
-                        <form action="/miembroLiviano/{{miembroId}}/comunidades/{{this.comunidad.id}}/cambiarTipo" method="post">
+                        <form action="/miembroLiviano/comunidades/{{this.comunidad.id}}/cambiarTipo" method="post">
                             <select name="nuevoTipoMiembro">
+                                <option disabled selected>Seleccione un estado</option>
                                 <option value="OBSERVADOR">Observador</option>
                                 <option value="AFECTADO">Afectado</option>
                             </select>

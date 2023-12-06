@@ -14,7 +14,7 @@
 
 <body>
 <header class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="paginaPrincipal">
+    <a class="navbar-brand" href="javascript:history.go(-1)">
         <img src="../img/volver atras 64px.png" alt="logo" class="img-fluid with-border"/></a>
     <a class="navbar-brand" href="">
         <img src="../img/logo1.png" alt="logo" class="img-fluid with-border"/></a>
@@ -78,7 +78,19 @@
         var estado = document.getElementById('estado').value;
         var comunidad = document.getElementById('comunidad').value;
 
-        fetch(`/buscarIncidentesPorEstado/{{idUsuario}}/incidentesPorEstado?estado=${estado}`)
+        if (comunidad === null) {
+            console.error('Error: Comunidad no seleccionada.');
+            return;
+        }
+
+        console.log('comunidad:', comunidad);
+
+        fetch(`/buscarIncidentesPorEstadoYComunidad/incidentesPorEstado?estado=${estado}&comunidad=${comunidad}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en la respuesta del servidor: ' + response.status);
@@ -101,7 +113,7 @@
 
             .catch(error => {
                 console.error('Error al realizar la solicitud:', error);
-                // Puedes actualizar el DOM para informar al usuario del error
+
                 var resultados = document.getElementById('resultados');
                 resultados.innerHTML = `<div>Ocurrió un error: ${error.message}</div>`;
             });
@@ -115,6 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             var comunidadSelect = document.getElementById('comunidad');
             data.forEach(comunidad => {
+                console.log('comunidad:', comunidad);
+
                 comunidadSelect.innerHTML += `<option value="${comunidad.id}">${comunidad.nombre}</option>`;
             });
         })

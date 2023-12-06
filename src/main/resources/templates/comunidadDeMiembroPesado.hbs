@@ -30,6 +30,7 @@
                     <div class="info-container">
                         <p class="tipo-miembro">Tipo de Miembro: {{this.tipoMiembro}}</p>
                         <select class="nuevo-tipo-miembro">
+                            <option disabled selected>Seleccione un estado</option>
                             <option value="OBSERVADOR">Observador</option>
                             <option value="AFECTADO">Afectado</option>
                         </select>
@@ -57,13 +58,12 @@
                 const comunidadId = this.getAttribute('data-comunidad-id');
                 const nuevoTipoMiembro = this.parentElement.querySelector('.nuevo-tipo-miembro').value;
                 const miembroId = '{{miembroId}}';
+
                 console.log('miembroId:', miembroId);
                 console.log('comunidadId:', comunidadId);
                 console.log('nuevoTipoMiembro:', nuevoTipoMiembro);
 
-
-
-                fetch(`/miembroPesado/${miembroId}/comunidades/${comunidadId}/cambiarTipo`, {
+                fetch(`/miembroPesado/comunidades/${comunidadId}/cambiarTipo`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
