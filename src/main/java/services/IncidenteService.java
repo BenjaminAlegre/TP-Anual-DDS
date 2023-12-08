@@ -6,6 +6,7 @@ import model.entities.entidades.Entidad;
 import model.entities.entidades.Establecimiento;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
+import model.entities.servicio.Monitoreable;
 import model.entities.servicio.Servicio;
 import model.repositorios.RepositorioComunidades;
 import model.repositorios.RepositorioEntidades;
@@ -60,7 +61,9 @@ public class IncidenteService {
             incidente.setObservaciones(observaciones);
             incidente.setHorarioApertura(horarioApertura);
             incidente.setServicioAfectado(servicio);
+            //relacion entre monitoreable afectado y comunidad
 
+           incidente.agregarIncidenteAComunidad();
 
             // Persistir el objeto Incidente
             repoIncidentes.guardar(incidente);

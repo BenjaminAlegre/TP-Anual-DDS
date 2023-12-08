@@ -76,4 +76,10 @@ public abstract class Monitoreable {
     }
 
     public abstract String tipo();
+
+    public void agregarIncidenteAComunidad(Incidente incidente) {
+        for(Comunidad c: this.comunidades){
+            c.agregarIncidentes(incidente);
+        }
+    }
 }

@@ -121,4 +121,8 @@ public class Incidente  {
     public boolean resuelto() {
         return this.horarioCierre != null;
     }
+
+    public void agregarIncidenteAComunidad() {
+        this.servicioAfectado.agregarIncidenteAComunidad(this);
+    }
 }

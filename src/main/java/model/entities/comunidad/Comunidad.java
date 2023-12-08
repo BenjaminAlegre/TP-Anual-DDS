@@ -78,6 +78,9 @@ public class Comunidad extends EntidadPersistente implements Observable {
     public void agregarIncidentes(List<Incidente> incidentes){
         this.incidentes.addAll(incidentes);
     }
+    public void agregarIncidentes(Incidente incidentes){
+        this.incidentes.add(incidentes);
+    }
 
     public List<Incidente> consultarIncidentesPorEstado(EstadoIncidente estado){
         return  this.incidentes.stream().filter(incidente -> incidente.getEstado().equals(estado)).collect(Collectors.toList());
