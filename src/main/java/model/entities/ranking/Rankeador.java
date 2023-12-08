@@ -16,8 +16,9 @@ public class Rankeador implements Job {
 
     public Rankeador() {
         this.rankingsAGenerar.add(new RankCantidadIncidentes());
-        this.rankingsAGenerar.add(new RankImpacto());
         this.rankingsAGenerar.add(new RankTiempoDeCierre());
+        this.rankingsAGenerar.add(new RankImpacto());
+
     }
 
     public void generarRankings(List<Entidad> entidades){

@@ -118,5 +118,7 @@ public class Incidente  {
     }
 
 
-
+    public boolean resuelto() {
+        return this.horarioCierre != null;
+    }
 }

@@ -3,6 +3,7 @@ package model.entities.servicio;
 import lombok.Getter;
 import lombok.Setter;
 import DTO.MonitoreableDTO;
+import model.entities.comunidad.Comunidad;
 import model.entities.comunidad.Miembro;
 import model.entities.entidades.Entidad;
 import model.entities.entidades.Establecimiento;
@@ -42,6 +43,10 @@ public abstract class Monitoreable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     private Agrupamiento agrupamiento;
+
+    @ManyToMany(mappedBy = "servicios")
+    private List<Comunidad> comunidades;
+
 
     public void agregarIncidente(Incidente incidente) {
         incidentes.add(incidente);

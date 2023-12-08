@@ -13,6 +13,7 @@ import model.entities.notificacion.envioNotificacion.WhatsAppSender.WhatsAppSend
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 @Getter @Setter
 public class Notificador {
@@ -23,7 +24,7 @@ public class Notificador {
         this.estrategiaNotificacion.enviarMensaje(mensaje);
     }
 
-    public void notificar(String mensaje, Miembro miembro) throws IOException, MessagingException, UnirestException {
+    public void notificar(String mensaje, Miembro miembro) throws IOException, MessagingException, UnirestException, GeneralSecurityException {
         this.establecerMedioDeNotificacion(miembro.getMedioNotificacion());
         Mensaje aEnviar = this.armarMensaje(miembro, mensaje);
         this.estrategiaNotificacion.enviarMensaje(aEnviar);
@@ -33,7 +34,7 @@ public class Notificador {
         return new Mensaje(miembro.contacto(),mensaje);
     }
 
-    private void establecerMedioDeNotificacion(MedioNotificacion medioNotificacion) throws IOException {
+    private void establecerMedioDeNotificacion(MedioNotificacion medioNotificacion) throws IOException, GeneralSecurityException {
         switch (medioNotificacion){
             case WHATSAPP: this.estrategiaNotificacion = new WhatsAppSender(); break;
             case CORREO_ELECTRONICO: this.estrategiaNotificacion = new EmailSender();

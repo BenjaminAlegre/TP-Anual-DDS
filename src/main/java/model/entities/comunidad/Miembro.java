@@ -11,6 +11,7 @@ import model.entities.servicio.Monitoreable;
 import javax.mail.MessagingException;
 import javax.persistence.*;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,7 @@ public class Miembro extends EntidadPersistente implements Reportador, Observado
     }
 
     @Override
-    public void serNotificadoPor(Observable observable, String mensaje) throws IOException, MessagingException, UnirestException { // usar case es ma extensible y declarativo, lo mejor seria objetos pero como solo son dos medios, case
+    public void serNotificadoPor(Observable observable, String mensaje) throws IOException, MessagingException, UnirestException, GeneralSecurityException { // usar case es ma extensible y declarativo, lo mejor seria objetos pero como solo son dos medios, case
 // hay que ver que se manda el observable
         Notificador notificador = new Notificador();
         notificador.notificar(mensaje, this);

@@ -47,6 +47,12 @@ public class Comunidad extends EntidadPersistente implements Observable {
     @OneToMany(mappedBy = "comunidad")
     private List<MiembroComunidad> miembrosComunidad = new ArrayList<>();
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "servicios_comunidad",
+            joinColumns = @JoinColumn(name="comunidad_id"),
+            inverseJoinColumns=@JoinColumn(name="servicio_id"))
+    private List<Monitoreable> servicios = new ArrayList<>();
+
     public Comunidad(List<Miembro> miembros, List<Miembro> administradores, List<Incidente> incidentes) {
         this.miembros = new ArrayList<>();
         this.administradores = new ArrayList<>();

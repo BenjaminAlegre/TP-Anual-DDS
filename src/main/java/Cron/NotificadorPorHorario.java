@@ -12,6 +12,7 @@ import org.quartz.JobExecutionContext;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class NotificadorPorHorario implements Job {
         }
     }
 
-    private void notifacarMiembros(List<Miembro> miembrosAnorificar) throws MessagingException, UnirestException, IOException {
+    private void notifacarMiembros(List<Miembro> miembrosAnorificar) throws MessagingException, UnirestException, IOException, GeneralSecurityException {
 
         for (Miembro m : miembrosAnorificar
         ) {

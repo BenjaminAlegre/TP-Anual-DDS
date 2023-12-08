@@ -2,11 +2,10 @@ package model.entities.ranking;
 
 
 import model.entities.entidades.Entidad;
-import model.repositorios.rankings.RepositorioRankingCantidadIncidentes;
+import model.repositorios.rankings.RepositorioRankings;
 
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 public class RankCantidadIncidentes extends RankStrategy {
 
     @Transient
-    RepositorioRankingCantidadIncidentes repo = new RepositorioRankingCantidadIncidentes();
+    RepositorioRankings repo = new RepositorioRankings();
 
 
 

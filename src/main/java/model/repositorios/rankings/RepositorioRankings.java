@@ -3,6 +3,7 @@ package model.repositorios.rankings;
 import DTO.PosicionDTO;
 import db.EntityManagerHelper;
 import model.entities.ranking.PosicionRanking;
+import model.entities.ranking.RankImpacto;
 import model.entities.ranking.RankStrategy;
 
 import java.util.List;
@@ -26,6 +27,11 @@ public class RepositorioRankings {
 //    List<RankStrategy> rankings = EntityManagerHelper.getEntityManager().createQuery("from "+ RankStrategy.class.getName()+ " where tipoRanking= "+ tipo).getResultList();
 //
 //
+public void guardar(RankStrategy rank) {
+    EntityManagerHelper.beginTransaction();
+    EntityManagerHelper.getEntityManager().persist(rank);
+    EntityManagerHelper.commit();
+}
 
     public List<PosicionDTO> obtenerRankingDTO(String tipo) {
         return this.obtenerRanking(tipo).stream().map(p ->p.convertirADTO()).collect(Collectors.toList());

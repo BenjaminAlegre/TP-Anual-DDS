@@ -19,7 +19,7 @@ public class TestRanking {
     @Test
     public void trearRanking(){
         RepositorioRankings repositorioRankings = new RepositorioRankings();
-        List<PosicionRanking> posiciones = repositorioRankings.obtenerRanking("RankCantidadIncidentes");
+        List<PosicionRanking> posiciones = repositorioRankings.obtenerRanking("RankImpacto");
         for (PosicionRanking p:posiciones
              ) {
             System.out.println(p.getPosicion()+" "+p.getEntidad().getNombre());

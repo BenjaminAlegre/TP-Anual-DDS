@@ -44,19 +44,21 @@ public abstract class Entidad extends EntidadPersistente {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "entidad")
     private List<PosicionRanking> posiciones;
 
+    @Column
+    private Double coheficienteNoResueltos = 1.5 ;
+
 
     public abstract List<Establecimiento> getEstablecimientos();
 
 
-
+   // public Double cnf = new Double(1.5);
 
 
 
 
 
     private List<Incidente> traerIncidentesValidos(LocalDate fecha){
-        return
-        this.incidentes.stream().filter(i-> i.entraEnCalculoSemanal(fecha)).collect(Collectors.toList());
+        return    this.incidentes.stream().filter(i-> i.entraEnCalculoSemanal(fecha)).collect(Collectors.toList());
     }
 
     public Integer cantidadIncidentesSemanales(LocalDate fecha) {
@@ -73,19 +75,43 @@ public abstract class Entidad extends EntidadPersistente {
     }
 
     public Double tiempoPromedioDeCierreIncidentes(LocalDate fechaDeInicioRanking){
-        List<Incidente> incidentesValidos = traerIncidentesValidos(fechaDeInicioRanking).stream().filter(i -> i.getHorarioCierre() != null).collect(Collectors.toList());
-       Double total = 0.0;
-        for (Incidente i: incidentesValidos) {
-            total =+ i.tiempoDeCierre();
-        }
-        return total / incidentesValidos.size();
+        List<Incidente> incidentesValidos = traerIncidentesValidos(fechaDeInicioRanking).stream().filter(i -> i.resuelto()).collect(Collectors.toList());
+
+        return this.sumaTiemposDeCierre(incidentesValidos) / incidentesValidos.size();
 
     }
 
+    private Double sumaTiemposDeCierre(List<Incidente> incidentesValidos){
+        Double total = 0.0;
+        for (Incidente i: incidentesValidos) {
+            total =+ i.tiempoDeCierre();
+        }
+        return total;
+    }
+
+
+    public abstract boolean esOrganizacion();
+
+    public Double impacto(LocalDate fechaDeInicioRanking) {//TODO manejar si esta vacia
+        List<Incidente> incidentesValidos = traerIncidentesValidos(fechaDeInicioRanking);
+        Double impacto =  sumaTiemposDeCierre(incidentesValidos);
+        Integer cantidad = this.cantidadIncidentesAbiertos();
+       if(this.coheficienteNoResueltos == null)
+           return impacto + cantidad * 1.5;
+        else
+            return impacto + cantidad * this.coheficienteNoResueltos;
+    }
+
+    private Integer cantidadIncidentesAbiertos() {
+        Integer cantidad = this.incidentes.stream().map(i -> !i.resuelto()).collect(Collectors.toList()).size();
+        if(cantidad == null)
+            return 0;
+        else
+            return cantidad;
+
+    }
 
     public EntidadDTO convertirADTO() {
         return new EntidadDTO(this);
     }
-
-    public abstract boolean esOrganizacion();
 }
