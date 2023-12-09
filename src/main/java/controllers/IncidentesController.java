@@ -1,5 +1,6 @@
 package controllers;
 
+import DTO.ComunidadDTO;
 import DTO.IncidenteDTO;
 import com.google.gson.Gson;
 import model.entities.comunidad.Comunidad;
@@ -10,6 +11,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -35,20 +37,41 @@ public class IncidentesController {
     }
     public ModelAndView registrarIncidente(Request req, Response res) {
         incidenteService.guardarIncidente(req);
-        res.redirect("/mostrarTodosIncidentes");
+        res.redirect("/aperturaIncidente/");
         return null;
     }
 
 
     public ModelAndView mostrarTodosIncidentes(Request req, Response res) {
 //        List<Incidente> incidentes = incidenteService.obtenerTodos();
+
         List<Incidente> incidentes = incidenteService.obtenerPorEstado("ACTIVO");
-        System.out.println("Incidentes: " + incidentes); // Solo para depuración
+        System.out.println("Incidentes: " + incidentes);
 
         Map<String, Object> modelo = new HashMap<>();
         modelo.put("incidentes", incidentes);
+
         return new ModelAndView(modelo, "mostrarIncidente.hbs");
     }
+
+    public ModelAndView mostrarIncidentesUsuario(Request req, Response res) {
+//        List<Incidente> incidentes = incidenteService.obtenerTodos();
+        Integer idMiembro = req.session().attribute("idMiembro");
+
+        System.out.println("IdUser: " + idMiembro);
+        List<Incidente> incidentes = incidenteService.obtenerPorMiembro(idMiembro);
+        for (Incidente i : incidentes) {
+            System.out.println("IdIncidente: " + i.getId());
+            System.out.println("Comunidades: " + i.getComunidades().get(0).getNombre());
+        }
+
+        Map<String, Object> modelo = new HashMap<>();
+        modelo.put("incidentes", incidentes);
+        modelo.put("idUsuario", idMiembro);
+
+        return new ModelAndView(modelo, "mostrarIncidenteMiembro.hbs");
+    }
+
 
     public ModelAndView cerrarIncidente(Request req, Response res) {
         Integer id = Integer.parseInt(req.params(":id"));
@@ -76,7 +99,7 @@ public class IncidentesController {
     }
 
     public ModelAndView pantallaMostrarIncidenteAbierto(Request req, Response res) {
-        return new ModelAndView(null, "mostrarIncidenteAbierto.hbs");
+        return new ModelAndView(null, null);
     }
     public ModelAndView pantallaMostrarIncidenteCerrado(Request req, Response res) {
         return new ModelAndView(null, "mostrarIncidenteCerrado.hbs");
@@ -119,7 +142,7 @@ public class IncidentesController {
             List<IncidenteDTO> incidentesDTO = incidenteService.obtenerPorEstadoYComunidadToDTO(estado, comunidad);
             res.type("application/json");
 
-            System.out.println("Er Sheison: " + new Gson().toJson(incidentesDTO));
+            System.out.println("Json: " + new Gson().toJson(incidentesDTO));
 
             return new Gson().toJson(incidentesDTO);
         } catch (Exception e) {

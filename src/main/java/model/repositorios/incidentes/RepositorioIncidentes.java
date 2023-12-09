@@ -21,6 +21,11 @@ public class RepositorioIncidentes {
         EntityManagerHelper.commit();
     }
 
+    public List<Incidente> buscarTodos(){
+        return EntityManagerHelper.getEntityManager()
+                .createQuery("from "+Incidente.class.getName()).getResultList();
+    }
+
     public List<Incidente> buscarPorEntidad(Entidad entidad){
         return EntityManagerHelper.getEntityManager()
                 .createQuery("from "+ Incidente.class.getName()+" where entidadAfectada_id="+entidad.getId()).getResultList();
@@ -86,5 +91,19 @@ public class RepositorioIncidentes {
         EntityManagerHelper.beginTransaction();
         EntityManagerHelper.getEntityManager().merge(incidente);
         EntityManagerHelper.commit();
+    }
+
+    public List<Incidente> buscarPorComunidad(List<Comunidad> comunidades) {
+        EntityManager entityManager = EntityManagerHelper.getEntityManager();
+
+        EstadoIncidente estadoEnum = EstadoIncidente.ACTIVO;
+
+        String jpql = "SELECT i FROM Incidente i JOIN i.comunidades c WHERE c IN :comunidades AND i.estado = :estado";
+
+        TypedQuery<Incidente> query = entityManager.createQuery(jpql, Incidente.class);
+        query.setParameter("comunidades", comunidades);
+        query.setParameter("estado", estadoEnum);
+
+        return query.getResultList();
     }
 }

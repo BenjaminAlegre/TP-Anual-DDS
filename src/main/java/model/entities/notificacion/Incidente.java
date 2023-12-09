@@ -54,6 +54,8 @@ public class Incidente  {
     @ManyToMany(mappedBy = "incidentes")
     private List<Comunidad> comunidades;
 
+
+
     @Transient
     RepositorioIncidentes repoIncidentes = new RepositorioIncidentes();
 

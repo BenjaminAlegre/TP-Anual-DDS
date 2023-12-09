@@ -60,7 +60,6 @@ public class Comunidad extends EntidadPersistente implements Observable {
     }
 
     public Comunidad() {
-
     }
 
     public void agregarMiembro(Miembro miembro) {
@@ -80,6 +79,7 @@ public class Comunidad extends EntidadPersistente implements Observable {
     }
     public void agregarIncidentes(Incidente incidentes){
         this.incidentes.add(incidentes);
+
     }
 
     public List<Incidente> consultarIncidentesPorEstado(EstadoIncidente estado){

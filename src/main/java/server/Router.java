@@ -109,6 +109,15 @@ public class Router {
             Spark.get("", incidentesController::mostrarTodosIncidentes, engine);
         });
 
+        Spark.path("/mostrarIncidentesUsuario", () -> {
+            Spark.before("/*", (req, res) -> {
+                List<String> roles = new ArrayList<>();
+                roles.add("miembro");
+                autenticacionService.authRol(req, res, roles);
+            });
+            Spark.get("", incidentesController::mostrarIncidentesUsuario, engine);
+        });
+
         Spark.before("/cerrarIncidente/*", (req, res) -> {
             List<String> roles = new ArrayList<>();
             roles.add("miembro");

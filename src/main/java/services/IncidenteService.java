@@ -2,16 +2,15 @@ package services;
 
 import DTO.IncidenteDTO;
 import model.entities.comunidad.Comunidad;
+import model.entities.comunidad.Miembro;
+import model.entities.comunidad.MiembroComunidad;
 import model.entities.entidades.Entidad;
 import model.entities.entidades.Establecimiento;
 import model.entities.notificacion.EstadoIncidente;
 import model.entities.notificacion.Incidente;
 import model.entities.servicio.Monitoreable;
 import model.entities.servicio.Servicio;
-import model.repositorios.RepositorioComunidades;
-import model.repositorios.RepositorioEntidades;
-import model.repositorios.RepositorioEstablecimientos;
-import model.repositorios.RepositorioServicios;
+import model.repositorios.*;
 import model.repositorios.incidentes.RepositorioIncidentes;
 import spark.Request;
 import spark.Response;
@@ -27,6 +26,8 @@ public class IncidenteService {
     private RepositorioEntidades repoEntidades = new RepositorioEntidades();
     private RepositorioEstablecimientos repoEstablecimientos = new RepositorioEstablecimientos();
     private RepositorioComunidades repoComunidades = new RepositorioComunidades();
+    private RepositorioMiembroComunidad repoMiembroComunidad = new RepositorioMiembroComunidad();
+    private RepositorioMiembros repoMiembros = new RepositorioMiembros();
 
     public void guardarIncidente(Request req) {
 
@@ -96,7 +97,7 @@ public class IncidenteService {
     public List<IncidenteDTO> obtenerPorEstadoToDTO(String estado) {
         List<Incidente> incidentes = repoIncidentes.buscarPorEstado(estado);
         return incidentes.stream()
-                .map(incidente -> new IncidenteDTO(incidente.getId(), incidente.getEstado().toString(), incidente.getObservaciones()))
+                .map(incidente -> new IncidenteDTO(incidente.getId(), incidente.getEstado().toString(), incidente.getObservaciones(), incidente.getHorarioApertura(), incidente.getHorarioCierre() ))
                 .collect(Collectors.toList());
     }
 
@@ -104,8 +105,24 @@ public class IncidenteService {
         Comunidad comunidad = repoComunidades.buscarPorId(Integer.parseInt(idComunidad));
         List<Incidente> incidentes = repoIncidentes.buscarPorEstadoYComunidad(estado, comunidad);
         return incidentes.stream()
-                .map(incidente -> new IncidenteDTO(incidente.getId(), incidente.getEstado().toString(), incidente.getObservaciones()))
+                .map(incidente -> new IncidenteDTO(incidente.getId(), incidente.getEstado().toString(), incidente.getObservaciones(), incidente.getHorarioApertura(), incidente.getHorarioCierre() ))
                 .collect(Collectors.toList());
+    }
+
+    public List<Incidente> obtenerPorMiembro(Integer idMiembro) {
+        List<MiembroComunidad> miembroComunidades = repoMiembroComunidad.obtenerMiembroComunidades(idMiembro);
+        System.out.println("Comunidades de miembro: " + miembroComunidades.size());
+        //Un while que recorra las comunidades y que por cada una muestre en un System.out sus datos
+        for (MiembroComunidad mc : miembroComunidades) {
+            System.out.println("Comunidad: " + mc.getComunidad().getNombre());
+            System.out.println("Tipo de miembro: " + mc.getTipoMiembro());
+            System.out.println("Miembro: " + mc.getMiembro().getNombre());
+        }
+        List<Comunidad> comunidades = miembroComunidades.stream()
+                .map(mc -> mc.getComunidad())
+                .collect(Collectors.toList());
+
+        return repoIncidentes.buscarPorComunidad(comunidades);
     }
 
 
