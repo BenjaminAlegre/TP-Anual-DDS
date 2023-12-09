@@ -23,26 +23,29 @@
         <h1>Comunidades del Miembro {{miembroId}}</h1>
     </div>
     <div class="comunidad-list">
-        {{#if comunidades}}
-            {{#each comunidades}}
-                <div class="comunidad-box">
-                    Nombre de la Comunidad: {{this.comunidad.nombre}}
-                    <div class="info-container">
-                        <p class="tipo-miembro">Tipo de Miembro: {{this.tipoMiembro}}</p>
-                        <select class="nuevo-tipo-miembro">
-                            <option disabled selected>Seleccione un estado</option>
-                            <option value="OBSERVADOR">Observador</option>
-                            <option value="AFECTADO">Afectado</option>
-                        </select>
+        <div class="comunidad-cards">
+            {{#if comunidades}}
+                {{#each comunidades}}
+                    <div class="comunidad-card">
+                        <!-- Contenido de la tarjeta -->
+                        <p class="nombre-comunidad">{{this.comunidad.nombre}}</p>
+                        <div class="info-container">
+                            <p class="tipo-miembro">Tipo de Miembro: {{this.tipoMiembro}}</p>
+                            <select class="nuevo-tipo-miembro">
+                                <option disabled selected>Seleccione un estado</option>
+                                <option value="OBSERVADOR">Observador</option>
+                                <option value="AFECTADO">Afectado</option>
+                            </select>
+                        </div>
+                        <button class="cambiar-tipo-miembro" data-comunidad-id="{{this.comunidad.id}}">Cambiar</button>
                     </div>
-                    <button class="cambiar-tipo-miembro" data-comunidad-id="{{this.comunidad.id}}">Cambiar</button>
+                {{/each}}
+            {{else}}
+                <div class="comunidad-card">
+                    No hay comunidades para este miembro
                 </div>
-            {{/each}}
-        {{else}}
-            <div class="comunidad-box">
-                No hay comunidades para este miembro
-            </div>
-        {{/if}}
+            {{/if}}
+        </div>
     </div>
 </main>
 

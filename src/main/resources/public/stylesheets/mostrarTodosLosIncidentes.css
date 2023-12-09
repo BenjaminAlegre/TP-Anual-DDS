@@ -8,9 +8,15 @@ header,main{
     background-color: #140152;
 }
 
-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height:200vh;
-}
+main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ajusta la altura mínima según tus necesidades */
+        }
+
+        h2.text-center.mb-4 {
+            text-align: center;
+            color: #fff; /* Color de texto blanco, puedes ajustarlo según tus preferencias */
+            margin-bottom: 20px; /* Ajusta el margen inferior según tus necesidades */
+        }
