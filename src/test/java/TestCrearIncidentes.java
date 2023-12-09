@@ -34,21 +34,77 @@ public class TestCrearIncidentes {
     RepositorioComunidades repositorioComunidades = new RepositorioComunidades();
 
     @Test
+    public void cargarIncidenteAComunidad(){
+//        List<Comunidad> comunidades = repositorioComunidades.buscarTodos();
+//        List<Incidente> incidentes = repositorioIncidentes.buscarTodos();
+//        for(Comunidad comunidad : comunidades){
+//            for(Incidente incidente : incidentes){
+//                comunidad.agregarIncidentes(incidente);
+//            }
+//
+//            repositorioComunidades.actualizar(comunidad);
+//            System.out.println("Incidente  cargado a la comunidad ");
+//        }
+
+        Comunidad comunidad = repositorioComunidades.buscarPorId(1);
+        Incidente incidente = repositorioIncidentes.buscarPorId(1);
+        Incidente incidente2 = repositorioIncidentes.buscarPorId(2);
+        Incidente incidente3 = repositorioIncidentes.buscarPorId(3);
+        Incidente incidente4 = repositorioIncidentes.buscarPorId(4);
+        Incidente incidente5 = repositorioIncidentes.buscarPorId(5);
+        List<Incidente> incidentes = new ArrayList<>();
+        incidentes.add(incidente);
+        incidentes.add(incidente2);
+        incidentes.add(incidente3);
+        incidentes.add(incidente4);
+        incidentes.add(incidente5);
+        comunidad.agregarIncidentes(incidentes);
+        repositorioComunidades.actualizar(comunidad);
+
+        Comunidad comunidad2 = repositorioComunidades.buscarPorId(2);
+        Incidente incidente6 = repositorioIncidentes.buscarPorId(6);
+        Incidente incidente7 = repositorioIncidentes.buscarPorId(7);
+        Incidente incidente8 = repositorioIncidentes.buscarPorId(8);
+        Incidente incidente9 = repositorioIncidentes.buscarPorId(9);
+        Incidente incidente10 = repositorioIncidentes.buscarPorId(10);
+        List<Incidente> incidentes2 = new ArrayList<>();
+        incidentes2.add(incidente6);
+        incidentes2.add(incidente7);
+        incidentes2.add(incidente8);
+        incidentes2.add(incidente9);
+        incidentes2.add(incidente10);
+        comunidad2.agregarIncidentes(incidentes2);
+        repositorioComunidades.actualizar(comunidad2);
+
+        Comunidad comunidad3 = repositorioComunidades.buscarPorId(3);
+        Incidente incidente11 = repositorioIncidentes.buscarPorId(11);
+        Incidente incidente12 = repositorioIncidentes.buscarPorId(12);
+        Incidente incidente13 = repositorioIncidentes.buscarPorId(13);
+        Incidente incidente14 = repositorioIncidentes.buscarPorId(14);
+        Incidente incidente15 = repositorioIncidentes.buscarPorId(15);
+        List<Incidente> incidentes3 = new ArrayList<>();
+        incidentes3.add(incidente11);
+        incidentes3.add(incidente12);
+        incidentes3.add(incidente13);
+        incidentes3.add(incidente14);
+        incidentes3.add(incidente15);
+        comunidad3.agregarIncidentes(incidentes3);
+        repositorioComunidades.actualizar(comunidad3);
+
+        Comunidad comunidad4 = repositorioComunidades.buscarPorId(4);
+        Incidente incidente16 = repositorioIncidentes.buscarPorId(16);
+        List<Incidente> incidentes4 = new ArrayList<>();
+        incidentes4.add(incidente16);
+        comunidad4.agregarIncidentes(incidentes4);
+        repositorioComunidades.actualizar(comunidad4);
+    }
+
+    @Test
     public void crearCoto(){
         Organizacion coto = new Organizacion();
         coto.setNombre("COTO");
         coto.setTipo(TipoOrganizacion.SUPERMERCADO);
         //coto.setLocalizacion(new Provincia());
-    }
-    @Test
-    public void crearIncidentePorMiembro(){
-        Incidente incidente = new Incidente("Leo Messi", banioCoto, "Se tapo el baño");
-        repositorioIncidentes.guardar(incidente);
-//        Incidente incidenteTraido = repositorioIncidentes.buscarIncidentesPorEntidad()
-        Entidad entidad = repositorioEntidades.buscarPorId(2);
-        incidente.setEntidadAfectada(entidad);
-        repositorioIncidentes.guardar(incidente);
-
     }
 
     @Test
@@ -60,51 +116,7 @@ public class TestCrearIncidentes {
     }
 
 
-    @Test
-    public void traerIncidentesPorEstado(){
-        List<Incidente> incidentesTraido = repositorioIncidentes.buscarPorEstado("CERRADO");
-        Assert.assertEquals(incidentesTraido.get(0).getEstado(), EstadoIncidente.CERRADO);
-        Assert.assertEquals(incidentesTraido.size(), 4);
-    }
-        @Test
-    public void cargarIncidentes(){
-        for (int i = 1; i<= 5; i++){
-            Incidente incidente = new Incidente();
-//            incidente.setReportador("Reportador " + i);
-            incidente.setObservaciones("Observaciones " + i);
-            incidente.setEstado(EstadoIncidente.ACTIVO);
-            incidente.setHorarioApertura(LocalDateTime.now());
-            incidente.setHorarioCierre(LocalDateTime.now().plusDays(5));
 
-            Servicio servicio = repositorioServicios.buscarPorId(i);
-            Entidad entidadAfectada = repositorioEntidades.buscarPorId(i);
-            Comunidad comunidad = repositorioComunidades.buscarPorId(i);
-            List<Comunidad> comunidades = new ArrayList<>();
-            comunidades.add(comunidad);
-
-            incidente.setServicioAfectado(servicio);
-            incidente.setEntidadAfectada(entidadAfectada);
-            incidente.setComunidades(comunidades);
-
-            repositorioIncidentes.guardar(incidente);
-        }
-    }
-
-    @Test
-    public void cargarIncidenteAComunidad(){
-        for (int i = 1; i<= 4; i++){
-            Incidente incidente = repositorioIncidentes.buscarPorId(i);
-            Comunidad comunidad = repositorioComunidades.buscarPorId(i);
-
-
-            List<Incidente> incidentes = new ArrayList<>();
-            incidentes.add(incidente);
-
-            comunidad.setIncidentes(incidentes);
-
-            repositorioComunidades.actualizar(comunidad);
-        }
-    }
 
 //    @Test
 //    public void traerIncidentesPorEstadoYComunidad(){

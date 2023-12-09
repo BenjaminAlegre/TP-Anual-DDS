@@ -99,28 +99,6 @@ public class TestMiembro {
         Assertions.assertEquals(0, comunidad1.getMiembros().size());
     }
 
-    @Test
-    public void testAgregarMiembroAComunidadTipo() {
-        RepositorioMiembros repositorioMiembros = new RepositorioMiembros();
-        RepositorioComunidades repositorioComunidades = new RepositorioComunidades();
-        RepositorioMiembroComunidad repositorioMiembroComunidad = new RepositorioMiembroComunidad();
-
-        Miembro m1 = repositorioMiembros.buscarPorId(1);
-        Comunidad comunidad1 = repositorioComunidades.buscarPorId(1);
-        MiembroComunidad miembroComunidad = new MiembroComunidad(comunidad1, m1, TipoMiembro.OBSERVADOR);
-        repositorioMiembroComunidad.agregar(miembroComunidad);
-
-        Miembro m3 = repositorioMiembros.buscarPorId(1);
-        Comunidad comunidad3 = repositorioComunidades.buscarPorId(3);
-        MiembroComunidad miembroComunidad3 = new MiembroComunidad(comunidad3, m3, TipoMiembro.OBSERVADOR);
-        repositorioMiembroComunidad.agregar(miembroComunidad3);
-
-        Miembro m2 = repositorioMiembros.buscarPorId(2);
-        Comunidad comunidad2 = repositorioComunidades.buscarPorId(2);
-        MiembroComunidad miembroComunidad2 = new MiembroComunidad(comunidad2, m2, TipoMiembro.AFECTADO);
-        repositorioMiembroComunidad.agregar(miembroComunidad2);
-
-    }
 
     @Test
     public void testObtenerMiembroComunidades(){

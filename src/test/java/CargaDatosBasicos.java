@@ -22,15 +22,14 @@ import static model.entities.entidades.Transporte.SUBTE;
 
 public class CargaDatosBasicos {
 
-    // estos test son mas extensibles y escalables ya que se peuden agregar mas lineas y estaciones solo con poner nombres
-    // ademas se podria agregar que se le agrege la localizacion y ubicaciones solo agregando mas arrays y recorrerlos
-
+    // Despues de la carga de datos hay que correr el test de TestCrearIncidentes, TestMiembro y TestRanking
     RepositorioMiembros repositorioMiembros = new RepositorioMiembros();
     RepositorioComunidades repositorioComunidades = new RepositorioComunidades();
     RepositorioEntidades repositorioEntidades = new RepositorioEntidades();
     RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
     RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
     RepositorioServicios repositorioServicios = new RepositorioServicios();
+    RepositorioMiembroComunidad repositorioMiembroComunidad = new RepositorioMiembroComunidad();
 
 
     @Test
@@ -53,9 +52,9 @@ public class CargaDatosBasicos {
                             {"maria1234@example.com", "1234"},
                             {"matiasgarcia@example.com", "1234"}};
 
-        Usuario usuario = new Usuario("juanrodriguez10@example.com", "1234", Rol.USUARIO);
-        Usuario usuario2 = new Usuario("maria1234@example.com", "1234", Rol.USUARIO);
-        Usuario usuario3 = new Usuario("matiasgarcia@example.com", "1234", Rol.ADMINSTRADOR);
+        Usuario usuario = new Usuario("miembro@miembro.com", "1234", Rol.USUARIO);
+        Usuario usuario2 = new Usuario("entidad@entidad.com", "1234", Rol.USUARIO);
+        Usuario usuario3 = new Usuario("administrador@admnistrador.com", "1234", Rol.ADMINSTRADOR);
         repositorioUsuarios.agregar(usuario);
         repositorioUsuarios.agregar(usuario2);
         repositorioUsuarios.agregar(usuario3);
@@ -67,7 +66,8 @@ public class CargaDatosBasicos {
     public void cargarMiembros(){
         String[][] miembros = {{"Lionel", "Messi", "miembro@miembro.com","+541138157280"},
                 {"Rodrigo", "De Paul", "entidad@entidad.com", "+5491138157280"},
-                {"Angel", "Di María", "administrador@admnistrador.com", "+5491138157280"}};
+                {"Angel", "Di María", "administrador@admnistrador.com", "+5491138157280"},
+                {"Dibu", "Martinez", "miembro2@miembro.com", "+5491138157280"}};
         for (String[] dato: miembros
              ) {
             Miembro miembro = new Miembro(dato[0], dato[1], dato[2], dato[3]);
@@ -81,14 +81,37 @@ public class CargaDatosBasicos {
     @Test
     public void cargarComunidades() {
 
-        String[] comunidades = {"Baños de Subtes", "Escaleras de subtes", "Ascensores Lineas", "Baños Supermercados" };
+        String[] comunidades = {"Baños de Subtes", "Escaleras de subtes", "Ascensores Lineas", "Baños Supermercados", "Comunidad embarazo", "Comunidad Elevadores", "Comunidad Ascensor" , "Comunidad Molinetes", "Comunidad Accesibilidad", "Comunidad Seguridad", "Comunidad Infantes"};
         //Cargar comunidades
         for (String nombre: comunidades
              ) {
             Comunidad comunidad = new Comunidad(nombre);
             repositorioComunidades.agregar(comunidad);
         }
+        //Cargar Incidentes
+        for (int i = 1; i<= 16; i++){
+            Incidente incidente = new Incidente();
+//            incidente.setReportador("Reportador " + i);
+            incidente.setObservaciones("Observaciones del incidente numero: " + i);
+            incidente.setEstado(EstadoIncidente.ACTIVO);
+            incidente.setHorarioApertura(LocalDateTime.now());
+            //incidente.setHorarioCierre(LocalDateTime.now().plusDays(5));
 
+            Servicio servicio = repositorioServicios.buscarPorId(i);
+            Entidad entidadAfectada = repositorioEntidades.buscarPorId(i);
+            Comunidad comunidad = repositorioComunidades.buscarPorId(i);
+            List<Comunidad> comunidades2 = new ArrayList<>();
+            comunidades2.add(comunidad);
+
+            incidente.setServicioAfectado(servicio);
+            incidente.setEntidadAfectada(entidadAfectada);
+            incidente.setComunidades(comunidades2);
+
+            repositorioIncidentes.guardar(incidente);
+
+            System.out.println("Incidente " + i + " guardado");
+
+        }
     }
 
     @Test
@@ -209,11 +232,6 @@ public class CargaDatosBasicos {
             agregarBanios(sucursal);
         }
     }
-
-
-
-
-
 
 
 }
