@@ -24,7 +24,7 @@
         <h2 class="text-center mb-4">Lista de Incidentes del Usuario</h2>
         <div id="incidentesContainer" class="row">
             {{#each incidentes}}
-                <div id="incidente-{{this.id}}" class="card" style="width: 20rem;">
+                <div id="incidente-{{this.id}}" class="card col-sm-4 px-3"  style="width: 20rem;">
                     <div class="card-body">
                         <h3 class="card-title">Incidente #{{this.id}}</h3>
                         <h6 class="card-text">Estado: {{this.estado}}</h6>

@@ -54,6 +54,10 @@ public class Router {
             Spark.get("", authController::pantallaDeLogin, engine);
         });
 
+//        Spark.path("/logout", () -> {
+//            Spark.get("", authController::logout, engine);
+//        });
+
         //Paginas Principales
         Spark.path("/paginaPrincipal", () -> {
             Spark.before("/miembro", (req, res) -> {
@@ -229,6 +233,7 @@ public class Router {
             Spark.get("", incidentesController::pantallaMostrarIncidenteCerrado, engine);
         });
 
+
         Spark.path("/sugerenciaRevisionIncidente", () -> {
             Spark.before("/*", (req, res) -> {
                 List<String> roles = new ArrayList<>();
@@ -238,50 +243,14 @@ public class Router {
             Spark.get("", incidentesController::pantallaSugerenciaRevisionIncidente, engine);
         });
 
+        Spark.path("/inicio", () -> {
+            Spark.get("", incidentesController::pantallaInicio, engine);
+        });
+        Spark.path("/logout" , () -> {
+            Spark.get("", authController::logout, engine);
+        });
+
 
     }
-
-
-//TODO: Esto deberia ser borrado(?)
-
-//    private static String decodeJWT(String jwtToken) {
-//        try {
-//            // Dividir el JWT en partes (encabezado, payload, firma)
-//            String[] parts = jwtToken.split("\\.");
-//
-//
-//            // Decodificar Base64 URL de la carga útil (payload)
-//            String base64Payload = parts[1].replace('-', '+').replace('_', '/');
-//            String payload = new String(Base64.getDecoder().decode(base64Payload), "UTF-8");
-//
-//            return payload;
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//
-//    private static String obtenerValor(String jsonString, String campo) {
-//        int indiceInicio = jsonString.indexOf("\"" + campo + "\":");
-//
-//        if (indiceInicio != -1) {
-//            int indiceFin = jsonString.indexOf(",", indiceInicio);
-//            if (indiceFin == -1) {
-//                indiceFin = jsonString.indexOf("}", indiceInicio);
-//            }
-//
-//            if (indiceFin != -1) {
-//                // Extraer el valor del campo
-//                String valorCampo = jsonString.substring(indiceInicio + campo.length() + 4, indiceFin);
-//                // Eliminar comillas si están presentes
-//                valorCampo = valorCampo.replace("\"", "").trim();
-//                return valorCampo;
-//            }
-//        }
-//
-//        return null;
-//    }
-
 
 }

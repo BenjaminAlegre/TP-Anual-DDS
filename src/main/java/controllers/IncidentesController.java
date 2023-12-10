@@ -151,5 +151,9 @@ public class IncidentesController {
         }
     }
 
+    public ModelAndView pantallaInicio(Request req, Response res) {
+        return new ModelAndView(null, "iniciarSesion.hbs");
+    }
+
 
 }

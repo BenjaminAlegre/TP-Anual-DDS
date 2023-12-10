@@ -69,6 +69,18 @@ public class AuthController {
 
     }
 
+    public ModelAndView logout(Request req, Response res) {
+        String clientId = "88BuFrmFnU78LT4FnfGV1Ml4MlMfdKxC";
+        String logoutUrl = this.domain + "/v2/logout";
+        String returnTo = "http://localhost:3000/inicio";
+        String fullLogoutUrl =  logoutUrl + "?returnTo=" + returnTo + "&client_id=" + clientId;
+
+        req.session().removeAttribute("idMiembro");
+        res.removeCookie("jwt");
+        res.redirect(fullLogoutUrl);
+        return null;
+    }
+
 
 
 }
