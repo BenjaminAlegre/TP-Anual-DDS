@@ -97,6 +97,7 @@ public class Router {
 
             Spark.get("/", incidentesController::pantallaAperturaIncidentes, engine);
             Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
+            Spark.post("/registrarIncidentePesado", incidentesController::registrarIncidentePesado);
         });
 
 //        Spark.path("/mostrarIncidente", () -> {
