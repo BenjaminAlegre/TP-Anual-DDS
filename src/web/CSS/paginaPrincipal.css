@@ -17,7 +17,7 @@ main{
     color: white;
 }
 
-.nav-item{
+.nav-item, button{
     background-color:  #FFD60A;
     border-radius: 5px;
     margin: 10px 5px;
