@@ -95,7 +95,7 @@ public class CargaDatosBasicos {
             incidente.setObservaciones("Observaciones del incidente numero: " + i);
             incidente.setEstado(EstadoIncidente.ACTIVO);
             incidente.setHorarioApertura(LocalDateTime.now());
-            //incidente.setHorarioCierre(LocalDateTime.now().plusDays(5));
+            incidente.setHorarioCierre(LocalDateTime.now().plusDays(5));
 
             Servicio servicio = repositorioServicios.buscarPorId(i);
             Entidad entidadAfectada = repositorioEntidades.buscarPorId(i);

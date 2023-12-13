@@ -30,6 +30,15 @@ public class TestMiembro {
         Comunidad comunidad2 = repositorioComunidades.buscarPorId(2);
         MiembroComunidad miembroComunidad2 = new MiembroComunidad(comunidad2, m1, TipoMiembro.AFECTADO);
         repositorioMiembroComunidad.agregar(miembroComunidad2);
+        Comunidad comunidad9 = repositorioComunidades.buscarPorId(9);
+        MiembroComunidad miembroComunidad9 = new MiembroComunidad(comunidad9, m1, TipoMiembro.AFECTADO);
+        repositorioMiembroComunidad.agregar(miembroComunidad9);
+        Comunidad comunidad10 = repositorioComunidades.buscarPorId(10);
+        MiembroComunidad miembroComunidad10 = new MiembroComunidad(comunidad10, m1, TipoMiembro.AFECTADO);
+        repositorioMiembroComunidad.agregar(miembroComunidad10);
+        Comunidad comunidad11 = repositorioComunidades.buscarPorId(11);
+        MiembroComunidad miembroComunidad11 = new MiembroComunidad(comunidad11, m1, TipoMiembro.AFECTADO);
+        repositorioMiembroComunidad.agregar(miembroComunidad11);
 
         Miembro m3 = repositorioMiembros.buscarPorId(2);
         Comunidad comunidad3 = repositorioComunidades.buscarPorId(3);
@@ -43,9 +52,9 @@ public class TestMiembro {
 
         Miembro m5 = repositorioMiembros.buscarPorId(4);
         Comunidad comunidad5 = repositorioComunidades.buscarPorId(5);
-        Comunidad comunidad6 = repositorioComunidades.buscarPorId(5);
-        Comunidad comunidad7= repositorioComunidades.buscarPorId(5);
-        Comunidad comunidad8 = repositorioComunidades.buscarPorId(5);
+        Comunidad comunidad6 = repositorioComunidades.buscarPorId(6);
+        Comunidad comunidad7= repositorioComunidades.buscarPorId(7);
+        Comunidad comunidad8 = repositorioComunidades.buscarPorId(8);
         MiembroComunidad miembroComunidad5 = new MiembroComunidad(comunidad5, m5, TipoMiembro.OBSERVADOR);
         MiembroComunidad miembroComunidad6 = new MiembroComunidad(comunidad6, m5, TipoMiembro.AFECTADO);
         MiembroComunidad miembroComunidad7 = new MiembroComunidad(comunidad7, m5, TipoMiembro.AFECTADO);

@@ -53,10 +53,14 @@ public class Router {
         Spark.path("/callback", () -> {
             Spark.get("", authController::pantallaDeLogin, engine);
         });
+        Spark.path("/inicio", () -> {
+            Spark.get("", incidentesController::pantallaInicio, engine);
+        });
+        Spark.path("/logout" , () -> {
+            Spark.get("", authController::logout, engine);
+        });
 
-//        Spark.path("/logout", () -> {
-//            Spark.get("", authController::logout, engine);
-//        });
+
 
         //Paginas Principales
         Spark.path("/paginaPrincipal", () -> {
@@ -243,12 +247,6 @@ public class Router {
             Spark.get("", incidentesController::pantallaSugerenciaRevisionIncidente, engine);
         });
 
-        Spark.path("/inicio", () -> {
-            Spark.get("", incidentesController::pantallaInicio, engine);
-        });
-        Spark.path("/logout" , () -> {
-            Spark.get("", authController::logout, engine);
-        });
 
 
     }
