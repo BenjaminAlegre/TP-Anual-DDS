@@ -108,7 +108,7 @@
                             </div>
                             <div class="modal-body">
                                 <!-- Contenido del formulario -->
-                                <form action="/aperturaIncidente/registrarIncidente" method="POST">
+                                <form action="/aperturaIncidente/registrarIncidentePesado" method="POST" onsubmit="return reportarIncidente(this)">
 
                                     <div class="d-flex align-items-center mb-3 pb-1">
                                         <span class="h1 fw-bold mb-0">Apertura de Incidente</span>
@@ -193,43 +193,44 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-    <script>async function traerDatos(seleccionable, desplegable, ruta) {
+    <script>
+        async function traerDatos(seleccionable, desplegable, ruta) {
 
-    var x = seleccionable.value;
-    var y= document.getElementById(desplegable);
-    y.options.length = 0;
-    y.options[0] =   new Option("Elija una opcion", "");
-    y.style.display = "block";
-    fetch(ruta+x)
-    .then(response => response.json())
-    .then(data => {
-        var x = document.getElementById(desplegable);
-        for (const valor of data.valores) {
-            x.options[x.options.length] = new Option(valor.nombre, valor.id);
+        var x = seleccionable.value;
+        var y= document.getElementById(desplegable);
+        y.options.length = 0;
+        y.options[0] =   new Option("Elija una opcion", "");
+        y.style.display = "block";
+        fetch(ruta+x)
+        .then(response => response.json())
+        .then(data => {
+            var x = document.getElementById(desplegable);
+            for (const valor of data.valores) {
+                x.options[x.options.length] = new Option(valor.nombre, valor.id);
 
-                     }})
-}
-async function traerDatos2(seleccionable, desplegable, ruta){
-    document.getElementById("lista").value=""
-    const x = seleccionable.value;
-    let lista = [];
-    var y= document.getElementById(desplegable);
-    y.style.display = "block";
-    y.options.length = 0;
-    y.options[0] =   new Option("", "");
-    fetch(ruta+x)
-      .then(response => response.json())
-      .then(data => {
-    var x = document.getElementById(desplegable);
-        for (const valor of data.valores) {
-          x.options[x.options.length] = new Option(valor.nombre+" "+valor.tipo,valor.id);
-                                   }
-      });
-        $('#select-miembros').select2({
-             data:lista});
+                        }})
+        }
+        async function traerDatos2(seleccionable, desplegable, ruta){
+            document.getElementById("lista").value=""
+            const x = seleccionable.value;
+            let lista = [];
+            var y= document.getElementById(desplegable);
+            y.style.display = "block";
+            y.options.length = 0;
+            y.options[0] =   new Option("", "");
+            fetch(ruta+x)
+            .then(response => response.json())
+            .then(data => {
+            var x = document.getElementById(desplegable);
+                for (const valor of data.valores) {
+                x.options[x.options.length] = new Option(valor.nombre+" "+valor.tipo,valor.id);
+                                        }
+            });
+                $('#select-miembros').select2({
+                    data:lista});
 
-}
+        }
 
-</script>
+    </script>
 </body>
 </html>
