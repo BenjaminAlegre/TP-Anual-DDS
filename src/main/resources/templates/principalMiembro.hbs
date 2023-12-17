@@ -46,7 +46,9 @@
                                 <a class="nav-link" href="/buscarIncidentesPorEstadoYComunidad">Incidentes por estado</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/sugerenciaRevisionIncidente">Sugerencia de revisión</a>
+                                <button class="nav-link" data-bs-toggle="modal" data-bs-target="#formularioModal">
+                                    Sugerencia de revisión
+                                </button>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/miembroLiviano/comunidades">Comunidades Liviano</a>
@@ -103,7 +105,17 @@
                                             <span class="visually-hidden">Next</span>
                                             </button>
                                         </div>
-    
+                                        <div class="modal fade" id="formularioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="sugerenciaPesada" role="alert">
+                                                    <p style="color: #333333">Un incidente está cerca de donde estás ubicado. ¿Deseas revisar el estado?</p>
+                                                    <div class="btn-container">
+                                                        <button class="btn btn-warning btn-lg btn-block" type="submit">Revisar</button>
+                                                        <button class="btn btn-secondary btn-lg btn-block" type="submit">No</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

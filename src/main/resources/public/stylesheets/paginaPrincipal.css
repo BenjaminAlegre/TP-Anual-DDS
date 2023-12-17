@@ -28,8 +28,19 @@ main{
     background-color: #dbbb17;
 }
 
-.a{
-    background-color: darkred;
+.sugerenciaPesada{
+    position: fixed;
+    font-size: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #a1c3e1; /* Fondo azul claro */
+    color: #333; /* Texto oscuro para una buena legibilidad */
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 
