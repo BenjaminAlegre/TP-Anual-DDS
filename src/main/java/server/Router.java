@@ -10,6 +10,7 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import controllers.utils.BooleanHelper;
 import controllers.utils.HandlebarsTemplateEngineBuilder;
 
+import javax.servlet.MultipartConfigElement;
 import java.util.*;
 
 
@@ -45,16 +46,16 @@ public class Router {
        MiembroController miembroController = new MiembroController();
         PantallaPrincipalController pantallaPrincipalController = new PantallaPrincipalController();
 
+        Spark.path("/inicio", () -> {
+            Spark.get("", incidentesController::pantallaInicio, engine);
+        });
+
         // Login
         Spark.path("/login", () -> {
             Spark.get("", loginController::pantallaDeLogin, engine);
         });
-
         Spark.path("/callback", () -> {
             Spark.get("", authController::pantallaDeLogin, engine);
-        });
-        Spark.path("/inicio", () -> {
-            Spark.get("", incidentesController::pantallaInicio, engine);
         });
         Spark.path("/logout" , () -> {
             Spark.get("", authController::logout, engine);

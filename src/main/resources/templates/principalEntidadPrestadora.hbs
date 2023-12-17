@@ -110,7 +110,7 @@
                         </div>
                         <div class="modal-body">
                             <!-- Contenido del formulario -->
-                            <form action="/aperturaIncidente/registrarIncidentePesado" method="POST" onsubmit="return reportarIncidente(this)">
+                            <form id="incidentForm" action="/aperturaIncidente/registrarIncidentePesado" method="POST" onsubmit="submitForm(); return false">
 
                                 <div class="d-flex align-items-center mb-3 pb-1">
                                     <span class="h1 fw-bold mb-0">Apertura de Incidente</span>
@@ -133,7 +133,7 @@
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label">Entidades:</label>
-                                    <select class="form-select form-select-lg" aria-label="Default select example"
+                                    <select class="form-select form-select-lg"  aria-label="Default select example"
                                             id="entidades" name="entidadId" style="display:none"
                                             onchange="traerDatos(this, 'establecimiento','http://localhost:3000/establecimientosPorEntidad?entidad=')"  required>
                                         <option value="">Elija una opcion</option>
@@ -233,6 +233,7 @@
         <p>Derechos de autor © DDS - GRUPO 6 - UTN - 2023</p>
     </div>
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script>
@@ -303,6 +304,40 @@
 
         }
     }
+
+    function submitForm() {
+        event.preventDefault();
+
+
+        var entidadIdElement = document.getElementById('entidades');
+        var servicioIdElement = document.getElementById('servicio');
+        var observacionesElement = document.getElementById('exampleFormControlTextarea1');
+
+
+
+        // Verificar si los elementos existen antes de acceder a sus propiedades
+        if (entidadIdElement && servicioIdElement && observacionesElement) {
+            var data = {
+                entidadId: entidadIdElement.value,
+                servicioId: servicioIdElement.value,
+                observaciones: observacionesElement.value
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/aperturaIncidente/registrarIncidentePesado',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function(response) {
+                    console.log(response);
+                    $('#formularioModal').modal('hide');
+                }
+
+            });
+        } else {
+            console.error("Alguno de los elementos del formulario no existe.");
+        }
+}
 
 </script>
 </body>

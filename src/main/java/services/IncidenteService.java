@@ -1,6 +1,8 @@
 package services;
 
 import DTO.IncidenteDTO;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import model.entities.comunidad.Comunidad;
 import model.entities.comunidad.Miembro;
 import model.entities.comunidad.MiembroComunidad;
@@ -15,6 +17,12 @@ import model.repositorios.incidentes.RepositorioIncidentes;
 import spark.Request;
 import spark.Response;
 
+
+import javax.persistence.EntityNotFoundException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -71,6 +79,64 @@ public class IncidenteService {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void guardarIncidenteJson(Request req) {
+
+        try {
+            JsonObject jsonBody = new Gson().fromJson(req.body(), JsonObject.class);
+
+            Integer servicioId = jsonBody.get("servicioId").getAsInt();
+            String observaciones = jsonBody.get("observaciones").getAsString();
+            Integer entidadId = jsonBody.get("entidadId").getAsInt();
+
+            if (entidadId != null) {
+                    System.out.println("Servicio: " + servicioId);
+                    System.out.println("Observaciones: " + observaciones);
+                    System.out.println("Entidad: " + entidadId);
+            } else {
+                throw new IllegalArgumentException("La clave 'entidades' no puede ser nula en el JSON");
+            }
+
+            Entidad entidadAfectada = null;
+            if (entidadId != null) {
+                entidadAfectada = repoEntidades.buscarPorId(entidadId);
+                if (entidadAfectada == null) {
+                    throw new Exception("No se encontro una entidad");
+                }
+            } else{
+                throw new Exception("Error id entidad null");
+            }
+
+            Servicio servicio = repoServicios.buscarPorId(servicioId);
+
+            LocalDateTime horarioApertura = LocalDateTime.now();
+
+            Incidente incidente = new Incidente();
+            incidente.setEntidadAfectada(entidadAfectada);
+            incidente.setObservaciones(observaciones);
+            incidente.setHorarioApertura(horarioApertura);
+            incidente.setServicioAfectado(servicio);
+            //relacion entre monitoreable afectado y comunidad
+
+            incidente.agregarIncidenteAComunidad();
+
+            // Persistir el objeto Incidente
+            repoIncidentes.guardar(incidente);
+            System.out.println("Incidente guardado");
+
+//            JsonObject incidenteJson = new JsonObject();
+//            incidenteJson.addProperty("servicioId", incidente.getServicioAfectado().getId());
+//            incidenteJson.addProperty("entidadId", incidente.getEntidadAfectada().getId());
+//            incidenteJson.addProperty("observaciones", incidente.getObservaciones());
+//            return incidenteJson;
+        } catch (NumberFormatException | EntityNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

@@ -36,13 +36,15 @@ public class IncidentesController {
         return  new ModelAndView(null, "mostrarIncidente.hbs");
     }
 
-    public ModelAndView registrarIncidentePesado(Request req, Response res) {
-        incidenteService.guardarIncidente(req);
-        return null;
+    public Response registrarIncidentePesado(Request req, Response res) {
+        incidenteService.guardarIncidenteJson(req);
+        res.status(200);
+        res.body("Incidente registrado");
+        return res;
     }
     public ModelAndView registrarIncidente(Request req, Response res) {
         incidenteService.guardarIncidente(req);
-        res.redirect("/aperturaIncidente/");
+        //res.redirect("/aperturaIncidente/");
         return null;
     }
 
