@@ -30,8 +30,8 @@
                           <div class="comunidad-list">
                               {{#if comunidades}}
                                   {{#each comunidades}}
-                                      <div class="comunidad-box">
-                                          <p>Nombre de la Comunidad: {{this.comunidad.nombre}}</p>
+                                      <div class="comunidad-box {{this.tipoMiembro}}">
+                                          <p class="nombre-comunidad">Nombre de la Comunidad: {{this.comunidad.nombre}}</p>
                                           <p class="tipo-miembro">Tipo de Miembro: {{this.tipoMiembro}}</p>
                                           <form action="/miembroLiviano/comunidades/{{this.comunidad.id}}/cambiarTipo" method="post">
                                               <select name="nuevoTipoMiembro">
@@ -52,6 +52,8 @@
                       </div>
                   </div>
               </div>
+
+
           </div>
       </section>
   </main>

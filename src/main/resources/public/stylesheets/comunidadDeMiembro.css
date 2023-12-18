@@ -1,13 +1,89 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+
+html, body {
+    background-color: #140152;
+    margin: 0;
+    padding: 0;
+}
+
+* {
     font-family: 'Urbanist';
 }
 
-body {
+header, main {
     background-color: #140152;
-    color: #ffffff;
+    color: white;
+}
+
+.navbar {
+    padding: 15px;
+}
+
+.navbar-brand img {
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.titulo-principal {
+    background-color: #3279BF;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comunidad-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: 20px;
+}
+
+.comunidad-box {
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    flex: 0 0 calc(30% - 20px);
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.OBSERVADOR .nombre-comunidad {
+    color: #ffffff; /* Color blanco para el nombre de la comunidad OBSERVADOR */
+    font-size: 1.5em; /* Tamaño de fuente para el nombre de la comunidad OBSERVADOR */
+    font-weight: bold; /* Negrita para el nombre de la comunidad OBSERVADOR */
+}
+
+.AFECTADO .nombre-comunidad {
+    color: #000000; /* Color negro para el nombre de la comunidad AFECTADO */
+    font-size: 1.2em; /* Tamaño de fuente para el nombre de la comunidad AFECTADO */
+    font-style: italic; /* Estilo cursiva para el nombre de la comunidad AFECTADO */
+}
+
+.tipo-miembro {
+    color: white; /* Color blanco para el tipo de miembro */
+}
+.comunidad-box:hover {
+    transform: scale(1.05);
+}
+
+.comunidad-box p {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.comunidad-box span {
+    display: block;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+
 }
 
 header {
@@ -17,66 +93,50 @@ header {
     text-align: center;
 }
 
-main {
-    background-color: #140152;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.titulo-principal {
-    text-align: center;
-    color: #000000;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-.comunidad-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: stretch;
-}
-
-.comunidad-box {
-    background-color: #ffffff;
-    color: black;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 5px;
-    flex: 0 0 calc(30% - 20px);
-    box-sizing: border-box;
-    border: 1px solid #140152;
-}
 
 .comunidad-box form {
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
-    border-color: #140152;
 }
 
 .comunidad-box select {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .comunidad-box button {
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.tipo-miembro {
-    font-size: 18px;
-    color: #007bff;
-    margin-bottom: 5px;
+.comunidad-box button:hover {
+    background-color: #218838;
+}
+.comunidad-box.OBSERVADOR {
+    background-color: #7b68ee;
+}
+
+.comunidad-box.AFECTADO {
+    background-color: #4682b4;
+}
+
+.comunidad-box.OBSERVADOR .nombre-comunidad,
+.comunidad-box.AFECTADO .nombre-comunidad {
+    color: #140152; /* Color oscuro para el nombre de la comunidad */
+
+        font-size: 1.5em; /* Tamaño de fuente para el nombre de la comunidad */
+        font-weight: bold;
+}
+
+.comunidad-box.OBSERVADOR .tipo-miembro,
+.comunidad-box.AFECTADO .tipo-miembro {
+    color: white; /* Color blanco para el tipo de miembro */
+
 }
