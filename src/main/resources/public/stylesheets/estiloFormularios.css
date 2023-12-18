@@ -12,9 +12,6 @@ main{
     height: 100vh;
 }
 
-main{
-    height: 100vh;
-}
 
 .card-body {
     max-height: calc(100vh - 40px);

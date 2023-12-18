@@ -20,20 +20,22 @@
              alt="logo" class="img-fluid with-border"/></a>
     <a class="navbar-brand ms-auto">Monitoreo de Servicios públicos</a>
 </header>
+<main style="max-height: 100vh; overflow-y: auto;">
+    <section class="vh-100">
+        <div class="container py-3 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card">
 
-<main>
-    <div class="container py-4">
-        <h2 class="text-center mb-4">Lista de Incidentes del Usuario</h2>
-        <section class="vh-100">
-            <div class="container py-3 h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col col-xl-10">
-                        <div class="card">
+                        <div class="row g-0">
 
-                            <div class="row g-0">
-                                <div class="col-md-3">
+                            <div class="col-md col-lg d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-3 text-black">
 
-                                    <div class="col-md col-lg d-flex align-items-center">
+                                    <form>
+                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                            <span class="h2 fw-bold mb-0">Lista de Incidentes del Usuario</span>
+                                        </div>
                                         <div id="incidentesContainer" class="row d-flex justify-content-center align-items-center">
                                             {{#each incidentes}}
                                                 <div id="incidente-{{this.id}}" class="card col-sm-4 px-3 mb-4"  style="width: 20rem;">
@@ -51,15 +53,16 @@
                                                 </div>
                                             {{/each}}
                                         </div>
-                                    </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 </main>
 
 <footer class="footer bg-dark text-light text-center">
