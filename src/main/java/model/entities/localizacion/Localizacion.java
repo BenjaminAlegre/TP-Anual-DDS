@@ -24,7 +24,6 @@ public abstract class Localizacion {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "localizacion", cascade = CascadeType.ALL)
     private List<Entidad> entidades;
 
-   // @OneToMany(fetch = FetchType.EAGER, mappedBy = "localizacion", cascade = CascadeType.ALL)
-   // private List<Miembro> miembros;
+
 
 }

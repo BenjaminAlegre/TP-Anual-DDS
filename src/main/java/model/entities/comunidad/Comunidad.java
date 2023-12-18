@@ -12,6 +12,7 @@ import model.entities.servicio.Monitoreable;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,19 @@ public class Comunidad extends EntidadPersistente implements Observable {
 
     public Comunidad() {
     }
+
+    public void agregarMonitoreable(Monitoreable servicio){
+        this.servicios.add(servicio);
+        servicio.vincularAComunidad(this);
+    }
+
+    public void agregarMonitoreable(Monitoreable ... servicios){
+        this.servicios.addAll(Arrays.asList(servicios));
+        for (Monitoreable s: servicios
+             ) {
+            s.vincularAComunidad(this);
+        }
+}
 
     public void agregarMiembro(Miembro miembro) {
         miembros.add(miembro);

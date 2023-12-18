@@ -36,9 +36,7 @@ public class Miembro extends EntidadPersistente implements Reportador, Observado
 //    @Enumerated(EnumType.STRING)
 //    private TipoMiembro tipo;
 
-    @ManyToOne
-    @JoinColumn(name = "deptoId")
-    private Localizacion localizacion;
+  
 
     @ManyToMany(mappedBy = "miembros")
     private List<Monitoreable> moritoreable = new ArrayList<>();

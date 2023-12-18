@@ -82,4 +82,8 @@ public abstract class Monitoreable {
             c.agregarIncidentes(incidente);
         }
     }
+
+    public void vincularAComunidad(Comunidad comunidad) {
+        this.comunidades.add(comunidad);
+    }
 }

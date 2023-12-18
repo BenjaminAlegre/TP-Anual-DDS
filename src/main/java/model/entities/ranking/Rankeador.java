@@ -32,6 +32,7 @@ public class Rankeador implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         List<Entidad> entidades = repositorioEntidades.buscarTodos();
         generarRankings(entidades);
+
     }
     //TODO falta logica de generar rankings
 }
