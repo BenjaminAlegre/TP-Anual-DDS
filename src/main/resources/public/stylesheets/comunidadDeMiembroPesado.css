@@ -26,6 +26,11 @@ main {
     padding: 20px;
     flex: 1; /* Ocupar el espacio restante */
 }
+
+footer {
+    margin-top: 10px;
+}
+
 .card-body {
     max-height: calc(100vh - 40px);
     overflow-y: auto;
