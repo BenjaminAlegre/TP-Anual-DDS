@@ -127,12 +127,7 @@ public class IncidenteService {
             // Persistir el objeto Incidente
             repoIncidentes.guardar(incidente);
             System.out.println("Incidente guardado");
-
-//            JsonObject incidenteJson = new JsonObject();
-//            incidenteJson.addProperty("servicioId", incidente.getServicioAfectado().getId());
-//            incidenteJson.addProperty("entidadId", incidente.getEntidadAfectada().getId());
-//            incidenteJson.addProperty("observaciones", incidente.getObservaciones());
-//            return incidenteJson;
+            
         } catch (NumberFormatException | EntityNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {

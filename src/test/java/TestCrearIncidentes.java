@@ -35,16 +35,6 @@ public class TestCrearIncidentes {
 
     @Test
     public void cargarIncidenteAComunidad(){
-//        List<Comunidad> comunidades = repositorioComunidades.buscarTodos();
-//        List<Incidente> incidentes = repositorioIncidentes.buscarTodos();
-//        for(Comunidad comunidad : comunidades){
-//            for(Incidente incidente : incidentes){
-//                comunidad.agregarIncidentes(incidente);
-//            }
-//
-//            repositorioComunidades.actualizar(comunidad);
-//            System.out.println("Incidente  cargado a la comunidad ");
-//        }
 
         Comunidad comunidad = repositorioComunidades.buscarPorId(1);
         Incidente incidente = repositorioIncidentes.buscarPorId(1);
