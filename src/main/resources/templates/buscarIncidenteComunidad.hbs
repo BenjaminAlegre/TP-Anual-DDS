@@ -21,43 +21,61 @@
         <img src="../img/logo1.png" alt="logo" class="img-fluid with-border"/></a>
     <a class="navbar-brand" href="#">Monitoreo de Servicios públicos</a>
 </header>
-<main>
-    <section class="vh-100 d-flex justify-content-center align-items-center">
-        <div class="card text-center">
-            <div class="card-body p-4 p-lg-5 text-black">
-                <div class="buscador-container">
-                    <form id="buscarIncidenteForm">
-                        <div class="form-outline mb-4">
-                            <label class="form-label">Seleccionar Comunidad</label>
-                            <select id="comunidad" class="form-select form-select-lg" aria-label="Default select example">
-                                <option disabled selected>Seleccione una comunidad</option>
-                                <!-- Las opciones de las comunidades se llenarán aquí con JavaScript -->
-                            </select>
-                            <label class="form-label">Buscar incidentes por estado...</label>
-                            <select id="estado" class="form-select form-select-lg" aria-label="Default select example">
-                                <option disabled selected>Seleccione un estado</option>
-                                <option value="ACTIVO">Activo</option>
-                                <option value="CERRADO">Cerrado</option>
-                            </select>
+
+<main style="max-height: 100vh; overflow-y: auto;">
+    <section class="vh-100">
+        <div class="container py-3 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card">
+
+                        <div class="row g-0">
+
+                            <div class="col-md col-lg d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-3 text-black">
+
+                                    <form action="/aperturaIncidente/registrarIncidente" method="POST">
+                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                            <span class="h1 fw-bold mb-0">Incidentes</span>
+                                        </div>
+                                        <div class="buscador-container">
+                                            <form id="buscarIncidenteForm">
+                                                <div class="form-outline mb-4">
+                                                    <label class="form-label">Seleccionar Comunidad</label>
+                                                    <select id="comunidad" class="form-select form-select-lg" aria-label="Default select example">
+                                                        <option disabled selected>Seleccione una comunidad</option>
+                                                        <!-- Las opciones de las comunidades se llenarán aquí con JavaScript -->
+                                                    </select>
+                                                    <label class="form-label">Buscar incidentes por estado...</label>
+                                                    <select id="estado" class="form-select form-select-lg" aria-label="Default select example">
+                                                        <option disabled selected>Seleccione un estado</option>
+                                                        <option value="ACTIVO">Activo</option>
+                                                        <option value="CERRADO">Cerrado</option>
+                                                    </select>
+                                                </div>
+                                                <button class="btn btn-dark btn-lg btn-block" type="button" id="buscarBtn">Buscar</button>
+                                            </form>
+                                        </div>
+                                        <div id="resultados" class="mt-4"> <!-- Resultados de la búsqueda serán mostrados aquí -->
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Estado</th>
+                                                    <th>Observaciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <!-- Las filas se llenarán aquí con JavaScript -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn btn-dark btn-lg btn-block" type="button" id="buscarBtn">Buscar</button>
-                    </form>
+                    </div>
                 </div>
-                <div id="resultados" class="mt-4"> <!-- Resultados de la búsqueda serán mostrados aquí -->
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Estado</th>
-                            <th>Observaciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Las filas se llenarán aquí con JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-                <!--                <div id="resultados"> &lt;!&ndash; Resultados de la búsqueda serán mostrados aquí &ndash;&gt;</div>-->
             </div>
         </div>
     </section>
