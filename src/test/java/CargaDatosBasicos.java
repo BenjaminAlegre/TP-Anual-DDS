@@ -23,7 +23,7 @@ import static model.entities.entidades.Transporte.SUBTE;
 
 public class CargaDatosBasicos {
 
-    // Despues de la carga de datos hay que correr el  TestRanking
+    // Despues de la carga de datos hay que correr el test de TestCrearIncidentes, TestMiembro y TestRanking
     RepositorioMiembros repositorioMiembros = new RepositorioMiembros();
     RepositorioComunidades repositorioComunidades = new RepositorioComunidades();
     RepositorioEntidades repositorioEntidades = new RepositorioEntidades();
@@ -75,7 +75,7 @@ public void cargarComunidades() {
     }
 }
     @Test
-    public void cargarMiembrosYComunidades(){
+    public void cargarMiembros(){
         String[][] miembros = {{"Lionel", "Messi", "miembro@miembro.com","+541138157280"},
                 {"Rodrigo", "De Paul", "entidad@entidad.com", "+5491138157280"},
                 {"Angel", "Di María", "administrador@admnistrador.com", "+5491138157280"},
@@ -87,20 +87,10 @@ public void cargarComunidades() {
             repositorioMiembros.agregar(miembro);
         }
 
-//        cargarComunidades();
-//        vincularMonitoreableComunidad();
-//        cargarIncidentes();
-//        testAgregarMiembroAComunidadTipo();
 
     }
 
-  //-------------------------------------------------2
-
-
-
-
-
-
+//---------------------------------------------------------2
     @Test
     public void cargarLineas() {
         String[] nombresLineasSubte = {"Linea A", "Linea B", "Linea H"};
@@ -288,6 +278,7 @@ public void cargarComunidades() {
     }
 
 
+
     @Test
     public void crearentidadPrestadora(){
 
@@ -316,6 +307,5 @@ public void cargarComunidades() {
     repositorioPersonasJuridicas.guardar(entidad);
 
     }
-
 
 }
