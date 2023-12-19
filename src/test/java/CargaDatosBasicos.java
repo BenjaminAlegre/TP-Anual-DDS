@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static model.entities.entidades.TipoOrganizacion.BANCO;
 import static model.entities.entidades.Transporte.FERROCARRIL;
@@ -26,12 +27,10 @@ public class CargaDatosBasicos {
     RepositorioMiembros repositorioMiembros = new RepositorioMiembros();
     RepositorioComunidades repositorioComunidades = new RepositorioComunidades();
     RepositorioEntidades repositorioEntidades = new RepositorioEntidades();
-    RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
     RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
-    RepositorioServicios repositorioServicios = new RepositorioServicios();
-    RepositorioMiembroComunidad repositorioMiembroComunidad = new RepositorioMiembroComunidad();
+    RepositorioPersonasJuridicas repositorioPersonasJuridicas = new RepositorioPersonasJuridicas();
 
-
+//-----------------------0
     @Test
     public void traerProvinciasDeAPI() throws Exception {
         RepositorioProvincias repositorioProvincias = new RepositorioProvincias();
@@ -62,6 +61,19 @@ public class CargaDatosBasicos {
 
 
 
+//--------------------------1
+////----------------------------------------------COMUNIDADES
+@Test
+public void cargarComunidades() {
+
+    String[] comunidades = {"Baños de Subtes", "Escaleras de subtes", "Ascensores Lineas", "Baños Supermercados", "Comunidad embarazo", "Comunidad Elevadores", "Comunidad Ascensor" , "Comunidad Molinetes", "Comunidad Accesibilidad", "Comunidad Seguridad", "Comunidad Infantes"};
+    //Cargar comunidades
+    for (String nombre: comunidades
+    ) {
+        Comunidad comunidad = new Comunidad(nombre);
+        repositorioComunidades.agregar(comunidad);
+    }
+}
     @Test
     public void cargarMiembrosYComunidades(){
         String[][] miembros = {{"Lionel", "Messi", "miembro@miembro.com","+541138157280"},
@@ -69,54 +81,23 @@ public class CargaDatosBasicos {
                 {"Angel", "Di María", "administrador@admnistrador.com", "+5491138157280"},
                 {"Dibu", "Martinez", "miembro2@miembro.com", "+5491138157280"}};
         for (String[] dato: miembros
-             ) {
+        ) {
             Miembro miembro = new Miembro(dato[0], dato[1], dato[2], dato[3]);
             miembro.setMedioNotificacion(MedioNotificacion.WHATSAPP);
             repositorioMiembros.agregar(miembro);
         }
 
-        cargarComunidades();
-        cargarIncidentes();
-        testAgregarMiembroAComunidadTipo();
+//        cargarComunidades();
+//        vincularMonitoreableComunidad();
+//        cargarIncidentes();
+//        testAgregarMiembroAComunidadTipo();
 
     }
 
-    private void cargarComunidades() {
+  //-------------------------------------------------2
 
-        String[] comunidades = {"Baños de Subtes", "Escaleras de subtes", "Ascensores Lineas", "Baños Supermercados", "Comunidad embarazo", "Comunidad Elevadores", "Comunidad Ascensor" , "Comunidad Molinetes", "Comunidad Accesibilidad", "Comunidad Seguridad", "Comunidad Infantes"};
-        //Cargar comunidades
-        for (String nombre: comunidades
-             ) {
-            Comunidad comunidad = new Comunidad(nombre);
-            repositorioComunidades.agregar(comunidad);
-        }
-    }
 
-    private void cargarIncidentes(){
-        for (int i = 1; i<= 16; i++){
-            Incidente incidente = new Incidente();
-//            incidente.setReportador("Reportador " + i);
-            incidente.setObservaciones("Observaciones del incidente numero: " + i);
-            incidente.setEstado(EstadoIncidente.ACTIVO);
-            incidente.setHorarioApertura(LocalDateTime.now());
-            incidente.setHorarioCierre(LocalDateTime.now().plusDays(5));
 
-            Servicio servicio = repositorioServicios.buscarPorId(i);
-            Entidad entidadAfectada = repositorioEntidades.buscarPorId(i);
-            Comunidad comunidad = repositorioComunidades.buscarPorId(i);
-            List<Comunidad> comunidades2 = new ArrayList<>();
-            comunidades2.add(comunidad);
-
-            incidente.setServicioAfectado(servicio);
-            incidente.setEntidadAfectada(entidadAfectada);
-            incidente.setComunidades(comunidades2);
-
-            repositorioIncidentes.guardar(incidente);
-
-            System.out.println("Incidente " + i + " guardado");
-        }
-
-    }
 
 
 
@@ -133,9 +114,38 @@ public class CargaDatosBasicos {
             linea.setNombre(subte);
             linea.setTipo(SUBTE);
             this.agregarEstaciones(linea,estacionesSubte[contador]);
+            Comunidad bañoSubtes = repositorioComunidades.buscarPorId(1);
+
+            //----- carga banios subtes
+            for (Estacion e:linea.getEstaciones()
+                 ) {
+               List<Monitoreable> banios = e.getMonitoreables().stream().filter(m ->m.esBanio()).collect(Collectors.toList());
+                for (Monitoreable m: banios
+                     ) {
+                    m.vincularAComunidad(bañoSubtes);
+                }
+
+            }
+
+            //--------------carga comundad de elevacion subtes
+            Comunidad escalerasSubtes = repositorioComunidades.buscarPorId(2);
+            for (Estacion e:linea.getEstaciones()
+            ) {
+                List<Monitoreable> escaleras = e.getMonitoreables().stream().filter(m -> m.esEscalera()).collect(Collectors.toList());
+                for (Monitoreable m: escaleras
+                ) {
+                    m.vincularAComunidad(escalerasSubtes);
+                }
+
+            }
+
+
+
             repositorioEntidades.agregar(linea);
             contador ++;
         }
+
+
         for (String tren: nombresFerrocarriles
         ) {
             int contador = 0;
@@ -143,6 +153,17 @@ public class CargaDatosBasicos {
             linea.setNombre(tren);
             linea.setTipo(FERROCARRIL);
             this.agregarEstaciones(linea, estacionesTrenes[contador]);
+            //--------------------------------carga comunidad asensores de linea
+            Comunidad ascensoresLineas = repositorioComunidades.buscarPorId(3);
+            for (Estacion e:linea.getEstaciones()
+            ) {
+                List<Monitoreable> escaleras = e.getMonitoreables().stream().filter(m -> !m.esEscalera() && !m.esBanio()).collect(Collectors.toList());
+                for (Monitoreable m: escaleras
+                ) {
+                    m.vincularAComunidad(ascensoresLineas);
+                }
+
+            }
             repositorioEntidades.agregar(linea);
             contador ++;
         }
@@ -156,17 +177,20 @@ public class CargaDatosBasicos {
                 est.setNombre(estacion);
                 linea.agregarEstacion(est);
                 agregarBanios(est);
+
                 agregarMediosDeElevacion(est);
             }
     }
 
 
+    //--------------------------------------------SERVICIOS
 
     private void agregarBanios(Establecimiento est) {
         for (TipoDeBanio tipo: TipoDeBanio.values()
         ) {
             Banio banio = new Banio(tipo);
             est.agregarMonitoreable(banio);
+
         }
     }
 
@@ -209,6 +233,16 @@ public class CargaDatosBasicos {
             organizacion.setNombre(nombre);
             organizacion.setTipo(TipoOrganizacion.SUPERMERCADO);
             this.agregarSucursales(organizacion, sucursales);
+            Comunidad baniosSuper = repositorioComunidades.buscarPorId(4);
+            for (Sucursal e: organizacion.getSucursales()
+            ) {
+                List<Monitoreable> banios = e.getMonitoreables().stream().filter(m ->m.esBanio()).collect(Collectors.toList());
+                for (Monitoreable m: banios
+                ) {
+                    m.vincularAComunidad(baniosSuper);
+                }
+
+            }
             repositorioEntidades.agregar(organizacion);
         }
     }
@@ -223,6 +257,19 @@ public class CargaDatosBasicos {
             organizacion.setNombre(nombre);
             organizacion.setTipo(TipoOrganizacion.SUPERMERCADO);
             this.agregarSucursales(organizacion, sucursales);
+            //----- carga banios subtes
+
+            Comunidad baniosSuper = repositorioComunidades.buscarPorId(4);
+            for (Sucursal e: organizacion.getSucursales()
+            ) {
+                List<Monitoreable> banios = e.getMonitoreables().stream().filter(m ->m.esBanio()).collect(Collectors.toList());
+                for (Monitoreable m: banios
+                ) {
+                    m.vincularAComunidad(baniosSuper);
+                }
+
+            }
+
             repositorioEntidades.agregar(organizacion);
         }
     }
@@ -236,52 +283,37 @@ public class CargaDatosBasicos {
             sucursal.setNombre(nombreSucursal);
             organizacion.agregarSucursal(sucursal);
             agregarBanios(sucursal);
+
         }
     }
 
-    private void testAgregarMiembroAComunidadTipo() {
 
-        Miembro m1 = repositorioMiembros.buscarPorId(1);
-        Comunidad comunidad1 = repositorioComunidades.buscarPorId(1);
-        MiembroComunidad miembroComunidad = new MiembroComunidad(comunidad1, m1, TipoMiembro.OBSERVADOR);
-        repositorioMiembroComunidad.agregar(miembroComunidad);
+    @Test
+    public void crearentidadPrestadora(){
 
-        Comunidad comunidad2 = repositorioComunidades.buscarPorId(2);
-        MiembroComunidad miembroComunidad2 = new MiembroComunidad(comunidad2, m1, TipoMiembro.AFECTADO);
-        repositorioMiembroComunidad.agregar(miembroComunidad2);
-        Comunidad comunidad9 = repositorioComunidades.buscarPorId(9);
-        MiembroComunidad miembroComunidad9 = new MiembroComunidad(comunidad9, m1, TipoMiembro.AFECTADO);
-        repositorioMiembroComunidad.agregar(miembroComunidad9);
-        Comunidad comunidad10 = repositorioComunidades.buscarPorId(10);
-        MiembroComunidad miembroComunidad10 = new MiembroComunidad(comunidad10, m1, TipoMiembro.AFECTADO);
-        repositorioMiembroComunidad.agregar(miembroComunidad10);
-        Comunidad comunidad11 = repositorioComunidades.buscarPorId(11);
-        MiembroComunidad miembroComunidad11 = new MiembroComunidad(comunidad11, m1, TipoMiembro.AFECTADO);
-        repositorioMiembroComunidad.agregar(miembroComunidad11);
+        Entidad coto = repositorioEntidades.buscarPorId(1);
+                Entidad bbva =repositorioEntidades.buscarPorId(7);
+        Entidad dia = repositorioEntidades.buscarPorId(2);
+                List<Entidad> entidades = new ArrayList<>();
+                entidades.add(coto);
+        entidades.add(bbva);
+        entidades.add(dia);
+        EntidadPrestadora entidadPrestadora = new EntidadPrestadora();
 
-        Miembro m3 = repositorioMiembros.buscarPorId(2);
-        Comunidad comunidad3 = repositorioComunidades.buscarPorId(3);
-        MiembroComunidad miembroComunidad3 = new MiembroComunidad(comunidad3, m3, TipoMiembro.OBSERVADOR);
-        repositorioMiembroComunidad.agregar(miembroComunidad3);
+        entidadPrestadora.setEntidades(entidades);
+        entidadPrestadora.setNombre("Picaros SRL");
+        repositorioPersonasJuridicas.guardar(entidadPrestadora);
 
-        Miembro m4 = repositorioMiembros.buscarPorId(3);
-        Comunidad comunidad4 = repositorioComunidades.buscarPorId(4);
-        MiembroComunidad miembroComunidad4 = new MiembroComunidad(comunidad4, m4, TipoMiembro.AFECTADO);
-        repositorioMiembroComunidad.agregar(miembroComunidad4);
+    }
 
-        Miembro m5 = repositorioMiembros.buscarPorId(4);
-        Comunidad comunidad5 = repositorioComunidades.buscarPorId(5);
-        Comunidad comunidad6 = repositorioComunidades.buscarPorId(6);
-        Comunidad comunidad7= repositorioComunidades.buscarPorId(7);
-        Comunidad comunidad8 = repositorioComunidades.buscarPorId(8);
-        MiembroComunidad miembroComunidad5 = new MiembroComunidad(comunidad5, m5, TipoMiembro.OBSERVADOR);
-        MiembroComunidad miembroComunidad6 = new MiembroComunidad(comunidad6, m5, TipoMiembro.AFECTADO);
-        MiembroComunidad miembroComunidad7 = new MiembroComunidad(comunidad7, m5, TipoMiembro.AFECTADO);
-        MiembroComunidad miembroComunidad8 = new MiembroComunidad(comunidad8, m5, TipoMiembro.AFECTADO);
-        repositorioMiembroComunidad.agregar(miembroComunidad5);
-        repositorioMiembroComunidad.agregar(miembroComunidad6);
-        repositorioMiembroComunidad.agregar(miembroComunidad7);
-        repositorioMiembroComunidad.agregar(miembroComunidad8);
+    @Test
+    public void cargarUsuarioEntidad() {
+        PersonaJuridica entidad = repositorioPersonasJuridicas.buscarPorId(1);
+        Usuario usuarioEntidad = repositorioUsuarios.buscarPorId(2);
+        usuarioEntidad.setPerfil(entidad);
+        entidad.setUsuario(usuarioEntidad);
+    repositorioUsuarios.agregar(usuarioEntidad);
+    repositorioPersonasJuridicas.guardar(entidad);
 
     }
 

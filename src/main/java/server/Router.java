@@ -149,6 +149,9 @@ public class Router {
         Spark.path("/serviciosDeEstablecimiento",() ->{
             Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
         });
+                Spark.path("/entidadesPorPrestadora",() ->{
+            Spark.get("", entidadesController::obtenerEntidadesPorPrestadora);
+        });
 
 
         //Carga masiva

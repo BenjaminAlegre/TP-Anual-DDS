@@ -65,7 +65,7 @@ public class Comunidad extends EntidadPersistente implements Observable {
 
     public void agregarMonitoreable(Monitoreable servicio){
         this.servicios.add(servicio);
-        servicio.vincularAComunidad(this);
+
     }
 
     public void agregarMonitoreable(Monitoreable ... servicios){
@@ -91,6 +91,7 @@ public class Comunidad extends EntidadPersistente implements Observable {
     public void agregarIncidentes(List<Incidente> incidentes){
         this.incidentes.addAll(incidentes);
     }
+
     public void agregarIncidentes(Incidente incidentes){
         this.incidentes.add(incidentes);
 

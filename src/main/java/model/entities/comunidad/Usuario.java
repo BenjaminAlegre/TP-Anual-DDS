@@ -4,12 +4,11 @@ package model.entities.comunidad;
 import com.google.common.hash.Hashing;
 import lombok.Getter;
 import lombok.Setter;
+import model.entities.entidades.PersonaJuridica;
+import model.entities.notificacion.Reportador;
 import model.entities.persistencia.EntidadPersistente;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
 
 @Getter @Setter
@@ -25,6 +24,9 @@ public class Usuario extends EntidadPersistente {
 
     @Column
     private String password;
+
+    @OneToOne(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private PersonaJuridica perfil;
 
 
 

@@ -10,6 +10,7 @@ import model.entities.entidades.Establecimiento;
 import model.entities.notificacion.Incidente;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter@Setter
@@ -45,7 +46,7 @@ public abstract class Monitoreable {
     private Agrupamiento agrupamiento;
 
     @ManyToMany(mappedBy = "servicios")
-    private List<Comunidad> comunidades;
+    private List<Comunidad> comunidades = new ArrayList<>();
 
 
     public void agregarIncidente(Incidente incidente) {
@@ -85,5 +86,10 @@ public abstract class Monitoreable {
 
     public void vincularAComunidad(Comunidad comunidad) {
         this.comunidades.add(comunidad);
+        comunidad.agregarMonitoreable(this);
     }
+
+    public abstract boolean esBanio();
+
+    public abstract boolean esEscalera();
 }

@@ -30,6 +30,16 @@ public class Banio extends Servicio {
         return this.getClass().getSimpleName()+" "+ tipo.label;
     }
 
+    @Override
+    public boolean esBanio() {
+        return true;
+    }
+
+    @Override
+    public boolean esEscalera() {
+        return false;
+    }
+
     public Banio(TipoDeBanio tipo) {
         this.tipo = tipo;
     }

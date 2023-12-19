@@ -33,6 +33,7 @@ public class RankingsController {
 
     public ModelAndView mostrarRanking(Request request, Response response) {
         String tipo = request.queryParams("tipo");
+        System.out.println("//////////////////////////////////////////////////////////////////////"+tipo);
         List<PosicionDTO> posiciones = repositorioRankings.obtenerRankingDTO(tipo);
         return new ModelAndView(new HashMap<String, Object>() {{
             put("posicion", posiciones);
@@ -43,6 +44,7 @@ public class RankingsController {
     public String enviarRanking(Request request, Response response) {
         String tipo = request.queryParams("tipo");
         List<PosicionRanking> posiciones = repositorioRankings.obtenerRanking(tipo);
+        System.out.println("//////////////////////////////////////////////////////////////////////"+tipo);
         return ExponedorDeRecursos.exponerRecurso( posiciones.stream().map(p ->p.convertirADTO()).collect(Collectors.toList()), response);
     }
 

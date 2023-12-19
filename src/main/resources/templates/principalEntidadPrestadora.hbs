@@ -136,10 +136,10 @@
                                 <div class="form-outline mb-4">
                                     <label class="form-label">Tipo Entidad Afectada:</label>
                                     <select class="form-select form-select-lg" id="tipoEntidad"
-                                            aria-label="Default select example"  onchange="traerDatos(this,'entidades','http://localhost:3000/entidadesPorTipo?tipoEntidad=')" required>
+                                            aria-label="Default select example"  onchange="traerDatos(this,'entidades','http://localhost:3000/entidadesPorPrestadora?prestadora=')" required>
                                         <option value="">Elija una opcion</option>
                                         <!--Listado de tipo de entidades-->
-                                        <option value="SUBTE">Subte</option>
+                                        <option value="SUBTE">Subte</option> // CAMBIAR no tendria que esstar
                                         <option value="FERROCARRIL">Ferrocarril</option>
                                         <option value="SUPERMERCADO">Supermercado</option>
                                         <option value="BANCO">Banco</option>
@@ -149,7 +149,7 @@
 
 
                                 <div class="form-outline mb-4">
-                                    <label class="form-label">Entidades:</label>
+                                    <label class="form-label">Entidades:</label> // CARGAR con las entidaddes antes
                                     <select class="form-select form-select-lg"  aria-label="Default select example"
                                             id="entidades" name="entidadId" style="display:none"
                                             onchange="traerDatos(this, 'establecimiento','http://localhost:3000/establecimientosPorEntidad?entidad=')"  required>
@@ -297,7 +297,10 @@
     async function mostarTabla(){
 
         y=document.getElementById("select").value;
-
+        document.getElementById('tablaValores').innerHTML="";
+//         tabla.innerHTML='';
+                                               var tbody = tabla.getElementsByTagName('tbody');
+                                                 tbody.innerHTML = '';
         if(y === ""){
             alert('Por favor, elija una opción antes de continuar.');
         }
@@ -306,8 +309,10 @@
                     //  fetch("http://localhost:3000/establecimientosPorEntidad?entidad=1")
                     .then(response => response.json())
                     .then(data => {
-                        var tabla = document.getElementById("tablaValores");
-                        var tbody = tabla.getElementsByTagName('tbody');
+                        var tabla = document.getElementById('tablaValores');
+                                               var tbody = tabla.getElementsByTagName('tbody');
+                                                 tbody.innerHTML = '';
+
 
                         for (const valor of data.valores) {
                             document.getElementById('tablaValores').insertRow(-1).innerHTML = '<td>'+valor.posicion+'</td><td>'+valor.nombreEntidad+'</td>';

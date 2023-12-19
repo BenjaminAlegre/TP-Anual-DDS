@@ -93,7 +93,7 @@ public abstract class Entidad extends EntidadPersistente {
     public abstract boolean esOrganizacion();
 
     public Double impacto(LocalDate fechaDeInicioRanking) {//TODO manejar si esta vacia
-        List<Incidente> incidentesValidos = traerIncidentesValidos(fechaDeInicioRanking);
+        List<Incidente> incidentesValidos = traerIncidentesValidos(fechaDeInicioRanking).stream().filter(i -> i.resuelto()).collect(Collectors.toList());
         Double impacto =  sumaTiemposDeCierre(incidentesValidos);
         Integer cantidad = this.cantidadIncidentesAbiertos();
        if(this.coheficienteNoResueltos == null)

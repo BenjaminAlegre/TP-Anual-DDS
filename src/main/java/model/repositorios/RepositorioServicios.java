@@ -2,9 +2,7 @@ package model.repositorios;
 
 import db.EntityManagerHelper;
 import model.entities.comunidad.Miembro;
-import model.entities.servicio.Monitoreable;
-import model.entities.servicio.Servicio;
-import model.entities.servicio.Tramo;
+import model.entities.servicio.*;
 
 import java.util.List;
 
@@ -32,4 +30,12 @@ public class RepositorioServicios {
     }
 
 
+    public List<Banio> buscarBaños() {
+        return EntityManagerHelper.getEntityManager().createQuery("from "+ Monitoreable.class.getName() +" where tipo= banio").getResultList();
+
+    }
+
+    public List<MedioElevacion> buscarMediosElevacion() {
+        return EntityManagerHelper.getEntityManager().createQuery("from "+ Monitoreable.class.getName() +" where tipo= medio_elevacion").getResultList();
+    }
 }

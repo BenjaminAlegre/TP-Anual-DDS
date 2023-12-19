@@ -15,7 +15,8 @@ public class RepositorioRankings {
         RankStrategy ranking = (RankStrategy) EntityManagerHelper.getEntityManager().createQuery("FROM " + RankStrategy.class.getName() +
                 " r WHERE tipoRanking = " + tipo +
                 " AND r.fecha = (SELECT MAX(rr.fecha) FROM " + RankStrategy.class.getName() + " rr WHERE tipoRanking = " + tipo + ")").getSingleResult();
-        System.out.println(ranking.getId());
+        System.out.println("************************************************************************* id ranking "+ranking.getId());
+        System.out.println(ranking.getPosiciones().size());
         return ranking.getPosiciones();
 
 //        List<RankStrategy> rankings = EntityManagerHelper.getEntityManager().createQuery("from "+ RankStrategy.class.getName()+ " where tipoRanking= "+ tipo).getResultList();

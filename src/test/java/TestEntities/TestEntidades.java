@@ -1,8 +1,10 @@
 package TestEntities;
 
 import controllers.ExponedorDeRecursos;
+import model.entities.comunidad.Comunidad;
 import model.entities.entidades.*;
 import model.entities.notificacion.Incidente;
+import model.repositorios.RepositorioComunidades;
 import model.repositorios.RepositorioEntidades;
 import model.repositorios.incidentes.RepositorioIncidentes;
 import org.junit.jupiter.api.Assertions;
@@ -107,4 +109,11 @@ public class TestEntidades {
         System.out.println(entidad.getEstablecimientos());
     }
 
+    @Test
+    public void buscarComunidadPorNombre()
+    {
+        RepositorioComunidades repo = new RepositorioComunidades();
+        Comunidad comunidad = repo.buscarPorNombre("Baños de Subtes");
+        System.out.println(comunidad.getNombre()+" "+ comunidad.getId());
+    }
 }

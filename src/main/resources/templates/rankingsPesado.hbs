@@ -99,7 +99,11 @@ else{
   .then(response => response.json())
   .then(data => {
     var tabla = document.getElementById("tablaValores");
+
     var tbody = tabla.getElementsByTagName('tbody');
+     while (tablaBody.firstChild) {
+                tablaBody.removeChild(tablaBody.firstChild);
+            }
 
     for (const valor of data.valores) {
    document.getElementById('tablaValores').insertRow(-1).innerHTML = '<td>'+valor.posicion+'</td><td>'+valor.nombreEntidad+'</td>';

@@ -45,4 +45,14 @@ public class Agrupamiento extends Monitoreable {
     public String tipo() {
         return "Agrupamiento";
     }
+
+    @Override
+    public boolean esBanio() {
+        return false;
+    }
+
+    @Override
+    public boolean esEscalera() {
+        return false;
+    }
 }

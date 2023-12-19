@@ -43,4 +43,14 @@ public class RepositorioComunidades {
         return query.getResultList();
     }
 
+    public Comunidad buscarPorNombre(String nombre) {
+        Comunidad comunidad = (Comunidad) EntityManagerHelper
+                .getEntityManager()
+                .createQuery("from " + Comunidad.class.getName() + " where nombre="+nombre )
+                .getSingleResult();
+       if(comunidad != null)
+           return comunidad;
+       else
+           return null;
+    }
 }
