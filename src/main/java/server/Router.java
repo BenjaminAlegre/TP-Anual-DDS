@@ -100,15 +100,21 @@ public class Router {
             Spark.post("/registrarIncidente", incidentesController::registrarIncidente);
             Spark.post("/registrarIncidentePesado", incidentesController::registrarIncidentePesado);
         });
+        //recursos asicronicos, se devuelve un strign en el formato json que son los valores que se mostraran en los desplegables
+        Spark.path("/entidadesPorTipo",() ->{
+            Spark.get("", entidadesController::obtenerEntidadesPorTipo);
+        });
+        Spark.path("/establecimientosPorEntidad",() ->{
+            Spark.get("", establecimientosController::obtenerEstableciminetosDeEntidad);
+        });
+        Spark.path("/serviciosDeEstablecimiento",() ->{
+            Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
+        });
+        Spark.path("/entidadesPorPrestadora",() ->{
+            Spark.get("", entidadesController::obtenerEntidadesPorPrestadora);
+        });
 
-//        Spark.path("/mostrarIncidente", () -> {
-//            Spark.before("/*", (req, res) -> {
-//                List<String> roles = new ArrayList<>();
-//                roles.add("miembro");
-//                autenticacionService.authRol(req, res, roles);
-//            });
-//            Spark.get("", incidentesController::mostrarIncidente, engine);
-//        });
+
         //Muestra incidentes activos
         Spark.path("/mostrarTodosIncidentes", () -> {
             Spark.before("/*", (req, res) -> {
@@ -118,7 +124,7 @@ public class Router {
             });
             Spark.get("", incidentesController::mostrarTodosIncidentes, engine);
         });
-
+        //Muestra incidentes de las comunidades del usuario
         Spark.path("/mostrarIncidentesUsuario", () -> {
             Spark.before("/*", (req, res) -> {
                 List<String> roles = new ArrayList<>();
@@ -127,7 +133,7 @@ public class Router {
             });
             Spark.get("", incidentesController::mostrarIncidentesUsuario, engine);
         });
-
+        //Cierra el incidente
         Spark.before("/cerrarIncidente/*", (req, res) -> {
             List<String> roles = new ArrayList<>();
             roles.add("miembro");
@@ -138,20 +144,7 @@ public class Router {
         //TODO: esto no funcina, estaba probando
         Spark.get("/prueba/buscarIncidentesPorEstado", incidentesController::pantallaBuscarIncidentesPorEstado, engine);
 
-        //recursos asicronicos, se devuelve un strign en el formato json que son los valores que se mostraran en los desplegables
-        Spark.path("/entidadesPorTipo",() ->{
-           Spark.get("", entidadesController::obtenerEntidadesPorTipo);
-        });
-        Spark.path("/establecimientosPorEntidad",() ->{
-            Spark.get("", establecimientosController::obtenerEstableciminetosDeEntidad);
-        });
 
-        Spark.path("/serviciosDeEstablecimiento",() ->{
-            Spark.get("", serviciosController::obtenerServiciosDeEstablecimiento);
-        });
-                Spark.path("/entidadesPorPrestadora",() ->{
-            Spark.get("", entidadesController::obtenerEntidadesPorPrestadora);
-        });
 
 
         //Carga masiva
@@ -211,7 +204,7 @@ public class Router {
             Spark.get("/incidentesPorEstado", incidentesController::mostrarIncidentesPorEstado);
         });
 
-        //Buscar incidentes por estado y comunidad
+        //Buscar incidentes por estado y comunidad (MIEMBRO)
         Spark.path("/buscarIncidentesPorEstadoYComunidad", () -> {
             Spark.before("/*", (req, res) -> {
                 List<String> roles = new ArrayList<>();
@@ -231,18 +224,7 @@ public class Router {
 
 
 
-        //TODO: discutir si estas vistas deberian ser borradas
-        Spark.path("/resultadoBusqueda", () -> {
-            Spark.get("", incidentesController::pantallaResultadoBusqueda, engine);
-        });
-        Spark.path("/mostrarIncidenteAbierto", () -> {
-            Spark.get("", incidentesController::pantallaMostrarIncidenteAbierto, engine);
-        });
-        Spark.path("/mostrarIncidenteCerrado", () -> {
-            Spark.get("", incidentesController::pantallaMostrarIncidenteCerrado, engine);
-        });
-
-
+//      Sugerencia Revision Incidente
         Spark.path("/sugerenciaRevisionIncidente", () -> {
             Spark.before("/*", (req, res) -> {
                 List<String> roles = new ArrayList<>();

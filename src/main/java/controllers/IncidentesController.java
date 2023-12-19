@@ -105,12 +105,8 @@ public class IncidentesController {
         return new ModelAndView(model, "buscarIncidenteComunidad.hbs");
     }
 
-    public ModelAndView pantallaMostrarIncidenteAbierto(Request req, Response res) {
-        return new ModelAndView(null, null);
-    }
-    public ModelAndView pantallaMostrarIncidenteCerrado(Request req, Response res) {
-        return new ModelAndView(null, "mostrarIncidenteCerrado.hbs");
-    }
+
+
     public ModelAndView pantallaCargaMasiva(Request req, Response res) {
         return new ModelAndView(null, "cargaMasiva.hbs");
     }

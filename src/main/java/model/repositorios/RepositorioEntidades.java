@@ -28,6 +28,12 @@ public class RepositorioEntidades {
                 .find(Entidad.class, id);
     }
 
+    public void actualizar(Entidad entidad) {
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(entidad);
+        EntityManagerHelper.commit();
+    }
+
 
     public List<Entidad> buscarPorTipo(String tipo) {
         return EntityManagerHelper

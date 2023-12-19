@@ -124,22 +124,19 @@
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <label class="form-label">Tipo Entidad Afectada:</label>
+                                    <label class="form-label">Entidad Afectada:</label>
                                     <select class="form-select form-select-lg" id="tipoEntidad"
                                             aria-label="Default select example"  onchange="traerDatos(this,'entidades','http://localhost:3000/entidadesPorPrestadora?prestadora=')" required>
                                         <option value="">Elija una opcion</option>
                                         <!--Listado de tipo de entidades-->
-                                        <option value="SUBTE">Subte</option> // CAMBIAR no tendria que esstar
-                                        <option value="FERROCARRIL">Ferrocarril</option>
-                                        <option value="SUPERMERCADO">Supermercado</option>
-                                        <option value="BANCO">Banco</option>
-                                        <option value="CENTRO_COMUNAL">Centro Comunal</option>
+                                        <option value="ENTIDAD">Entidad Actual</option>
+
                                     </select>
                                 </div>
 
 
                                 <div class="form-outline mb-4">
-                                    <label class="form-label">Entidades:</label> // CARGAR con las entidaddes antes
+                                    <label class="form-label">Entidades:</label>
                                     <select class="form-select form-select-lg"  aria-label="Default select example"
                                             id="entidades" name="entidadId" style="display:none"
                                             onchange="traerDatos(this, 'establecimiento','http://localhost:3000/establecimientosPorEntidad?entidad=')"  required>

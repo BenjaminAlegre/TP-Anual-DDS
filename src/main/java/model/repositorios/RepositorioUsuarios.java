@@ -26,5 +26,11 @@ public class RepositorioUsuarios {
                 .find(Usuario.class, id);
     }
 
+    public void actualizar(Usuario usuario) {
+        EntityManagerHelper.beginTransaction();
+        EntityManagerHelper.getEntityManager().merge(usuario);
+        EntityManagerHelper.commit();
+    }
+
 
 }
