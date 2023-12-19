@@ -124,18 +124,6 @@
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <label class="form-label">Entidad Afectada:</label>
-                                    <select class="form-select form-select-lg" id="tipoEntidad"
-                                            aria-label="Default select example"  onchange="traerDatos(this,'entidades','http://localhost:3000/entidadesPorPrestadora?prestadora=')" required>
-                                        <option value="">Elija una opcion</option>
-                                        <!--Listado de tipo de entidades-->
-                                        <option value="ENTIDAD">Entidad Actual</option>
-
-                                    </select>
-                                </div>
-
-
-                                <div class="form-outline mb-4">
                                     <label class="form-label">Entidades:</label>
                                     <select class="form-select form-select-lg"  aria-label="Default select example"
                                             id="entidades" name="entidadId" style="display:none"
@@ -239,6 +227,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script>
+document.addEventListener("DOMContentLoaded",  traerDatos(this,'entidades','http://localhost:3000/entidadesPorPrestadora?prestadora='));
+
+
     async function traerDatos(seleccionable, desplegable, ruta) {
 
         var x = seleccionable.value;
